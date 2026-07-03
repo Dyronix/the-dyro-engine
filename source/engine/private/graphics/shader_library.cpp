@@ -11,7 +11,7 @@ namespace dyro
 	{
 		if (!std::filesystem::exists(shader_directory))
 		{
-			log::error("Shader directory \"%s\" does not exist", shader_directory.string().c_str());
+			log::error("Shader directory \"{}\" does not exist", shader_directory.string());
 			return false;
 		}
 
@@ -34,7 +34,7 @@ namespace dyro
 		std::ifstream file(shader_path, std::ios::binary | std::ios::ate);
 		if (!file.is_open())
 		{
-			log::error("Failed to open compiled shader \"%s\" (did the shader compile during the build?)", shader_path.string().c_str());
+			log::error("Failed to open compiled shader \"{}\" (did the shader compile during the build?)", shader_path.string());
 			return {};
 		}
 
@@ -44,7 +44,7 @@ namespace dyro
 		std::vector<char> bytecode(static_cast<size_t>(size));
 		file.read(bytecode.data(), size);
 
-		log::info("Loaded shader \"%s\" (%lld bytes)", name.c_str(), static_cast<long long>(size));
+		log::info("Loaded shader \"{}\" ({} bytes)", name, static_cast<long long>(size));
 
 		const auto [inserted_it, was_inserted] = m_shaders.emplace(name, std::move(bytecode));
 		return { inserted_it->second.data(), inserted_it->second.size() };

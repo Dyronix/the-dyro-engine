@@ -211,7 +211,7 @@ namespace dyro
 		ComPtr<ID3DBlob> error_messages;
 		if (FAILED(D3D12SerializeRootSignature(&root_signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &serialized, &error_messages)))
 		{
-			log::error("Failed to serialize the root signature: %s",
+			log::error("Failed to serialize the root signature: {}",
 				error_messages != nullptr ? static_cast<const char*>(error_messages->GetBufferPointer()) : "unknown error");
 			return false;
 		}

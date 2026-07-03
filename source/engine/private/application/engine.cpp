@@ -105,7 +105,7 @@ namespace dyro
 			return false;
 		}
 
-		log::info("Engine initialized (%ux%u)", settings.window_width, settings.window_height);
+		log::info("Engine initialized ({}x{})", settings.window_width, settings.window_height);
 		return true;
 	}
 }

@@ -3,6 +3,9 @@
 #include "core/log.h"
 #include "graphics/d3d_utils.h"
 
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 #include <fstream>
 
 using Microsoft::WRL::ComPtr;
@@ -27,6 +30,19 @@ namespace
 
 		return data;
 	}
+
+	//--------------------------------------------------------------
+	/// @brief Converts a wide pipeline name to a regular utf-8 string.
+	std::string to_utf8(const wchar_t* wide_text)
+	{
+		const int size = WideCharToMultiByte(CP_UTF8, 0, wide_text, -1, nullptr, 0, nullptr, nullptr);
+
+		std::string text(static_cast<size_t>(size), '\0');
+		WideCharToMultiByte(CP_UTF8, 0, wide_text, -1, text.data(), size, nullptr, nullptr);
+		text.resize(text.size() - 1); // drop the null terminator added by the conversion
+
+		return text;
+	}
 }
 
 namespace dyro
@@ -50,7 +66,7 @@ namespace dyro
 		m_library_data = read_file(cache_file);
 		if (!m_library_data.empty() && create_library(m_library_data.data(), m_library_data.size()))
 		{
-			log::info("Loaded pso cache \"%s\" (%zu bytes)", cache_file.string().c_str(), m_library_data.size());
+			log::info("Loaded pso cache \"{}\" ({} bytes)", cache_file.string(), m_library_data.size());
 			return true;
 		}
 
@@ -76,7 +92,7 @@ namespace dyro
 		{
 			if (SUCCEEDED(m_library->LoadGraphicsPipeline(name.c_str(), &desc, IID_PPV_ARGS(&pipeline))))
 			{
-				log::info("Pipeline \"%ls\" loaded from the pso cache", name.c_str());
+				log::info("Pipeline \"{}\" loaded from the pso cache", to_utf8(name.c_str()));
 				return pipeline;
 			}
 		}
@@ -87,7 +103,7 @@ namespace dyro
 			return nullptr;
 		}
 
-		log::info("Pipeline \"%ls\" created from scratch", name.c_str());
+		log::info("Pipeline \"{}\" created from scratch", to_utf8(name.c_str()));
 
 		// Store the compiled pipeline so the next run can use the fast path
 		if (m_library != nullptr)
@@ -97,7 +113,7 @@ namespace dyro
 				// Storing fails when the name already exists with different
 				// data (for example after a shader was recompiled). Throw
 				// the stale library away and store into a fresh one.
-				log::warn("Pso cache entry \"%ls\" is stale, rebuilding the cache", name.c_str());
+				log::warn("Pso cache entry \"{}\" is stale, rebuilding the cache", to_utf8(name.c_str()));
 
 				m_library_data.clear();
 				if (create_library(nullptr, 0))
@@ -138,12 +154,12 @@ namespace dyro
 		std::ofstream file(m_cache_file, std::ios::binary);
 		if (!file.is_open())
 		{
-			log::error("Failed to write pso cache \"%s\"", m_cache_file.string().c_str());
+			log::error("Failed to write pso cache \"{}\"", m_cache_file.string());
 			return;
 		}
 
 		file.write(data.data(), static_cast<std::streamsize>(data.size()));
-		log::info("Saved pso cache \"%s\" (%zu bytes)", m_cache_file.string().c_str(), data.size());
+		log::info("Saved pso cache \"{}\" ({} bytes)", m_cache_file.string(), data.size());
 
 		m_dirty = false;
 	}

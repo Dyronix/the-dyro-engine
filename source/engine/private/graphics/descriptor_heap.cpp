@@ -31,7 +31,7 @@ namespace dyro
 	{
 		if (m_allocated_count >= m_capacity)
 		{
-			log::error("Descriptor heap is full (capacity: %u)", m_capacity);
+			log::error("Descriptor heap is full (capacity: {})", m_capacity);
 			return 0;
 		}
 

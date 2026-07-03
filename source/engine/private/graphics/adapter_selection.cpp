@@ -118,7 +118,7 @@ namespace dyro
 			ComPtr<ID3D12Device> temporary_device;
 			if (FAILED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&temporary_device))))
 			{
-				log::warn("Skipping adapter \"%s\": no directx 12 support", to_utf8(desc.Description).c_str());
+				log::warn("Skipping adapter \"{}\": no directx 12 support", to_utf8(desc.Description));
 				continue;
 			}
 
@@ -131,11 +131,11 @@ namespace dyro
 			info.highest_shader_model = query_highest_shader_model(temporary_device.Get());
 			info.score = calculate_score(info);
 
-			log::info("Found adapter: %s (video memory: %llu MB, feature level: %X, shader model: %s, score: %llu)%s",
-				info.description.c_str(),
+			log::info("Found adapter: {} (video memory: {} MB, feature level: {:X}, shader model: {}, score: {}){}",
+				info.description,
 				info.dedicated_video_memory / (1024 * 1024),
-				info.max_feature_level,
-				shader_model_to_string(info.highest_shader_model).c_str(),
+				static_cast<unsigned int>(info.max_feature_level),
+				shader_model_to_string(info.highest_shader_model),
 				info.score,
 				info.is_software ? " [software]" : "");
 

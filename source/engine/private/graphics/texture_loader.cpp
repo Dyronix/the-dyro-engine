@@ -51,7 +51,7 @@ namespace dyro
 		stbi_uc* pixels = stbi_load(path.string().c_str(), &width, &height, &channels_in_file, STBI_rgb_alpha);
 		if (pixels == nullptr)
 		{
-			log::error("Failed to load image \"%s\": %s", path.string().c_str(), stbi_failure_reason());
+			log::error("Failed to load image \"{}\": {}", path.string(), stbi_failure_reason());
 			return nullptr;
 		}
 
@@ -151,7 +151,7 @@ namespace dyro
 
 		d3d_device->CreateShaderResourceView(texture_resource.Get(), &srv_desc, m_srv_heap->get_cpu_handle(srv_index));
 
-		log::info("Loaded texture \"%s\" (%dx%d)", path.string().c_str(), width, height);
+		log::info("Loaded texture \"{}\" ({}x{})", path.string(), width, height);
 
 		return std::make_shared<texture>(
 			std::move(texture_resource),

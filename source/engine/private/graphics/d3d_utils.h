@@ -17,7 +17,7 @@ namespace dyro
 		{
 			if (FAILED(result))
 			{
-				log::error("%s failed (hresult 0x%08X)", what, static_cast<unsigned int>(result));
+				log::error("{} failed (hresult 0x{:08X})", what, static_cast<unsigned int>(result));
 				return false;
 			}
 

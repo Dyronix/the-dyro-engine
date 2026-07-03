@@ -70,8 +70,8 @@ namespace dyro
 		}
 
 		m_adapter_info = *selected;
-		log::info("Selected adapter: %s (%s scoring)",
-			m_adapter_info.description.c_str(),
+		log::info("Selected adapter: {} ({} scoring)",
+			m_adapter_info.description,
 			preference == adapter_preference::highest_score ? "highest" : "lowest");
 
 		// Create the real device on the selected adapter
@@ -82,9 +82,9 @@ namespace dyro
 
 		enable_debug_breaks(m_device.Get());
 
-		log::info("Device created (feature level: %X, shader model: %s)",
-			m_adapter_info.max_feature_level,
-			shader_model_to_string(m_adapter_info.highest_shader_model).c_str());
+		log::info("Device created (feature level: {:X}, shader model: {})",
+			static_cast<unsigned int>(m_adapter_info.max_feature_level),
+			shader_model_to_string(m_adapter_info.highest_shader_model));
 
 		return true;
 	}

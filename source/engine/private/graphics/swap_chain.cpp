@@ -1,0 +1,85 @@
+#include "graphics/swap_chain.h"
+
+#include "graphics/command_queue.h"
+#include "graphics/d3d_utils.h"
+#include "graphics/device.h"
+
+using Microsoft::WRL::ComPtr;
+
+namespace dyro
+{
+	//--------------------------------------------------------------
+	bool swap_chain::initialize(device& graphics_device, command_queue& direct_queue, HWND window_handle, uint32_t width, uint32_t height)
+	{
+		m_width = width;
+		m_height = height;
+
+		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
+		swap_chain_desc.Width = width;
+		swap_chain_desc.Height = height;
+		swap_chain_desc.Format = k_back_buffer_format;
+		swap_chain_desc.SampleDesc.Count = 1;
+		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+		swap_chain_desc.BufferCount = k_back_buffer_count;
+		swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+
+		IDXGIFactory4* factory = graphics_device.get_dxgi_factory();
+
+		ComPtr<IDXGISwapChain1> swap_chain;
+		if (!d3d::verify(factory->CreateSwapChainForHwnd(direct_queue.get_d3d_command_queue(), window_handle, &swap_chain_desc, nullptr, nullptr, &swap_chain), "CreateSwapChainForHwnd"))
+		{
+			return false;
+		}
+
+		if (!d3d::verify(swap_chain.As(&m_swap_chain), "IDXGISwapChain1::QueryInterface"))
+		{
+			return false;
+		}
+
+		// The engine has no fullscreen support, so disable alt+enter
+		factory->MakeWindowAssociation(window_handle, DXGI_MWA_NO_ALT_ENTER);
+
+		// Create a render target view for every back buffer so we can render into them
+		if (!m_rtv_heap.initialize(graphics_device.get_d3d_device(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, k_back_buffer_count, false))
+		{
+			return false;
+		}
+
+		for (uint32_t index = 0; index < k_back_buffer_count; ++index)
+		{
+			if (!d3d::verify(m_swap_chain->GetBuffer(index, IID_PPV_ARGS(&m_back_buffers[index])), "IDXGISwapChain3::GetBuffer"))
+			{
+				return false;
+			}
+
+			const uint32_t rtv_index = m_rtv_heap.allocate();
+			graphics_device.get_d3d_device()->CreateRenderTargetView(m_back_buffers[index].Get(), nullptr, m_rtv_heap.get_cpu_handle(rtv_index));
+		}
+
+		return true;
+	}
+
+	//--------------------------------------------------------------
+	uint32_t swap_chain::get_current_back_buffer_index() const
+	{
+		return m_swap_chain->GetCurrentBackBufferIndex();
+	}
+
+	//--------------------------------------------------------------
+	ID3D12Resource* swap_chain::get_current_back_buffer() const
+	{
+		return m_back_buffers[get_current_back_buffer_index()].Get();
+	}
+
+	//--------------------------------------------------------------
+	D3D12_CPU_DESCRIPTOR_HANDLE swap_chain::get_current_render_target_view() const
+	{
+		return m_rtv_heap.get_cpu_handle(get_current_back_buffer_index());
+	}
+
+	//--------------------------------------------------------------
+	bool swap_chain::present()
+	{
+		return d3d::verify(m_swap_chain->Present(1, 0), "IDXGISwapChain3::Present");
+	}
+}

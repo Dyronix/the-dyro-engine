@@ -1,0 +1,58 @@
+#include "graphics/descriptor_heap.h"
+
+#include "core/log.h"
+#include "graphics/d3d_utils.h"
+
+namespace dyro
+{
+	//--------------------------------------------------------------
+	bool descriptor_heap::initialize(ID3D12Device* d3d_device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t capacity, bool shader_visible)
+	{
+		D3D12_DESCRIPTOR_HEAP_DESC heap_desc = {};
+		heap_desc.Type = type;
+		heap_desc.NumDescriptors = capacity;
+		heap_desc.Flags = shader_visible ? D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE : D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+
+		if (!d3d::verify(d3d_device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&m_heap)), "CreateDescriptorHeap"))
+		{
+			return false;
+		}
+
+		// Descriptor sizes differ per gpu vendor, so they have to be queried
+		m_descriptor_size = d3d_device->GetDescriptorHandleIncrementSize(type);
+		m_capacity = capacity;
+		m_allocated_count = 0;
+
+		return true;
+	}
+
+	//--------------------------------------------------------------
+	uint32_t descriptor_heap::allocate()
+	{
+		if (m_allocated_count >= m_capacity)
+		{
+			log::error("Descriptor heap is full (capacity: %u)", m_capacity);
+			return 0;
+		}
+
+		return m_allocated_count++;
+	}
+
+	//--------------------------------------------------------------
+	D3D12_CPU_DESCRIPTOR_HANDLE descriptor_heap::get_cpu_handle(uint32_t index) const
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = m_heap->GetCPUDescriptorHandleForHeapStart();
+		handle.ptr += static_cast<SIZE_T>(index) * m_descriptor_size;
+
+		return handle;
+	}
+
+	//--------------------------------------------------------------
+	D3D12_GPU_DESCRIPTOR_HANDLE descriptor_heap::get_gpu_handle(uint32_t index) const
+	{
+		D3D12_GPU_DESCRIPTOR_HANDLE handle = m_heap->GetGPUDescriptorHandleForHeapStart();
+		handle.ptr += static_cast<UINT64>(index) * m_descriptor_size;
+
+		return handle;
+	}
+}

@@ -16,7 +16,8 @@ cmake --build --preset debug # or open the solution and press F5
 ```
 
 The solution sets `dyro_game` as the startup project. Run it and you should
-see a checkerboard, a rotating red quad and a bouncing ball.
+see a checkerboard, a rotating red quad, a bouncing ball and a small hud —
+move the ball with wasd, tint it with space, resize it with the mouse wheel.
 
 ## Making your own game
 
@@ -42,12 +43,37 @@ renderer.draw_sprite(*my_texture, position, size, rotation, tint);
 
 `position` is the sprite center in pixels, with (0, 0) in the top-left corner
 of the window. Sprites are drawn in the order you submit them, so draw the
-background first.
+background first. The renderer also draws parts of a texture (sprite sheets),
+rectangles, lines and text:
+
+```cpp
+renderer.draw_sprite(*sheet, source_rect, position, size);  // one frame of a sheet
+renderer.draw_rect(area, color);                            // filled rectangle
+renderer.draw_rect_outline(area, thickness, color);
+renderer.draw_line(from, to, thickness, color);
+renderer.draw_text(font, "hello", position, pixel_height);  // bitmap font text
+```
+
+Keyboard and mouse come from `engine.get_input()`:
+
+```cpp
+if (input.is_key_down(dyro::key::a))         { /* every frame while held */ }
+if (input.was_key_pressed(dyro::key::space)) { /* only the frame it went down */ }
+dyro::vec2 mouse = input.get_mouse_position();
+```
+
+Math is [glm](https://github.com/g-truc/glm) under dyro names: `dyro::vec2`,
+`dyro::mat4`, `dyro::lerp`, `dyro::clamp`, ... (see `core/math.h`), plus a 2D
+`dyro::rect` for bounds and overlap checks (`core/rect.h`). Utilities:
+`dyro::timer` (measure time), `dyro::random_float` and friends
+(`core/random.h`), smooth `dyro::noise_2d` (`core/noise.h`), logging via
+`dyro::log::info/warn/error` and asserts via `DYRO_ASSERT` /
+`dyro::fatal_error` (`core/assert.h`).
 
 ## Folder structure
 
 ```
-content/          textures and other assets (copied next to the exe at build time)
+content/          textures, fonts and other assets (copied next to the exe at build time)
 shaders/          hlsl shader source files (compiled at build time)
 source/
   engine/         the engine static library (namespace dyro)
@@ -56,16 +82,25 @@ source/
   game/           the demo game - replace this with your own game
   tools/
     shader_compiler/  build tool that compiles hlsl to directx bytecode
-  third_party/    stb_image (image file decoding)
+  third_party/    code you use but do not need to read:
+                  stb (image decoding, perlin noise), fmt (text formatting),
+                  glm (math), rnd (random number internals)
 ```
+
+Everything inside `source/engine` and `source/game` is written to be
+understood. When code is complex but not interesting to read (decoding a png,
+the bit-twiddling inside a random generator) it lives in `source/third_party`
+and the engine wraps it behind a small, readable api.
 
 ## How the engine works
 
 `dyro::engine::run()` brings the systems up in dependency order, then runs the
-main loop. Each system is a class in `source/engine/public/graphics`:
+main loop. Each system is one class:
 
 | class | job |
 |---|---|
+| `window` | the win32 window the engine renders into |
+| `input` | keyboard and mouse state (down / pressed / released) |
 | `device` | picks a graphics card and creates the directx 12 device |
 | `adapter_selection` | enumerates and scores all graphics cards |
 | `shader_model` | queries which shader model the card supports |
@@ -74,7 +109,8 @@ main loop. Each system is a class in `source/engine/public/graphics`:
 | `descriptor_heap` | hands out descriptor slots (texture views) |
 | `shader_library` | loads compiled shaders (*.cso) from disk |
 | `pso_cache` | saves/loads pipeline state objects to/from disk |
-| `texture_loader` | decodes image files and uploads them to the gpu |
+| `texture_loader` | decodes image files / raw pixels and uploads them to the gpu |
+| `font` | describes a fixed-grid bitmap font atlas for draw_text |
 | `renderer_2d` | draws textured quads (this is a 2D engine: everything is a quad) |
 
 ### Graphics card selection
@@ -120,10 +156,20 @@ pipeline is then simply rebuilt and the cache refreshed. Watch the console:
 read cpu memory directly: pixels are written into an *upload buffer*, the gpu
 copies them into the final texture resource, and a *shader resource view* is
 created so shaders can sample it. All of that lives in one readable function:
-`texture_loader::load_from_file`.
+`texture_loader::create_from_pixels` — which you can also call yourself with
+raw rgba pixels to build textures procedurally (the demo generates a noise
+texture and a sprite sheet this way).
 
 Put your images in `content/textures`; the build copies the whole `content`
 folder next to the executable.
+
+### Text
+
+`draw_text` renders with a bitmap font: one atlas texture holding every
+character in a fixed grid (`content/fonts/font_8x8.png`, based on the public
+domain [font8x8](https://github.com/dhepper/font8x8) by Daniel Hepper). The
+`font` struct describes the grid; each character becomes one quad that shows
+its part of the atlas — text rendering is just sprite sheet drawing.
 
 ### The frame
 
@@ -136,6 +182,8 @@ classic "frames in flight" pattern, in its smallest possible form.
 
 ## Ideas to extend it
 
-- an `input_manager` (GetAsyncKeyState is the simplest start)
-- sprite sheets: add a uv-rectangle parameter to `draw_sprite`
-- text rendering, sound, sprite batching, ...
+- sound
+- sprite batching (every draw call currently draws one quad)
+- a texture cache so loading the same file twice reuses the gpu texture
+- gamepad support in `input`
+- a fixed timestep update loop

@@ -22,16 +22,22 @@ struct pixel_input
 cbuffer sprite_constants : register(b0)
 {
     // Sprite transformation and screen projection combined into one matrix.
-    // row_major matches the row-vector math the engine does on the cpu.
-    row_major float4x4 transform;
+    // Stored column-major (hlsl's default), which is exactly how glm stores
+    // its matrices on the cpu, so the engine can upload them as-is.
+    float4x4 transform;
     float4 tint_color;
+
+    // Part of the texture this sprite shows: offset in xy, scale in zw
+    // (0..1 texture space). (0, 0, 1, 1) shows the whole texture; sprite
+    // sheets select a single frame here.
+    float4 uv_rect;
 };
 
 pixel_input main(vertex_input input)
 {
     pixel_input output;
-    output.position = mul(float4(input.position, 0.0f, 1.0f), transform);
-    output.uv = input.uv;
+    output.position = mul(transform, float4(input.position, 0.0f, 1.0f));
+    output.uv = uv_rect.xy + input.uv * uv_rect.zw;
     output.tint = tint_color;
 
     return output;

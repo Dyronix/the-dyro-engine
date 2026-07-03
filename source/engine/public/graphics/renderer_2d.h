@@ -1,6 +1,8 @@
 #pragma once
 
-#include "core/math_2d.h"
+#include "core/math.h"
+#include "core/rect.h"
+#include "graphics/font.h"
 #include "graphics/swap_chain.h"
 #include "graphics/texture.h"
 
@@ -8,6 +10,8 @@
 #include <wrl/client.h>
 
 #include <cstdint>
+#include <memory>
+#include <string_view>
 
 namespace dyro
 {
@@ -16,6 +20,7 @@ namespace dyro
 	class descriptor_heap;
 	class shader_library;
 	class pso_cache;
+	class texture_loader;
 
 	//--------------------------------------------------------------
 	/// @brief Draws textured quads (sprites) into the current back buffer.
@@ -39,8 +44,9 @@ namespace dyro
 		/// @param shaders Library the sprite shaders are loaded from.
 		/// @param pipeline_cache Cache used to create (or reuse) the sprite pipeline.
 		/// @param srv_heap Shader visible heap holding the texture descriptors.
+		/// @param textures Loader used to create the renderer's built-in white texture.
 		/// @return True when the renderer is ready for use.
-		bool initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap);
+		bool initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap, texture_loader& textures);
 
 		//----------------------------------------------------------
 		/// @brief Starts a new frame: clears the back buffer and prepares for drawing.
@@ -54,13 +60,62 @@ namespace dyro
 		/// @param size Width and height of the sprite in pixels.
 		/// @param rotation_radians Clockwise rotation around the sprite center.
 		/// @param tint Color multiplied with the texture (white leaves the texture untouched).
-		void draw_sprite(const texture& sprite_texture, float2 position, float2 size, float rotation_radians = 0.0f, const color& tint = color{});
+		void draw_sprite(const texture& sprite_texture, vec2 position, vec2 size, float rotation_radians = 0.0f, const color& tint = color{});
+
+		//----------------------------------------------------------
+		/// @brief Draws part of a texture on a quad; this is how sprite
+		/// sheets work: put all animation frames in one texture and pick
+		/// the source rect of the frame you want to show.
+		/// @param sprite_texture Texture to draw part of.
+		/// @param source_rect Part of the texture to draw, in texture pixels.
+		/// @param position Position of the sprite center in pixels (origin is top-left).
+		/// @param size Width and height of the sprite in pixels.
+		/// @param rotation_radians Clockwise rotation around the sprite center.
+		/// @param tint Color multiplied with the texture (white leaves the texture untouched).
+		void draw_sprite(const texture& sprite_texture, const rect& source_rect, vec2 position, vec2 size, float rotation_radians = 0.0f, const color& tint = color{});
+
+		//----------------------------------------------------------
+		/// @brief Draws a filled rectangle.
+		/// @param area Rectangle to fill, in pixels.
+		/// @param fill_color Color of the rectangle.
+		void draw_rect(const rect& area, const color& fill_color);
+
+		//----------------------------------------------------------
+		/// @brief Draws the outline of a rectangle.
+		/// @param area Rectangle to outline, in pixels.
+		/// @param thickness Thickness of the outline in pixels, growing inwards.
+		/// @param outline_color Color of the outline.
+		void draw_rect_outline(const rect& area, float thickness, const color& outline_color);
+
+		//----------------------------------------------------------
+		/// @brief Draws a straight line between two points.
+		/// @param from Start of the line in pixels.
+		/// @param to End of the line in pixels.
+		/// @param thickness Thickness of the line in pixels.
+		/// @param line_color Color of the line.
+		void draw_line(vec2 from, vec2 to, float thickness, const color& line_color);
+
+		//----------------------------------------------------------
+		/// @brief Draws a line of text with a bitmap font. Newlines ('\n')
+		/// continue on the next line.
+		/// @param text_font Font to draw the text with.
+		/// @param text The text to draw.
+		/// @param position Top-left corner of the first character, in pixels.
+		/// @param pixel_height Height of one character in pixels.
+		/// @param tint Color of the text.
+		void draw_text(const font& text_font, std::string_view text, vec2 position, float pixel_height, const color& tint = color{});
 
 		//----------------------------------------------------------
 		/// @brief Finishes the frame: executes the recorded commands and presents.
 		void end_frame();
 
 	private:
+		//----------------------------------------------------------
+		/// @brief All draw calls end up here: draws one quad with the given
+		/// texture, uv rect (offset xy + scale zw, in 0..1 texture space),
+		/// transformation and tint.
+		void submit_quad(const texture& quad_texture, const vec4& uv_rect, vec2 position, vec2 size, float rotation_radians, const color& tint);
+
 		//----------------------------------------------------------
 		/// @brief Creates the root signature (describes what data the shaders receive).
 		bool create_root_signature(ID3D12Device* d3d_device);
@@ -93,6 +148,10 @@ namespace dyro
 		D3D12_VERTEX_BUFFER_VIEW m_quad_vertex_buffer_view = {};
 		D3D12_INDEX_BUFFER_VIEW m_quad_index_buffer_view = {};
 
-		float4x4 m_projection;
+		// A single white pixel; drawing it scaled and tinted produces the
+		// rectangles and lines of draw_rect/draw_line.
+		std::shared_ptr<texture> m_white_texture;
+
+		mat4 m_projection;
 	};
 }

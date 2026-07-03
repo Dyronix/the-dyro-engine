@@ -7,7 +7,9 @@
 #include "graphics/device.h"
 #include "graphics/pso_cache.h"
 #include "graphics/shader_library.h"
+#include "graphics/texture_loader.h"
 
+#include <cmath>
 #include <cstring>
 
 using Microsoft::WRL::ComPtr;
@@ -18,16 +20,17 @@ namespace
 	/// @brief A single vertex of the unit quad.
 	struct sprite_vertex
 	{
-		dyro::float2 position;
-		dyro::float2 uv;
+		dyro::vec2 position;
+		dyro::vec2 uv;
 	};
 
 	//--------------------------------------------------------------
 	/// @brief Constants sent to the shaders for every sprite (must match sprite_vs.hlsl).
 	struct sprite_constants
 	{
-		dyro::float4x4 transform;
+		dyro::mat4 transform;
 		dyro::color tint;
+		dyro::vec4 uv_rect; // offset in xy, scale in zw (0..1 texture space)
 	};
 
 	constexpr uint32_t sprite_constants_count = sizeof(sprite_constants) / 4; // in 32 bit values
@@ -36,7 +39,7 @@ namespace
 namespace dyro
 {
 	//--------------------------------------------------------------
-	bool renderer_2d::initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap)
+	bool renderer_2d::initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap, texture_loader& textures)
 	{
 		m_device = &graphics_device;
 		m_direct_queue = &direct_queue;
@@ -72,6 +75,14 @@ namespace dyro
 		}
 
 		if (!create_quad_geometry(d3d_device))
+		{
+			return false;
+		}
+
+		// The built-in white texture behind draw_rect and draw_line
+		const uint8_t white_pixel[4] = { 255, 255, 255, 255 };
+		m_white_texture = textures.create_from_pixels(1, 1, white_pixel);
+		if (m_white_texture == nullptr)
 		{
 			return false;
 		}
@@ -128,15 +139,103 @@ namespace dyro
 	}
 
 	//--------------------------------------------------------------
-	void renderer_2d::draw_sprite(const texture& sprite_texture, float2 position, float2 size, float rotation_radians, const color& tint)
+	void renderer_2d::draw_sprite(const texture& sprite_texture, vec2 position, vec2 size, float rotation_radians, const color& tint)
 	{
-		// Combine the sprite transformation with the screen projection
+		// No source rect given, so the uv rect covers the whole texture
+		submit_quad(sprite_texture, { 0.0f, 0.0f, 1.0f, 1.0f }, position, size, rotation_radians, tint);
+	}
+
+	//--------------------------------------------------------------
+	void renderer_2d::draw_sprite(const texture& sprite_texture, const rect& source_rect, vec2 position, vec2 size, float rotation_radians, const color& tint)
+	{
+		// The source rect is in texture pixels; the shader wants it in
+		// 0..1 texture space.
+		const vec2 texture_size = {
+			static_cast<float>(sprite_texture.get_width()),
+			static_cast<float>(sprite_texture.get_height()) };
+
+		const vec2 uv_offset = source_rect.min / texture_size;
+		const vec2 uv_scale = source_rect.size() / texture_size;
+
+		submit_quad(sprite_texture, { uv_offset.x, uv_offset.y, uv_scale.x, uv_scale.y }, position, size, rotation_radians, tint);
+	}
+
+	//--------------------------------------------------------------
+	void renderer_2d::draw_rect(const rect& area, const color& fill_color)
+	{
+		// A rectangle is just the white texture stretched and tinted
+		submit_quad(*m_white_texture, { 0.0f, 0.0f, 1.0f, 1.0f }, area.center(), area.size(), 0.0f, fill_color);
+	}
+
+	//--------------------------------------------------------------
+	void renderer_2d::draw_rect_outline(const rect& area, float thickness, const color& outline_color)
+	{
+		const vec2 area_size = area.size();
+
+		// Four thin bars along the edges: top, bottom, left, right. The
+		// left and right bars are inset so the corners are not drawn twice
+		// (which would show with transparent colors).
+		draw_rect({ area.min, { area.max.x, area.min.y + thickness } }, outline_color);
+		draw_rect({ { area.min.x, area.max.y - thickness }, area.max }, outline_color);
+		draw_rect({ { area.min.x, area.min.y + thickness }, { area.min.x + thickness, area.max.y - thickness } }, outline_color);
+		draw_rect({ { area.max.x - thickness, area.min.y + thickness }, area.max - vec2(0.0f, thickness) }, outline_color);
+	}
+
+	//--------------------------------------------------------------
+	void renderer_2d::draw_line(vec2 from, vec2 to, float thickness, const color& line_color)
+	{
+		// A line is a long thin quad: as wide as the distance between the
+		// two points, rotated to point from one to the other.
+		const vec2 difference = to - from;
+		const float line_length = length(difference);
+		const float angle = std::atan2(difference.y, difference.x);
+		const vec2 line_center = (from + to) * 0.5f;
+
+		submit_quad(*m_white_texture, { 0.0f, 0.0f, 1.0f, 1.0f }, line_center, { line_length, thickness }, angle, line_color);
+	}
+
+	//--------------------------------------------------------------
+	void renderer_2d::draw_text(const font& text_font, std::string_view text, vec2 position, float pixel_height, const color& tint)
+	{
+		// Scale the glyphs so they are pixel_height tall on screen
+		const float scale = pixel_height / static_cast<float>(text_font.glyph_size.y);
+		const vec2 glyph_screen_size = vec2(text_font.glyph_size) * scale;
+
+		// draw_sprite positions centers, so the pen starts half a glyph in
+		vec2 pen = position + glyph_screen_size * 0.5f;
+
+		for (const char character : text)
+		{
+			if (character == '\n')
+			{
+				pen.x = position.x + glyph_screen_size.x * 0.5f;
+				pen.y += glyph_screen_size.y;
+				continue;
+			}
+
+			// Spaces only advance the pen, there is nothing to draw
+			if (character != ' ')
+			{
+				draw_sprite(*text_font.atlas, text_font.get_glyph_source_rect(character), pen, glyph_screen_size, 0.0f, tint);
+			}
+
+			pen.x += glyph_screen_size.x;
+		}
+	}
+
+	//--------------------------------------------------------------
+	void renderer_2d::submit_quad(const texture& quad_texture, const vec4& uv_rect, vec2 position, vec2 size, float rotation_radians, const color& tint)
+	{
+		// Combine the quad transformation with the screen projection
+		// (column-vector convention: the projection is applied last, so it
+		// comes first in the multiplication).
 		sprite_constants constants;
-		constants.transform = multiply(make_sprite_transform(position, size, rotation_radians), m_projection);
+		constants.transform = m_projection * make_sprite_transform(position, size, rotation_radians);
 		constants.tint = tint;
+		constants.uv_rect = uv_rect;
 
 		m_command_list->SetGraphicsRoot32BitConstants(0, sprite_constants_count, &constants, 0);
-		m_command_list->SetGraphicsRootDescriptorTable(1, sprite_texture.get_srv_gpu_handle());
+		m_command_list->SetGraphicsRootDescriptorTable(1, quad_texture.get_srv_gpu_handle());
 
 		m_command_list->DrawIndexedInstanced(6, 1, 0, 0, 0);
 	}

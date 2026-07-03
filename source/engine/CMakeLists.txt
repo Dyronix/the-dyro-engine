@@ -4,8 +4,11 @@ ADD_LIBRARY(dyro_engine STATIC)
 # Sources
 TARGET_SOURCES(dyro_engine PRIVATE
     # core
+    ${SOURCE_ENGINE_DIRECTORY}/private/core/assert.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/core/log.cpp
+    ${SOURCE_ENGINE_DIRECTORY}/private/core/noise.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/core/paths.cpp
+    ${SOURCE_ENGINE_DIRECTORY}/private/core/random.cpp
     # graphics
     ${SOURCE_ENGINE_DIRECTORY}/private/graphics/d3d_utils.h
     ${SOURCE_ENGINE_DIRECTORY}/private/graphics/adapter_selection.cpp
@@ -19,14 +22,20 @@ TARGET_SOURCES(dyro_engine PRIVATE
     ${SOURCE_ENGINE_DIRECTORY}/private/graphics/texture_loader.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/graphics/renderer_2d.cpp
     # application
+    ${SOURCE_ENGINE_DIRECTORY}/private/application/input.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/application/window.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/application/engine.cpp)
 
 TARGET_SOURCES(dyro_engine PUBLIC
     # core
+    ${SOURCE_ENGINE_DIRECTORY}/public/core/assert.h
     ${SOURCE_ENGINE_DIRECTORY}/public/core/log.h
-    ${SOURCE_ENGINE_DIRECTORY}/public/core/math_2d.h
+    ${SOURCE_ENGINE_DIRECTORY}/public/core/math.h
+    ${SOURCE_ENGINE_DIRECTORY}/public/core/noise.h
     ${SOURCE_ENGINE_DIRECTORY}/public/core/paths.h
+    ${SOURCE_ENGINE_DIRECTORY}/public/core/random.h
+    ${SOURCE_ENGINE_DIRECTORY}/public/core/rect.h
+    ${SOURCE_ENGINE_DIRECTORY}/public/core/timer.h
     # graphics
     ${SOURCE_ENGINE_DIRECTORY}/public/graphics/adapter_selection.h
     ${SOURCE_ENGINE_DIRECTORY}/public/graphics/shader_model.h
@@ -38,8 +47,10 @@ TARGET_SOURCES(dyro_engine PUBLIC
     ${SOURCE_ENGINE_DIRECTORY}/public/graphics/pso_cache.h
     ${SOURCE_ENGINE_DIRECTORY}/public/graphics/texture.h
     ${SOURCE_ENGINE_DIRECTORY}/public/graphics/texture_loader.h
+    ${SOURCE_ENGINE_DIRECTORY}/public/graphics/font.h
     ${SOURCE_ENGINE_DIRECTORY}/public/graphics/renderer_2d.h
     # application
+    ${SOURCE_ENGINE_DIRECTORY}/public/application/input.h
     ${SOURCE_ENGINE_DIRECTORY}/public/application/window.h
     ${SOURCE_ENGINE_DIRECTORY}/public/application/game.h
     ${SOURCE_ENGINE_DIRECTORY}/public/application/engine.h)
@@ -52,9 +63,15 @@ GROUPSOURCES(${SOURCE_ENGINE_DIRECTORY}/public public)
 TARGET_INCLUDE_DIRECTORIES(dyro_engine PRIVATE ${SOURCE_ENGINE_DIRECTORY}/private)
 TARGET_INCLUDE_DIRECTORIES(dyro_engine PUBLIC ${SOURCE_ENGINE_DIRECTORY}/public)
 
+# Stop windows.h from defining min/max macros, which would break glm::min,
+# std::min and friends. PUBLIC so game code gets the same treatment.
+TARGET_COMPILE_DEFINITIONS(dyro_engine PUBLIC NOMINMAX)
+
 # Dependencies
-TARGET_LINK_LIBRARIES(dyro_engine PUBLIC d3d12 dxgi)
-TARGET_LINK_LIBRARIES(dyro_engine PRIVATE stb fmt)
+# glm and fmt are PUBLIC because the public headers use them: math.h exposes
+# the glm types, log.h and assert.h format their messages with fmt.
+TARGET_LINK_LIBRARIES(dyro_engine PUBLIC d3d12 dxgi glm fmt)
+TARGET_LINK_LIBRARIES(dyro_engine PRIVATE stb rnd)
 
 # Target properties
 SET_TARGET_PROPERTIES(dyro_engine PROPERTIES FOLDER "modules")

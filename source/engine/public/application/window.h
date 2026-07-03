@@ -8,6 +8,8 @@
 
 namespace dyro
 {
+	class input;
+
 	//--------------------------------------------------------------
 	/// @brief A fixed-size win32 window the engine renders into.
 	class window
@@ -27,6 +29,15 @@ namespace dyro
 		bool process_messages();
 
 		//----------------------------------------------------------
+		/// @brief Tells the window where to deliver keyboard and mouse
+		/// messages; called once by the engine during initialization.
+		void set_input(input* target) { m_input = target; }
+
+		//----------------------------------------------------------
+		/// @brief Returns the input state fed by this window, or null.
+		input* get_input() const { return m_input; }
+
+		//----------------------------------------------------------
 		/// @brief Returns the native win32 window handle.
 		HWND get_handle() const { return m_handle; }
 
@@ -40,6 +51,7 @@ namespace dyro
 
 	private:
 		HWND m_handle = nullptr;
+		input* m_input = nullptr;
 
 		uint32_t m_width = 0;
 		uint32_t m_height = 0;

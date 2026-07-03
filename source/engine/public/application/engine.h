@@ -1,5 +1,6 @@
 #pragma once
 
+#include "application/input.h"
 #include "application/window.h"
 #include "graphics/adapter_selection.h"
 #include "graphics/command_queue.h"
@@ -56,6 +57,10 @@ namespace dyro
 		texture_loader& get_texture_loader() { return m_texture_loader; }
 
 		//----------------------------------------------------------
+		/// @brief Returns the keyboard and mouse state.
+		input& get_input() { return m_input; }
+
+		//----------------------------------------------------------
 		/// @brief Returns the window the engine renders into.
 		window& get_window() { return m_window; }
 
@@ -71,6 +76,7 @@ namespace dyro
 		bool initialize(const engine_settings& settings);
 
 		window m_window;
+		input m_input;
 		device m_device;
 		command_queue m_direct_queue;
 		swap_chain m_swap_chain;

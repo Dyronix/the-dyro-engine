@@ -55,6 +55,20 @@ namespace dyro
 			return nullptr;
 		}
 
+		std::shared_ptr<texture> loaded_texture = create_from_pixels(static_cast<uint32_t>(width), static_cast<uint32_t>(height), pixels);
+		stbi_image_free(pixels);
+
+		if (loaded_texture != nullptr)
+		{
+			log::info("Loaded texture \"{}\" ({}x{})", path.string(), width, height);
+		}
+
+		return loaded_texture;
+	}
+
+	//--------------------------------------------------------------
+	std::shared_ptr<texture> texture_loader::create_from_pixels(uint32_t width, uint32_t height, const uint8_t* rgba_pixels)
+	{
 		ID3D12Device* d3d_device = m_device->get_d3d_device();
 
 		// Create the texture resource in gpu memory
@@ -72,7 +86,6 @@ namespace dyro
 		ComPtr<ID3D12Resource> texture_resource;
 		if (!d3d::verify(d3d_device->CreateCommittedResource(&default_heap, D3D12_HEAP_FLAG_NONE, &texture_desc, D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&texture_resource)), "CreateCommittedResource (texture)"))
 		{
-			stbi_image_free(pixels);
 			return nullptr;
 		}
 
@@ -91,7 +104,6 @@ namespace dyro
 		ComPtr<ID3D12Resource> upload_buffer;
 		if (!d3d::verify(d3d_device->CreateCommittedResource(&upload_heap, D3D12_HEAP_FLAG_NONE, &upload_desc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&upload_buffer)), "CreateCommittedResource (upload buffer)"))
 		{
-			stbi_image_free(pixels);
 			return nullptr;
 		}
 
@@ -99,7 +111,6 @@ namespace dyro
 		char* mapped_data = nullptr;
 		if (!d3d::verify(upload_buffer->Map(0, nullptr, reinterpret_cast<void**>(&mapped_data)), "ID3D12Resource::Map"))
 		{
-			stbi_image_free(pixels);
 			return nullptr;
 		}
 
@@ -107,12 +118,11 @@ namespace dyro
 		{
 			std::memcpy(
 				mapped_data + footprint.Offset + static_cast<size_t>(row) * footprint.Footprint.RowPitch,
-				pixels + static_cast<size_t>(row) * source_row_size,
+				rgba_pixels + static_cast<size_t>(row) * source_row_size,
 				source_row_size);
 		}
 
 		upload_buffer->Unmap(0, nullptr);
-		stbi_image_free(pixels);
 
 		// Record the gpu copy from the upload buffer into the texture
 		m_command_allocator->Reset();
@@ -151,12 +161,6 @@ namespace dyro
 
 		d3d_device->CreateShaderResourceView(texture_resource.Get(), &srv_desc, m_srv_heap->get_cpu_handle(srv_index));
 
-		log::info("Loaded texture \"{}\" ({}x{})", path.string(), width, height);
-
-		return std::make_shared<texture>(
-			std::move(texture_resource),
-			static_cast<uint32_t>(width),
-			static_cast<uint32_t>(height),
-			m_srv_heap->get_gpu_handle(srv_index));
+		return std::make_shared<texture>(std::move(texture_resource), width, height, m_srv_heap->get_gpu_handle(srv_index));
 	}
 }

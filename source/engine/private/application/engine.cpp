@@ -3,8 +3,7 @@
 #include "application/game.h"
 #include "core/log.h"
 #include "core/paths.h"
-
-#include <chrono>
+#include "core/timer.h"
 
 namespace
 {
@@ -27,13 +26,21 @@ namespace dyro
 
 		// The main loop: handle window messages, update the game, draw a
 		// frame; repeat until the window is closed.
-		auto previous_time = std::chrono::steady_clock::now();
+		timer frame_timer;
 
-		while (m_window.process_messages())
+		while (true)
 		{
-			const auto current_time = std::chrono::steady_clock::now();
-			const float delta_seconds = std::chrono::duration<float>(current_time - previous_time).count();
-			previous_time = current_time;
+			// Input first: new_frame archives the previous frame's state,
+			// then process_messages fills in what happened since.
+			m_input.new_frame();
+
+			if (!m_window.process_messages())
+			{
+				break;
+			}
+
+			const float delta_seconds = frame_timer.elapsed_seconds();
+			frame_timer.reset();
 
 			active_game.update(delta_seconds);
 
@@ -63,6 +70,9 @@ namespace dyro
 		{
 			return false;
 		}
+
+		// From now on the window feeds every input message into m_input
+		m_window.set_input(&m_input);
 
 		if (!m_device.initialize(settings.gpu_preference))
 		{
@@ -100,7 +110,7 @@ namespace dyro
 			return false;
 		}
 
-		if (!m_renderer.initialize(m_device, m_direct_queue, m_swap_chain, m_shader_library, m_pso_cache, m_srv_heap))
+		if (!m_renderer.initialize(m_device, m_direct_queue, m_swap_chain, m_shader_library, m_pso_cache, m_srv_heap, m_texture_loader))
 		{
 			return false;
 		}

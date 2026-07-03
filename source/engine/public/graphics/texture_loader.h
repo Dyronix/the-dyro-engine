@@ -38,6 +38,15 @@ namespace dyro
 		/// @return The uploaded texture, or nullptr when loading failed.
 		std::shared_ptr<texture> load_from_file(const std::filesystem::path& path);
 
+		//----------------------------------------------------------
+		/// @brief Uploads raw pixels to the gpu, e.g. for procedurally
+		/// generated textures.
+		/// @param width Width of the texture in pixels.
+		/// @param height Height of the texture in pixels.
+		/// @param rgba_pixels width * height pixels, 4 bytes (r, g, b, a) each.
+		/// @return The uploaded texture, or nullptr when uploading failed.
+		std::shared_ptr<texture> create_from_pixels(uint32_t width, uint32_t height, const uint8_t* rgba_pixels);
+
 	private:
 		device* m_device = nullptr;
 		command_queue* m_direct_queue = nullptr;

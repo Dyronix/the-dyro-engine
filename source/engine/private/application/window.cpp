@@ -1,5 +1,6 @@
 #include "application/window.h"
 
+#include "application/input.h"
 #include "core/log.h"
 
 namespace
@@ -10,10 +11,75 @@ namespace
 	/// @brief Handles messages windows sends to our window.
 	LRESULT CALLBACK window_procedure(HWND handle, UINT message, WPARAM w_param, LPARAM l_param)
 	{
+		// The window instance stored itself in the window user data during
+		// initialize, so this free function can reach its input state.
+		auto* owner = reinterpret_cast<dyro::window*>(GetWindowLongPtrW(handle, GWLP_USERDATA));
+		dyro::input* input = owner != nullptr ? owner->get_input() : nullptr;
+
 		switch (message)
 		{
 		case WM_DESTROY:
 			PostQuitMessage(0);
+			return 0;
+
+		case WM_KEYDOWN:
+		case WM_KEYUP:
+			if (input != nullptr)
+			{
+				input->on_key_event(static_cast<uint32_t>(w_param), message == WM_KEYDOWN);
+			}
+			return 0;
+
+		case WM_LBUTTONDOWN:
+		case WM_LBUTTONUP:
+			if (input != nullptr)
+			{
+				input->on_mouse_button_event(dyro::mouse_button::left, message == WM_LBUTTONDOWN);
+			}
+			return 0;
+
+		case WM_RBUTTONDOWN:
+		case WM_RBUTTONUP:
+			if (input != nullptr)
+			{
+				input->on_mouse_button_event(dyro::mouse_button::right, message == WM_RBUTTONDOWN);
+			}
+			return 0;
+
+		case WM_MBUTTONDOWN:
+		case WM_MBUTTONUP:
+			if (input != nullptr)
+			{
+				input->on_mouse_button_event(dyro::mouse_button::middle, message == WM_MBUTTONDOWN);
+			}
+			return 0;
+
+		case WM_MOUSEMOVE:
+			if (input != nullptr)
+			{
+				// The position is packed into l_param: x in the low 16 bits,
+				// y in the high 16 bits, both relative to the drawable area.
+				const auto x = static_cast<short>(LOWORD(l_param));
+				const auto y = static_cast<short>(HIWORD(l_param));
+				input->on_mouse_move(static_cast<float>(x), static_cast<float>(y));
+			}
+			return 0;
+
+		case WM_MOUSEWHEEL:
+			if (input != nullptr)
+			{
+				// The wheel reports in multiples of WHEEL_DELTA (120), one
+				// "click" of a regular wheel; normalize that to 1.
+				const auto raw_delta = static_cast<short>(HIWORD(w_param));
+				input->on_mouse_wheel(static_cast<float>(raw_delta) / static_cast<float>(WHEEL_DELTA));
+			}
+			return 0;
+
+		case WM_KILLFOCUS:
+			if (input != nullptr)
+			{
+				input->on_focus_lost();
+			}
 			return 0;
 
 		default:
@@ -69,6 +135,10 @@ namespace dyro
 			log::error("Failed to create the window");
 			return false;
 		}
+
+		// Store this instance on the window, so window_procedure can find it
+		// back when messages come in.
+		SetWindowLongPtrW(m_handle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 
 		ShowWindow(m_handle, SW_SHOW);
 		return true;

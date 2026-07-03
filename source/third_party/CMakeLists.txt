@@ -1,0 +1,3 @@
+MESSAGE(STATUS "Adding third party libraries")
+
+ADD_SUBDIRECTORY(${SOURCE_THIRDPARTY_DIRECTORY}/stb)

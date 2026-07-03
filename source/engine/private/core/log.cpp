@@ -1,18 +1,19 @@
 #include "core/log.h"
 
+#if defined(DYRO_LOG_ENABLED)
+
+#include "core/paths.h"
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-#include <cstdarg>
 #include <cstdio>
+#include <fstream>
+#include <memory>
+#include <vector>
 
 namespace
 {
-	constexpr auto green = "\033[32m";
-	constexpr auto magenta = "\033[35m";
-	constexpr auto red = "\033[31m";
-	constexpr auto reset = "\033[0m";
-
 	//--------------------------------------------------------------
 	/// @brief Enables colored output on the windows console (runs once).
 	void enable_console_colors()
@@ -35,20 +36,76 @@ namespace
 	}
 
 	//--------------------------------------------------------------
-	/// @brief Formats and prints a single log line to the console and the debugger output window.
-	void trace(const char* name, const char* color, const char* format, va_list arguments)
+	/// @brief Destination a formatted log line is written to.
+	struct sink
 	{
-		enable_console_colors();
+		virtual ~sink() = default;
+		virtual void trace(const char* name, const char* color, std::string_view text) = 0;
+	};
 
-		char message[2048];
-		vsnprintf(message, sizeof(message), format, arguments);
+	//--------------------------------------------------------------
+	/// @brief Writes colored lines to stdout and forwards them to the
+	///        visual studio output window.
+	struct console_sink : public sink
+	{
+		void trace(const char* name, const char* color, std::string_view text) override
+		{
+			enable_console_colors();
 
-		std::printf("%s[%s]%s %s\n", color, name, reset, message);
+			std::printf("%s[%s]%s %.*s\n", color, name, dyro::log::reset,
+				static_cast<int>(text.size()), text.data());
 
-		// Also forward the message to the visual studio output window
-		char debugger_message[2100];
-		std::snprintf(debugger_message, sizeof(debugger_message), "[%s] %s\n", name, message);
-		OutputDebugStringA(debugger_message);
+			char debugger_message[2100];
+			std::snprintf(debugger_message, sizeof(debugger_message), "[%s] %.*s\n",
+				name, static_cast<int>(text.size()), text.data());
+			OutputDebugStringA(debugger_message);
+		}
+	};
+
+	//--------------------------------------------------------------
+	/// @brief Appends lines (without color codes) to a log file on disk.
+	struct file_sink : public sink
+	{
+		explicit file_sink(const std::filesystem::path& path)
+			: m_file(path, std::ios::trunc)
+		{
+		}
+
+		void trace(const char* name, const char* /*color*/, std::string_view text) override
+		{
+			if (!m_file.is_open())
+			{
+				return;
+			}
+
+			m_file << '[' << name << "] " << text << '\n';
+			m_file.flush();
+		}
+
+	private:
+		std::ofstream m_file;
+	};
+
+	//--------------------------------------------------------------
+	/// @brief Owns the active sinks. Constructed on first use, registering a
+	///        console sink and a file sink next to the executable.
+	struct log_context
+	{
+		log_context()
+		{
+			sinks.emplace_back(std::make_unique<console_sink>());
+			sinks.emplace_back(std::make_unique<file_sink>(
+				dyro::paths::get_executable_directory() / "dyro.log"));
+		}
+
+		std::vector<std::unique_ptr<sink>> sinks;
+	};
+
+	//--------------------------------------------------------------
+	log_context& context()
+	{
+		static log_context ctx;
+		return ctx;
 	}
 }
 
@@ -56,31 +113,34 @@ namespace dyro
 {
 	namespace log
 	{
-		//----------------------------------------------------------
-		void info(const char* format, ...)
+		namespace internal
 		{
-			va_list arguments;
-			va_start(arguments, format);
-			trace("info", green, format, arguments);
-			va_end(arguments);
-		}
-
-		//----------------------------------------------------------
-		void warn(const char* format, ...)
-		{
-			va_list arguments;
-			va_start(arguments, format);
-			trace("warn", magenta, format, arguments);
-			va_end(arguments);
-		}
-
-		//----------------------------------------------------------
-		void error(const char* format, ...)
-		{
-			va_list arguments;
-			va_start(arguments, format);
-			trace("error", red, format, arguments);
-			va_end(arguments);
+			//----------------------------------------------------------
+			void trace(const char* name, const char* color, std::string_view text)
+			{
+				for (auto& sink : context().sinks)
+				{
+					sink->trace(name, color, text);
+				}
+			}
 		}
 	}
 }
+
+#else
+
+namespace dyro
+{
+	namespace log
+	{
+		namespace internal
+		{
+			//----------------------------------------------------------
+			void trace(const char*, const char*, std::string_view)
+			{
+			}
+		}
+	}
+}
+
+#endif

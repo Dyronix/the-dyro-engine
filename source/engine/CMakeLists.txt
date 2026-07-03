@@ -54,7 +54,7 @@ TARGET_INCLUDE_DIRECTORIES(dyro_engine PUBLIC ${SOURCE_ENGINE_DIRECTORY}/public)
 
 # Dependencies
 TARGET_LINK_LIBRARIES(dyro_engine PUBLIC d3d12 dxgi)
-TARGET_LINK_LIBRARIES(dyro_engine PRIVATE stb)
+TARGET_LINK_LIBRARIES(dyro_engine PRIVATE stb fmt)
 
 # Target properties
 SET_TARGET_PROPERTIES(dyro_engine PROPERTIES FOLDER "modules")

@@ -32,6 +32,10 @@ namespace dyro
 		adapter_preference gpu_preference = adapter_preference::highest_score;
 
 		color clear_color = { 0.1f, 0.1f, 0.15f, 1.0f };
+
+		// How textures are filtered when scaled on screen; nearest keeps
+		// pixel art crisp instead of blurring it like linear does.
+		texture_filter sampler_filter = texture_filter::linear;
 	};
 
 	//--------------------------------------------------------------

@@ -18,6 +18,10 @@ int main()
 	// the weakest graphics card in your machine.
 	settings.gpu_preference = dyro::adapter_preference::highest_score;
 
+	// Change this to texture_filter::nearest for a crisp pixel art look
+	// instead of the default smooth/blurred scaling.
+	settings.sampler_filter = dyro::texture_filter::nearest;
+
 	demo_game game;
 
 	dyro::engine engine;

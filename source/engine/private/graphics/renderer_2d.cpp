@@ -39,7 +39,7 @@ namespace
 namespace dyro
 {
 	//--------------------------------------------------------------
-	bool renderer_2d::initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap, texture_loader& textures)
+	bool renderer_2d::initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap, texture_loader& textures, texture_filter sampler_filter)
 	{
 		m_device = &graphics_device;
 		m_direct_queue = &direct_queue;
@@ -64,7 +64,7 @@ namespace dyro
 
 		m_command_list->Close();
 
-		if (!create_root_signature(d3d_device))
+		if (!create_root_signature(d3d_device, sampler_filter))
 		{
 			return false;
 		}
@@ -267,7 +267,7 @@ namespace dyro
 	}
 
 	//--------------------------------------------------------------
-	bool renderer_2d::create_root_signature(ID3D12Device* d3d_device)
+	bool renderer_2d::create_root_signature(ID3D12Device* d3d_device, texture_filter sampler_filter)
 	{
 		// Parameter 0: the sprite constants (transform + tint), passed as
 		// root constants because they change for every draw call.
@@ -289,9 +289,11 @@ namespace dyro
 		parameters[1].DescriptorTable.pDescriptorRanges = &texture_range;
 		parameters[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 
-		// A fixed linear sampler, baked into the root signature
+		// A single sampler baked into the root signature; its filter is fixed
+		// for the lifetime of the renderer (rebuilding a root signature at
+		// runtime just to flip a filter isn't worth the complexity).
 		D3D12_STATIC_SAMPLER_DESC sampler = {};
-		sampler.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
+		sampler.Filter = sampler_filter == texture_filter::nearest ? D3D12_FILTER_MIN_MAG_MIP_POINT : D3D12_FILTER_MIN_MAG_MIP_LINEAR;
 		sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
 		sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
 		sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;

@@ -110,7 +110,7 @@ namespace dyro
 			return false;
 		}
 
-		if (!m_renderer.initialize(m_device, m_direct_queue, m_swap_chain, m_shader_library, m_pso_cache, m_srv_heap, m_texture_loader))
+		if (!m_renderer.initialize(m_device, m_direct_queue, m_swap_chain, m_shader_library, m_pso_cache, m_srv_heap, m_texture_loader, settings.sampler_filter))
 		{
 			return false;
 		}

@@ -23,6 +23,14 @@ namespace dyro
 	class texture_loader;
 
 	//--------------------------------------------------------------
+	/// @brief How sampled textures are filtered when scaled on screen.
+	enum class texture_filter
+	{
+		linear,  // smooth blending between texels, blurs pixel art when scaled (default)
+		nearest, // no blending, keeps hard pixel edges when scaled (pixel art look)
+	};
+
+	//--------------------------------------------------------------
 	/// @brief Draws textured quads (sprites) into the current back buffer.
 	///
 	/// This is a 2d engine, so all geometry is a quad: a single unit quad
@@ -47,8 +55,9 @@ namespace dyro
 		/// @param pipeline_cache Cache used to create (or reuse) the sprite pipeline.
 		/// @param srv_heap Shader visible heap holding the texture descriptors.
 		/// @param textures Loader used to create the renderer's built-in white texture.
+		/// @param sampler_filter How textures are filtered when scaled on screen.
 		/// @return True when the renderer is ready for use.
-		bool initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap, texture_loader& textures);
+		bool initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap, texture_loader& textures, texture_filter sampler_filter = texture_filter::linear);
 
 		//----------------------------------------------------------
 		/// @brief Starts a new frame: clears the back buffer and prepares for drawing.
@@ -120,7 +129,8 @@ namespace dyro
 
 		//----------------------------------------------------------
 		/// @brief Creates the root signature (describes what data the shaders receive).
-		bool create_root_signature(ID3D12Device* d3d_device);
+		/// @param sampler_filter How the root signature's static sampler filters textures.
+		bool create_root_signature(ID3D12Device* d3d_device, texture_filter sampler_filter);
 
 		//----------------------------------------------------------
 		/// @brief Creates the sprite pipeline through the pso cache.

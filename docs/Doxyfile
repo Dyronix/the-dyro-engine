@@ -23,7 +23,7 @@ RECURSIVE              = YES
 FILE_PATTERNS          = *.h \
                          *.md
 USE_MDFILE_AS_MAINPAGE = pages/index.md
-EXAMPLE_PATH           = ../source/game/private
+EXAMPLE_PATH           = ../source/games/dyro_game/private
 TAB_SIZE               = 4
 
 #---------------------------------------------------------------------------

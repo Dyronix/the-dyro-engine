@@ -15,6 +15,23 @@ The solution sets `dyro_game` as the startup project. Run it and you should
 see a checkerboard, a rotating red quad, a bouncing ball and a small hud —
 move the ball with wasd, tint it with space, resize it with the mouse wheel.
 
+### Convenience scripts
+
+If you'd rather skip Visual Studio and the raw CMake commands, the repo root
+has a few `.bat` wrappers around the same workflow:
+
+| script | what it does |
+|---|---|
+| `generate.bat` | runs `cmake --preset vs2022` to (re)generate `build/dyro_engine.sln` |
+| `build.bat [-debug\|-release]` | builds that solution via `cmake --build`; defaults to debug |
+| `run.bat [-debug\|-release] [-game=name]` | launches the built `dyro_game.exe` from `build/<config>`; pass `-game=name` to run a different executable, e.g. `-game=awesome_game` |
+
+And a second one for the docs you're reading right now:
+
+| script | what it does |
+|---|---|
+| `docs.bat` | opens `docs/html/index.html` in your browser (run `docs/generate_docs.bat` first if it doesn't exist yet) |
+
 ## A minimal complete game
 
 Everything starts in `main()`: fill in dyro::engine_settings, create your
@@ -74,6 +91,84 @@ around — that is where all engine log messages appear.
 
 ## Where to put your code
 
-Look at `source/game`: it contains the demo game — replace it with your own.
-The four dyro::game overrides are all optional; override only the ones you
-need. From here, continue with @ref page_drawing and @ref page_input.
+Look at `source/games/dyro_game`: it contains the demo game — replace it with
+your own. The four dyro::game overrides are all optional; override only the
+ones you need. From here, continue with @ref page_drawing and @ref page_input.
+
+## Adding a second game
+
+Every game lives in its own folder under `source/games`, next to the demo
+(`source/games/dyro_game`). `source/games/CMakeLists.txt` lists one
+`ADD_SUBDIRECTORY(...)` per game — that is the *only* file you touch outside
+your new game's own folder. Here is everything needed to add one, using
+`awesome_game` as the example name.
+
+1. **Create the folder and its files**:
+
+   ```
+   source/games/awesome_game/
+     CMakeLists.txt
+     private/
+       main.cpp
+       awesome_game.h
+       awesome_game.cpp
+   ```
+
+   `awesome_game.h`/`.cpp` hold your `dyro::game` subclass (see "A minimal
+   complete game" above); `main.cpp` follows the same `main()` pattern, with
+   its own `window_title`.
+
+2. **Add `source/games/awesome_game/CMakeLists.txt`**, modeled on
+   `source/games/dyro_game/CMakeLists.txt` with the target renamed
+   throughout — this name is also what you pass to `run.bat -game=`:
+
+   ```cmake
+   MESSAGE(STATUS "Adding game - awesome_game")
+   ADD_EXECUTABLE(awesome_game)
+
+   TARGET_SOURCES(awesome_game PRIVATE
+       ${CMAKE_CURRENT_LIST_DIR}/private/main.cpp
+       ${CMAKE_CURRENT_LIST_DIR}/private/awesome_game.h
+       ${CMAKE_CURRENT_LIST_DIR}/private/awesome_game.cpp)
+
+   GROUPSOURCES(${CMAKE_CURRENT_LIST_DIR}/private private)
+
+   TARGET_LINK_LIBRARIES(awesome_game PRIVATE dyro_engine)
+
+   # Compile all shaders in the /shaders folder as part of the build
+   DYRO_COMPILE_SHADERS(awesome_game)
+
+   # Wait for the shared /content folder to be copied next to the exe
+   ADD_DEPENDENCIES(awesome_game copy-content)
+
+   SET_TARGET_PROPERTIES(awesome_game PROPERTIES
+                         FOLDER "games"
+                         VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:awesome_game>")
+   ```
+
+   `DYRO_COMPILE_SHADERS` and `copy-content` are both safe to depend on from
+   more than one game: shaders and content live in one shared `/shaders` and
+   `/content` folder, so every game shares the same compiled/copied output
+   instead of redoing it per game.
+
+3. **Register the folder in `source/games/CMakeLists.txt`** — the one line
+   this whole process adds outside your game's own folder:
+
+   ```cmake
+   ADD_SUBDIRECTORY(dyro_game)
+   ADD_SUBDIRECTORY(awesome_game)
+   ```
+
+4. **Regenerate and build**: `generate.bat` (or `cmake --preset vs2022`),
+   then `build.bat`. Visual Studio will show both `dyro_game` and
+   `awesome_game` under the "games" folder; the existing startup project is
+   still `dyro_game` — right-click `awesome_game` → *Set as Startup Project*
+   to debug it instead, or just run it without opening Visual Studio at all:
+
+   ```
+   run.bat -game=awesome_game
+   ```
+
+Everything else — the engine library, the shared `/content` and `/shaders`
+folders, `dyro::game`, `dyro::engine` — is exactly the same for every game
+in the project.

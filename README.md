@@ -28,8 +28,10 @@ move the ball with wasd, tint it with space, resize it with the mouse wheel.
 
 ## Making your own game
 
-Look at `source/game`: a game is a class that derives from `dyro::game` and
-overrides four functions.
+Look at `source/games/dyro_game`: a game is a class that derives from
+`dyro::game` and overrides four functions. Want to add a second game
+alongside the demo instead of replacing it? See "Adding a second game" in
+[the getting started guide](docs/html/page_getting_started.html).
 
 ```cpp
 class my_game : public dyro::game
@@ -86,7 +88,8 @@ source/
   engine/         the engine static library (namespace dyro)
     public/       headers your game may include
     private/      implementation details
-  game/           the demo game - replace this with your own game
+  games/          one folder per game (see source/games/CMakeLists.txt)
+    dyro_game/    the demo game - replace it, or add more games next to it
   tools/
     shader_compiler/  build tool that compiles hlsl to directx bytecode
   third_party/    code you use but do not need to read:

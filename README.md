@@ -156,9 +156,11 @@ Creating a pipeline state object makes the gpu driver compile shader bytecode
 into real gpu instructions, which is slow. The `pso_cache` wraps directx's
 `ID3D12PipelineLibrary`: pipelines created during a run are serialized to
 `cache/pso_cache.bin` on shutdown and loaded instantly on the next start.
-The cache invalidates itself when the driver, gpu or a shader changed — the
-pipeline is then simply rebuilt and the cache refreshed. Watch the console:
-`created from scratch` on the first run, `loaded from the pso cache` after.
+The cache invalidates itself when the driver, gpu or a shader changed. If
+DirectX rejects the file on disk, the engine logs a warning, deletes that
+unusable cache and rebuilds pipelines from scratch; the fresh cache is saved
+again on shutdown. Watch the console: `created from scratch` on the first run,
+`loaded from the pso cache` after.
 
 ### Textures
 

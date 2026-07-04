@@ -88,6 +88,7 @@ around — that is where all engine log messages appear.
 | `window_title` | text in the window title bar (a wide string: `L"..."`) |
 | `gpu_preference` | which graphics card to run on; dyro::adapter_preference::lowest_score is handy to test how your game behaves on weaker hardware |
 | `clear_color` | the color the screen is cleared with before your game draws |
+| `sampler_filter` | how textures are filtered when scaled; dyro::texture_filter::nearest keeps pixel art crisp instead of blurring it |
 
 ## Where to put your code
 

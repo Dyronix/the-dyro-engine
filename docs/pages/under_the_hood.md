@@ -57,9 +57,10 @@ bytecode into real gpu instructions, which is slow. dyro::pso_cache wraps
 directx's `ID3D12PipelineLibrary`: pipelines created during a run are
 serialized to `cache/pso_cache.bin` on shutdown and loaded instantly on the
 next start. The cache invalidates itself when the driver, gpu or a shader
-changed — the pipeline is then simply rebuilt and the cache refreshed.
-Watch the console: `created from scratch` on the first run, `loaded from
-the pso cache` after.
+changed. If DirectX rejects the file on disk, the engine logs a warning,
+deletes that unusable cache and rebuilds pipelines from scratch; the fresh
+cache is saved again on shutdown. Watch the console: `created from scratch`
+on the first run, `loaded from the pso cache` after.
 
 ## Textures
 
@@ -87,3 +88,8 @@ table). The engine keeps one command allocator per back buffer and uses a
 fence (dyro::command_queue) to wait until the gpu released a buffer before
 recording into it again — the classic "frames in flight" pattern, in its
 smallest possible form.
+
+Textures are sampled through a single static sampler baked into the root
+signature at startup, so its filter cannot change mid-run. Set
+`engine_settings::sampler_filter` to dyro::texture_filter::nearest for a
+crisp pixel art look instead of the default smooth/blurred scaling.

@@ -1,6 +1,6 @@
 var classdyro_1_1renderer__2d =
 [
-    [ "initialize", "classdyro_1_1renderer__2d.html#a0430608134261aeb6f3f72985a00a832", null ],
+    [ "initialize", "classdyro_1_1renderer__2d.html#ab2852b3d7b1feb81d4a1ca26410aa82b", null ],
     [ "begin_frame", "classdyro_1_1renderer__2d.html#a626e1f6160a559e8b25510be91207c8a", null ],
     [ "draw_sprite", "classdyro_1_1renderer__2d.html#a100a52969aacf951e2b73d3734874229", null ],
     [ "draw_sprite", "classdyro_1_1renderer__2d.html#add725e14e569c64a682870295404be11", null ],

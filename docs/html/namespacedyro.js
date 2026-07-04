@@ -92,6 +92,10 @@ var namespacedyro =
       [ "highest_score", "namespacedyro.html#a9964a9f588f05a3d1dc8df751c3fedf0a3822f324251c0e042de3817476025562", null ],
       [ "lowest_score", "namespacedyro.html#a9964a9f588f05a3d1dc8df751c3fedf0ac63b6ccabd4282a829e1f24bbfab98b1", null ]
     ] ],
+    [ "texture_filter", "namespacedyro.html#afdaa2b492874f44afa5acbb8341258c3", [
+      [ "linear", "namespacedyro.html#afdaa2b492874f44afa5acbb8341258c3a9a932b3cb396238423eb2f33ec17d6aa", null ],
+      [ "nearest", "namespacedyro.html#afdaa2b492874f44afa5acbb8341258c3ad879c351426770bc0b13c3628db1e636", null ]
+    ] ],
     [ "fatal_error", "namespacedyro.html#a4a43411f8bd58c95cb0dc2e6964a1319", null ],
     [ "load_json", "namespacedyro.html#a933d1b0317c44dbcecf1c6c9a8037272", null ],
     [ "save_json", "namespacedyro.html#ae63ead95689b994efe4c7f014646db11", null ],

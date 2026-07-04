@@ -5,6 +5,7 @@ ADD_LIBRARY(dyro_engine STATIC)
 TARGET_SOURCES(dyro_engine PRIVATE
     # core
     ${SOURCE_ENGINE_DIRECTORY}/private/core/assert.cpp
+    ${SOURCE_ENGINE_DIRECTORY}/private/core/json.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/core/log.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/core/noise.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/core/paths.cpp
@@ -29,6 +30,7 @@ TARGET_SOURCES(dyro_engine PRIVATE
 TARGET_SOURCES(dyro_engine PUBLIC
     # core
     ${SOURCE_ENGINE_DIRECTORY}/public/core/assert.h
+    ${SOURCE_ENGINE_DIRECTORY}/public/core/json.h
     ${SOURCE_ENGINE_DIRECTORY}/public/core/log.h
     ${SOURCE_ENGINE_DIRECTORY}/public/core/math.h
     ${SOURCE_ENGINE_DIRECTORY}/public/core/noise.h
@@ -68,9 +70,10 @@ TARGET_INCLUDE_DIRECTORIES(dyro_engine PUBLIC ${SOURCE_ENGINE_DIRECTORY}/public)
 TARGET_COMPILE_DEFINITIONS(dyro_engine PUBLIC NOMINMAX)
 
 # Dependencies
-# glm and fmt are PUBLIC because the public headers use them: math.h exposes
-# the glm types, log.h and assert.h format their messages with fmt.
-TARGET_LINK_LIBRARIES(dyro_engine PUBLIC d3d12 dxgi glm fmt)
+# glm, fmt and nlohmann are PUBLIC because the public headers use them:
+# math.h exposes the glm types, log.h and assert.h format their messages
+# with fmt, and json.h exposes the nlohmann json type.
+TARGET_LINK_LIBRARIES(dyro_engine PUBLIC d3d12 dxgi glm fmt nlohmann)
 TARGET_LINK_LIBRARIES(dyro_engine PRIVATE stb rnd)
 
 # Target properties

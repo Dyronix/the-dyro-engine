@@ -171,6 +171,32 @@ namespace dyro
 		// serialized data was written by a different driver version, a
 		// different gpu or a newer directx runtime. All of those simply
 		// mean "the cache on disk is unusable".
-		return SUCCEEDED(m_device->CreatePipelineLibrary(data, size, IID_PPV_ARGS(&m_library)));
+		const bool loading_cached_data = data != nullptr && size > 0;
+		d3d::debug_break_guard expected_failure_guard(
+			m_base_device.Get(), D3D12_MESSAGE_SEVERITY_ERROR, FALSE, loading_cached_data);
+
+		ComPtr<ID3D12PipelineLibrary> library;
+		const HRESULT result = m_device->CreatePipelineLibrary(data, size, IID_PPV_ARGS(&library));
+		if (SUCCEEDED(result))
+		{
+			m_library = library;
+			return true;
+		}
+
+		if (loading_cached_data)
+		{
+			log::warn("Pso cache \"{}\" is unusable (hresult 0x{:08X}), deleting it and rebuilding",
+				m_cache_file.string(), static_cast<unsigned int>(result));
+
+			std::error_code error;
+			std::filesystem::remove(m_cache_file, error);
+			if (error)
+			{
+				log::warn("Failed to delete unusable pso cache \"{}\": {}", m_cache_file.string(), error.message());
+			}
+		}
+
+		m_library.Reset();
+		return false;
 	}
 }

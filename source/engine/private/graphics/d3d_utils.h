@@ -3,6 +3,7 @@
 #include "core/log.h"
 
 #include <d3d12.h>
+#include <wrl/client.h>
 
 namespace dyro
 {
@@ -23,6 +24,49 @@ namespace dyro
 
 			return true;
 		}
+
+		//----------------------------------------------------------
+		/// @brief Temporarily changes whether a d3d debug severity breaks.
+		class debug_break_guard
+		{
+		public:
+			debug_break_guard(ID3D12Device* device, D3D12_MESSAGE_SEVERITY severity, BOOL break_enabled, bool enabled = true)
+			{
+#if defined(_DEBUG)
+				if (enabled && SUCCEEDED(device->QueryInterface(IID_PPV_ARGS(&m_info_queue))))
+				{
+					m_severity = severity;
+					m_break_on_severity = m_info_queue->GetBreakOnSeverity(severity);
+					m_info_queue->SetBreakOnSeverity(severity, break_enabled);
+				}
+#else
+				(void)device;
+				(void)severity;
+				(void)break_enabled;
+				(void)enabled;
+#endif
+			}
+
+			~debug_break_guard()
+			{
+#if defined(_DEBUG)
+				if (m_info_queue != nullptr)
+				{
+					m_info_queue->SetBreakOnSeverity(m_severity, m_break_on_severity);
+				}
+#endif
+			}
+
+			debug_break_guard(const debug_break_guard&) = delete;
+			debug_break_guard& operator=(const debug_break_guard&) = delete;
+
+		private:
+#if defined(_DEBUG)
+			Microsoft::WRL::ComPtr<ID3D12InfoQueue> m_info_queue;
+			D3D12_MESSAGE_SEVERITY m_severity = D3D12_MESSAGE_SEVERITY_ERROR;
+			BOOL m_break_on_severity = FALSE;
+#endif
+		};
 
 		//----------------------------------------------------------
 		/// @brief Builds a resource barrier that transitions a resource between two states.

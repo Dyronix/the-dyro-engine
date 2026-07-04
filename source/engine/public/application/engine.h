@@ -38,10 +38,11 @@ namespace dyro
 	/// @brief Owns all engine systems and runs the main loop.
 	///
 	/// Usage (see the dyro_game project for a full example):
-	///
-	///     my_game game;
-	///     dyro::engine engine;
-	///     return engine.run(game, settings);
+	/// @code{.cpp}
+	/// my_game game;
+	/// dyro::engine engine;
+	/// return engine.run(game, settings);
+	/// @endcode
 	class engine
 	{
 	public:

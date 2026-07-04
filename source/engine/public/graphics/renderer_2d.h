@@ -30,9 +30,11 @@ namespace dyro
 	/// own transformation, texture and tint color.
 	///
 	/// A frame looks like this:
-	///     renderer.begin_frame(clear_color);
-	///     renderer.draw_sprite(...);   // as many times as you want
-	///     renderer.end_frame();        // executes, presents and synchronizes
+	/// @code{.cpp}
+	/// renderer.begin_frame(clear_color);
+	/// renderer.draw_sprite(...);   // as many times as you want
+	/// renderer.end_frame();        // executes, presents and synchronizes
+	/// @endcode
 	class renderer_2d
 	{
 	public:
@@ -96,7 +98,7 @@ namespace dyro
 		void draw_line(vec2 from, vec2 to, float thickness, const color& line_color);
 
 		//----------------------------------------------------------
-		/// @brief Draws a line of text with a bitmap font. Newlines ('\n')
+		/// @brief Draws a line of text with a bitmap font. Newlines (`'\n'`)
 		/// continue on the next line.
 		/// @param text_font Font to draw the text with.
 		/// @param text The text to draw.

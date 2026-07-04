@@ -8,10 +8,11 @@ namespace dyro
 	/// @brief Measures elapsed wall clock time with high precision.
 	///
 	/// A freshly constructed timer starts measuring immediately:
-	///
-	///     dyro::timer stopwatch;
-	///     expensive_work();
-	///     dyro::log::info("took {} seconds", stopwatch.elapsed_seconds());
+	/// @code{.cpp}
+	/// dyro::timer stopwatch;
+	/// expensive_work();
+	/// dyro::log::info("took {} seconds", stopwatch.elapsed_seconds());
+	/// @endcode
 	class timer
 	{
 	public:

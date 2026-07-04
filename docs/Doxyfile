@@ -1,0 +1,82 @@
+# Doxygen configuration for the dyro engine documentation.
+#
+# Run from this directory (docs/): `doxygen Doxyfile`, or simply run
+# generate_docs.bat. Output lands in docs/html/ - open index.html.
+#
+# Only settings that differ from the doxygen defaults are listed here.
+# Theme: doxygen-awesome-css (see doxygen-awesome/VERSION.txt).
+
+#---------------------------------------------------------------------------
+# Project
+#---------------------------------------------------------------------------
+PROJECT_NAME           = "DyroEngine"
+PROJECT_BRIEF          = "a small DirectX 12 engine for 2D games, written to be read"
+OUTPUT_DIRECTORY       = .
+GENERATE_LATEX         = NO
+
+#---------------------------------------------------------------------------
+# Input: the public engine headers and the hand-written guide pages
+#---------------------------------------------------------------------------
+INPUT                  = ../source/engine/public \
+                         pages
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h \
+                         *.md
+USE_MDFILE_AS_MAINPAGE = pages/index.md
+EXAMPLE_PATH           = ../source/game/private
+TAB_SIZE               = 4
+
+#---------------------------------------------------------------------------
+# Extraction: show everything public, keep private members hidden
+#---------------------------------------------------------------------------
+EXTRACT_ALL            = YES
+EXTRACT_STATIC         = YES
+EXTRACT_PRIVATE        = NO
+SORT_MEMBER_DOCS       = NO
+SORT_BRIEF_DOCS        = NO
+BUILTIN_STL_SUPPORT    = YES
+
+# Make include lines read the way a game writes them: #include "core/math.h"
+STRIP_FROM_PATH        = ../source/engine/public
+STRIP_FROM_INC_PATH    = ../source/engine/public
+
+# The headers are the teaching material - let students browse them.
+SOURCE_BROWSER         = YES
+STRIP_CODE_COMMENTS    = NO
+
+#---------------------------------------------------------------------------
+# HTML output with the doxygen-awesome theme (sidebar-only layout)
+#---------------------------------------------------------------------------
+HTML_OUTPUT            = html
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = NO
+PAGE_OUTLINE_PANEL     = NO
+HTML_COLORSTYLE        = LIGHT
+HTML_HEADER            = header.html
+HTML_EXTRA_STYLESHEET  = doxygen-awesome/doxygen-awesome.css \
+                         doxygen-awesome/doxygen-awesome-sidebar-only.css \
+                         doxygen-awesome/doxygen-awesome-sidebar-only-darkmode-toggle.css \
+                         dyro-docs.css
+HTML_EXTRA_FILES       = doxygen-awesome/doxygen-awesome-darkmode-toggle.js \
+                         doxygen-awesome/doxygen-awesome-fragment-copy-button.js \
+                         doxygen-awesome/doxygen-awesome-paragraph-link.js
+HTML_COPY_CLIPBOARD    = NO
+
+# Client-side javascript search index: the search box works when the docs
+# are opened straight from disk (file://), no web server needed.
+SEARCHENGINE           = YES
+SERVER_BASED_SEARCH    = NO
+
+#---------------------------------------------------------------------------
+# Diagrams: use doxygen's built-in diagrams, no graphviz dependency
+#---------------------------------------------------------------------------
+HAVE_DOT               = NO
+
+#---------------------------------------------------------------------------
+# Warnings
+#---------------------------------------------------------------------------
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_AS_ERROR          = NO

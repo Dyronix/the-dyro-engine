@@ -30,7 +30,8 @@ namespace dyro
 	/// @brief Reports an unrecoverable error and terminates the program:
 	/// logs the message, shows a message box, then exits. Works in both
 	/// debug and release builds (fmt "{}" style formatting).
-	/// @param format Format string, followed by the format arguments.
+	/// @param format Format string with "{}" placeholders.
+	/// @param args Values inserted into the placeholders.
 	template<typename FormatString, typename... Args>
 	[[noreturn]] void fatal_error(const FormatString& format, const Args&... args)
 	{
@@ -42,9 +43,9 @@ namespace dyro
 /// @brief Halts the program in the debugger when the condition is false.
 ///
 /// Use it to document assumptions your code makes:
-///
-///     DYRO_ASSERT(frame_index < frame_count);
-///
+/// @code{.cpp}
+/// DYRO_ASSERT(frame_index < frame_count);
+/// @endcode
 /// Compiled away in release builds.
 #if defined(DYRO_ASSERT_ENABLED)
 	#define DYRO_ASSERT(condition) \
@@ -63,8 +64,9 @@ namespace dyro
 //--------------------------------------------------------------
 /// @brief Same as DYRO_ASSERT, with an extra message explaining the failure
 /// (fmt "{}" style formatting):
-///
-///     DYRO_ASSERT_MSG(frame_index < frame_count, "frame {} out of range", frame_index);
+/// @code{.cpp}
+/// DYRO_ASSERT_MSG(frame_index < frame_count, "frame {} out of range", frame_index);
+/// @endcode
 #if defined(DYRO_ASSERT_ENABLED)
 	#define DYRO_ASSERT_MSG(condition, ...) \
 		do \

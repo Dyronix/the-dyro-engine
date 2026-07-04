@@ -4,6 +4,13 @@ A small DirectX 12 engine for 2D games, written to be read. Every system is
 one small class with one job, so you can dig into any part of the engine and
 understand it completely.
 
+## Documentation
+
+Open [docs/html/index.html](docs/html/index.html) in a browser for the full
+searchable API reference plus guide pages with examples for every system.
+(Maintainers: regenerate it with `docs/generate_docs.bat` after changing the
+public headers or the guide pages.)
+
 ## Getting started
 
 You need **Visual Studio 2022** with the *Desktop development with C++*

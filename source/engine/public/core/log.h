@@ -30,7 +30,8 @@ namespace dyro
 
 		//----------------------------------------------------------
 		/// @brief Logs an informational message (fmt "{}" style formatting).
-		/// @param format Format string, followed by the format arguments.
+		/// @param format Format string with "{}" placeholders.
+		/// @param args Values inserted into the placeholders.
 		template<typename FormatString, typename... Args>
 		void info(const FormatString& format, const Args&... args)
 		{
@@ -44,7 +45,8 @@ namespace dyro
 
 		//----------------------------------------------------------
 		/// @brief Logs a warning message (fmt "{}" style formatting).
-		/// @param format Format string, followed by the format arguments.
+		/// @param format Format string with "{}" placeholders.
+		/// @param args Values inserted into the placeholders.
 		template<typename FormatString, typename... Args>
 		void warn(const FormatString& format, const Args&... args)
 		{
@@ -58,7 +60,8 @@ namespace dyro
 
 		//----------------------------------------------------------
 		/// @brief Logs an error message (fmt "{}" style formatting).
-		/// @param format Format string, followed by the format arguments.
+		/// @param format Format string with "{}" placeholders.
+		/// @param args Values inserted into the placeholders.
 		template<typename FormatString, typename... Args>
 		void error(const FormatString& format, const Args&... args)
 		{

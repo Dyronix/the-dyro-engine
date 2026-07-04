@@ -15,10 +15,11 @@ namespace dyro
 	///
 	/// All glyph data lives in the atlas image (content/fonts/), this struct
 	/// only describes the grid so draw_text can find each character:
-	///
-	///     dyro::font font;
-	///     font.atlas = engine.get_texture_loader().load_from_file(path_to_atlas);
-	///     renderer.draw_text(font, "hello", { 20.0f, 20.0f }, 16.0f);
+	/// @code{.cpp}
+	/// dyro::font font;
+	/// font.atlas = engine.get_texture_loader().load_from_file(path_to_atlas);
+	/// renderer.draw_text(font, "hello", { 20.0f, 20.0f }, 16.0f);
+	/// @endcode
 	///
 	/// The defaults match the engine's built-in atlas
 	/// (content/fonts/font_8x8.png): 8x8 pixel glyphs, 16 per row, starting

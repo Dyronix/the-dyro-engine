@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('page_utilities
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyro-engine_2docs_2pages_2utilities"></a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
 Math (core/math.h)</h1>
 <p>The engine uses <a href="https://github.com/g-truc/glm">glm</a> under dyro names: <a class="el" href="namespacedyro.html#ab9c20c22b8a5fda219e308f1e9d79f84">dyro::vec2</a>, <a class="el" href="namespacedyro.html#ad40aba4dc1e2b1752e3699b3acc5444c">dyro::vec3</a>, <a class="el" href="namespacedyro.html#a7b5fa28cb88dce241b59471a7e5c01ba">dyro::vec4</a>, <a class="el" href="namespacedyro.html#a9bdc0772feb4a3251117bda909360051">dyro::mat4</a>, ... These are aliases, not wrappers — every glm function works on them directly, and the most used ones are available as <span class="tt"><a class="el" href="namespacedyro.html">dyro</a>::</span> too:</p>
 <div class="fragment"><div class="line"><a class="code hl_typedef" href="namespacedyro.html#ab9c20c22b8a5fda219e308f1e9d79f84">dyro::vec2</a> to_target = target - position;</div>
@@ -148,7 +148,7 @@ Math (core/math.h)</h1>
 <div class="ttc" id="anamespacedyro_html_ab5a681f3b82c89b7a01a99d9431a7fa8"><div class="ttname"><a href="namespacedyro.html#ab5a681f3b82c89b7a01a99d9431a7fa8">dyro::lerp</a></div><div class="ttdeci">T lerp(const T &amp;a, const T &amp;b, float t)</div><div class="ttdoc">Linearly interpolates between a and b.</div><div class="ttdef"><b>Definition</b> <a href="math_8h_source.html#l00053">math.h:53</a></div></div>
 <div class="ttc" id="anamespacedyro_html_ab9c20c22b8a5fda219e308f1e9d79f84"><div class="ttname"><a href="namespacedyro.html#ab9c20c22b8a5fda219e308f1e9d79f84">dyro::vec2</a></div><div class="ttdeci">glm::vec2 vec2</div><div class="ttdef"><b>Definition</b> <a href="math_8h_source.html#l00016">math.h:16</a></div></div>
 </div><!-- fragment --><p>Colors are <a class="el" href="structdyro_1_1color.html" title="RGBA color with components in the [0, 1] range.">dyro::color</a> — four floats <span class="tt">r, g, b, a</span> in [0, 1], defaulting to white.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
 Rectangles (core/rect.h)</h1>
 <p><a class="el" href="structdyro_1_1rect.html" title="2D axis aligned rectangle, the workhorse for collision checks.">dyro::rect</a> is the workhorse for bounds and collision checks. It stores two corners (<span class="tt">min</span> top-left, <span class="tt">max</span> bottom-right); build one around a sprite with <a class="el" href="structdyro_1_1rect.html#aff6c890bfabd2f9b4e4b15e44b1bc060" title="Builds a rect from its center and size, matching how sprites are positioned in draw_sprite.">dyro::rect::from_center_size</a>:</p>
 <div class="fragment"><div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structdyro_1_1rect.html">dyro::rect</a> ball_bounds = <a class="code hl_function" href="structdyro_1_1rect.html#aff6c890bfabd2f9b4e4b15e44b1bc060">dyro::rect::from_center_size</a>(m_ball_position, { m_ball_size, m_ball_size });</div>
@@ -159,7 +159,7 @@ Rectangles (core/rect.h)</h1>
 <div class="ttc" id="astructdyro_1_1rect_html_a78c88a1dca932b549557de16cc1ce03e"><div class="ttname"><a href="structdyro_1_1rect.html#a78c88a1dca932b549557de16cc1ce03e">dyro::rect::contains</a></div><div class="ttdeci">bool contains(vec2 point) const</div><div class="ttdoc">Returns true when the point lies inside the rect.</div><div class="ttdef"><b>Definition</b> <a href="rect_8h_source.html#l00038">rect.h:38</a></div></div>
 <div class="ttc" id="astructdyro_1_1rect_html_a8abfb834d2ff8e3a17e48e6d78ca340a"><div class="ttname"><a href="structdyro_1_1rect.html#a8abfb834d2ff8e3a17e48e6d78ca340a">dyro::rect::intersects</a></div><div class="ttdeci">bool intersects(const rect &amp;other) const</div><div class="ttdoc">Returns true when the two rects overlap.</div><div class="ttdef"><b>Definition</b> <a href="rect_8h_source.html#l00046">rect.h:46</a></div></div>
 <div class="ttc" id="astructdyro_1_1rect_html_aff6c890bfabd2f9b4e4b15e44b1bc060"><div class="ttname"><a href="structdyro_1_1rect.html#aff6c890bfabd2f9b4e4b15e44b1bc060">dyro::rect::from_center_size</a></div><div class="ttdeci">static rect from_center_size(vec2 center, vec2 size)</div><div class="ttdoc">Builds a rect from its center and size, matching how sprites are positioned in draw_sprite.</div><div class="ttdef"><b>Definition</b> <a href="rect_8h_source.html#l00022">rect.h:22</a></div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
 Timers (core/timer.h)</h1>
 <p>A freshly constructed <a class="el" href="classdyro_1_1timer.html" title="Measures elapsed wall clock time with high precision.">dyro::timer</a> starts measuring immediately:</p>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classdyro_1_1timer.html">dyro::timer</a> stopwatch;</div>
@@ -168,7 +168,7 @@ Timers (core/timer.h)</h1>
 <div class="ttc" id="aclassdyro_1_1timer_html"><div class="ttname"><a href="classdyro_1_1timer.html">dyro::timer</a></div><div class="ttdoc">Measures elapsed wall clock time with high precision.</div><div class="ttdef"><b>Definition</b> <a href="timer_8h_source.html#l00016">timer.h:17</a></div></div>
 <div class="ttc" id="aclassdyro_1_1timer_html_a3f089cb99e7bbc4d3264d016f4b51121"><div class="ttname"><a href="classdyro_1_1timer.html#a3f089cb99e7bbc4d3264d016f4b51121">dyro::timer::elapsed_seconds</a></div><div class="ttdeci">float elapsed_seconds() const</div><div class="ttdoc">Returns the time passed since construction or the last reset.</div><div class="ttdef"><b>Definition</b> <a href="timer_8h_source.html#l00030">timer.h:30</a></div></div>
 <div class="ttc" id="anamespacedyro_1_1log_html_a41c28d4ec3297952f3e83877ecd2fa9e"><div class="ttname"><a href="namespacedyro_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyro::log::info</a></div><div class="ttdeci">void info(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an informational message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00036">log.h:36</a></div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
 Random numbers (core/random.h)</h1>
 <p>Fast pseudo random numbers. The generator is deterministic: after <a class="el" href="namespacedyro.html#a36dc4d37480ae8b6719eeaa52b3a9cee" title="Seeds the global generator; the same seed gives the same sequence.">dyro::set_random_seed</a> with the same value it always produces the same sequence, which makes bugs reproducible.</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="namespacedyro.html#a36dc4d37480ae8b6719eeaa52b3a9cee">dyro::set_random_seed</a>(1234); <span class="comment">// once, in initialize</span></div>
@@ -179,7 +179,7 @@ Random numbers (core/random.h)</h1>
 <div class="ttc" id="anamespacedyro_html_a36dc4d37480ae8b6719eeaa52b3a9cee"><div class="ttname"><a href="namespacedyro.html#a36dc4d37480ae8b6719eeaa52b3a9cee">dyro::set_random_seed</a></div><div class="ttdeci">void set_random_seed(uint32_t seed)</div><div class="ttdoc">Seeds the global generator; the same seed gives the same sequence.</div></div>
 <div class="ttc" id="anamespacedyro_html_a75bccfb5c23e6515dded2be1d23aaf45"><div class="ttname"><a href="namespacedyro.html#a75bccfb5c23e6515dded2be1d23aaf45">dyro::random_range</a></div><div class="ttdeci">float random_range(float min, float max)</div><div class="ttdoc">Returns a random float in [min, max).</div></div>
 <div class="ttc" id="anamespacedyro_html_a8ec9e8e9df2338ea4dd7a997a278e3a9"><div class="ttname"><a href="namespacedyro.html#a8ec9e8e9df2338ea4dd7a997a278e3a9">dyro::random_float</a></div><div class="ttdeci">float random_float()</div><div class="ttdoc">Returns a random float in [0, 1).</div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
 Noise (core/noise.h)</h1>
 <p>Smooth noise for procedural content: terrain heights, cloud patterns, camera shake, wobbly movement. Unlike <span class="tt">random_float</span> it has no state — the same coordinates always return the same value, and nearby coordinates return similar values:</p>
 <div class="fragment"><div class="line"><span class="comment">// the noise repeats its features about once per unit, so scale the input</span></div>

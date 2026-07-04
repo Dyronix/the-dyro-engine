@@ -24,7 +24,7 @@ SET(CMAKE_DEBUG_POSTFIX _d)
 # Some easy access to folders within this repository
 SET(SOURCE_ENGINE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/source/engine)
 SET(SOURCE_TOOLS_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/source/tools)
-SET(SOURCE_GAME_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/source/game)
+SET(SOURCE_GAMES_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/source/games)
 SET(SOURCE_THIRDPARTY_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/source/third_party)
 SET(SOURCE_SHADER_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/shaders)
 
@@ -56,52 +56,51 @@ ENDMACRO()
 #     my_shader_ps.hlsl -> pixel shader   (ps_6_0)
 # -------------------------------
 FUNCTION(DYRO_COMPILE_SHADERS target_name)
-    FILE(GLOB shader_sources CONFIGURE_DEPENDS "${SOURCE_SHADER_DIRECTORY}/*.hlsl")
+    # Shaders live in one shared /shaders folder, so every game that calls this
+    # function depends on the same "compile_shaders" target; only build it once.
+    IF(NOT TARGET compile_shaders)
+        FILE(GLOB shader_sources CONFIGURE_DEPENDS "${SOURCE_SHADER_DIRECTORY}/*.hlsl")
 
-    # Stop visual studio from compiling the hlsl files with its own built-in
-    # shader compiler; our shader_compiler tool does the compiling.
-    SET_SOURCE_FILES_PROPERTIES(${shader_sources} PROPERTIES VS_TOOL_OVERRIDE "None")
+        # Stop visual studio from compiling the hlsl files with its own built-in
+        # shader compiler; our shader_compiler tool does the compiling.
+        SET_SOURCE_FILES_PROPERTIES(${shader_sources} PROPERTIES VS_TOOL_OVERRIDE "None")
 
-    SET(compiled_shaders)
-    FOREACH(shader_source ${shader_sources})
-        GET_FILENAME_COMPONENT(shader_name ${shader_source} NAME_WE)
+        SET(compiled_shaders)
+        FOREACH(shader_source ${shader_sources})
+            GET_FILENAME_COMPONENT(shader_name ${shader_source} NAME_WE)
 
-        IF(shader_name MATCHES "_vs$")
-            SET(shader_profile "vs_6_0")
-        ELSEIF(shader_name MATCHES "_ps$")
-            SET(shader_profile "ps_6_0")
-        ELSE()
-            MESSAGE(FATAL_ERROR "Cannot derive a shader profile from \"${shader_name}.hlsl\". Shader files must end in _vs or _ps.")
-        ENDIF()
+            IF(shader_name MATCHES "_vs$")
+                SET(shader_profile "vs_6_0")
+            ELSEIF(shader_name MATCHES "_ps$")
+                SET(shader_profile "ps_6_0")
+            ELSE()
+                MESSAGE(FATAL_ERROR "Cannot derive a shader profile from \"${shader_name}.hlsl\". Shader files must end in _vs or _ps.")
+            ENDIF()
 
-        SET(shader_output "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/content/shaders/${shader_name}.cso")
+            SET(shader_output "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/content/shaders/${shader_name}.cso")
 
-        ADD_CUSTOM_COMMAND(
-            OUTPUT ${shader_output}
-            COMMAND shader_compiler ${shader_source} ${shader_output} ${shader_profile}
-            DEPENDS ${shader_source} shader_compiler
-            COMMENT "Compiling shader ${shader_name}.hlsl (${shader_profile})"
-            VERBATIM)
+            ADD_CUSTOM_COMMAND(
+                OUTPUT ${shader_output}
+                COMMAND shader_compiler ${shader_source} ${shader_output} ${shader_profile}
+                DEPENDS ${shader_source} shader_compiler
+                COMMENT "Compiling shader ${shader_name}.hlsl (${shader_profile})"
+                VERBATIM)
 
-        LIST(APPEND compiled_shaders ${shader_output})
-    ENDFOREACH()
+            LIST(APPEND compiled_shaders ${shader_output})
+        ENDFOREACH()
 
-    ADD_CUSTOM_TARGET(compile_shaders DEPENDS ${compiled_shaders} SOURCES ${shader_sources})
-    SET_PROPERTY(TARGET compile_shaders PROPERTY FOLDER "events")
+        ADD_CUSTOM_TARGET(compile_shaders DEPENDS ${compiled_shaders} SOURCES ${shader_sources})
+        SET_PROPERTY(TARGET compile_shaders PROPERTY FOLDER "events")
+    ENDIF()
+
     ADD_DEPENDENCIES(${target_name} compile_shaders)
 ENDFUNCTION()
 
-ADD_SUBDIRECTORY(${SOURCE_THIRDPARTY_DIRECTORY})
-ADD_SUBDIRECTORY(${SOURCE_ENGINE_DIRECTORY})
-ADD_SUBDIRECTORY(${SOURCE_TOOLS_DIRECTORY})
-ADD_SUBDIRECTORY(${SOURCE_GAME_DIRECTORY})
-
-# Make the game the startup project when opening the solution in Visual Studio
-SET_PROPERTY(DIRECTORY ${CMAKE_CURRENT_LIST_DIR} PROPERTY VS_STARTUP_PROJECT dyro_game)
-
 # -------------------------------
 # Copy the content folder (textures, ...) next to the executable so the
-# engine can load assets with paths relative to the executable.
+# engine can load assets with paths relative to the executable. Defined
+# before the games are added below, so each game's own CMakeLists.txt can
+# depend on it directly with ADD_DEPENDENCIES(<target> copy-content).
 # -------------------------------
 FILE(GLOB_RECURSE CONTENT_FILES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/content/*")
 SOURCE_GROUP(TREE "${CMAKE_SOURCE_DIR}/content" PREFIX "content" FILES ${CONTENT_FILES})
@@ -113,7 +112,16 @@ ADD_CUSTOM_TARGET(copy-content ALL
     VERBATIM)
 
 SET_PROPERTY(TARGET copy-content PROPERTY FOLDER "events")
-ADD_DEPENDENCIES(dyro_game copy-content)
+
+ADD_SUBDIRECTORY(${SOURCE_THIRDPARTY_DIRECTORY})
+ADD_SUBDIRECTORY(${SOURCE_ENGINE_DIRECTORY})
+ADD_SUBDIRECTORY(${SOURCE_TOOLS_DIRECTORY})
+ADD_SUBDIRECTORY(${SOURCE_GAMES_DIRECTORY})
+
+# Make the demo game the startup project when opening the solution in Visual
+# Studio; right-click a different game and "Set as Startup Project" to debug
+# that one instead.
+SET_PROPERTY(DIRECTORY ${CMAKE_CURRENT_LIST_DIR} PROPERTY VS_STARTUP_PROJECT dyro_game)
 
 # -------------------------------
 # Optional "docs" target that regenerates the html documentation in docs/html

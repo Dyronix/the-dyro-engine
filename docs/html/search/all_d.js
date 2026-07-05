@@ -3,8 +3,8 @@ var searchData=
   ['n_0',['n',['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a7b8b965ad4bca0e41ab51de7b31363a1',1,'dyro']]],
   ['nearest_1',['nearest',['../namespacedyro.html#afdaa2b492874f44afa5acbb8341258c3ad879c351426770bc0b13c3628db1e636',1,'dyro']]],
   ['new_5fframe_2',['new_frame',['../classdyro_1_1input.html#a5bf16cd1f2d16e0dff48656f17244dd1',1,'dyro::input']]],
-  ['noise_20core_20noise_20h_3',['Noise (core/noise.h)',['../page_utilities.html#autotoc_md32',1,'']]],
-  ['noise_20h_4',['Noise (core/noise.h)',['../page_utilities.html#autotoc_md32',1,'']]],
+  ['noise_20core_20noise_20h_3',['Noise (core/noise.h)',['../page_utilities.html#autotoc_md33',1,'']]],
+  ['noise_20h_4',['Noise (core/noise.h)',['../page_utilities.html#autotoc_md33',1,'']]],
   ['noise_2eh_5',['noise.h',['../noise_8h.html',1,'']]],
   ['noise_5f2d_6',['noise_2d',['../namespacedyro.html#ab8fd814f3384062ce134f6cad7d0c0c0',1,'dyro']]],
   ['noise_5f3d_7',['noise_3d',['../namespacedyro.html#aa061af15bfa2ceb3f24a5b4f94f5c31b',1,'dyro']]],
@@ -18,5 +18,5 @@ var searchData=
   ['num_5f7_15',['num_7',['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a310c3f5034d8b9fbd370840e6e1b6c6b',1,'dyro']]],
   ['num_5f8_16',['num_8',['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a761ae972118562072e8808d6244159fd',1,'dyro']]],
   ['num_5f9_17',['num_9',['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a92b019d256f53072b91d5d4316e7ba6b',1,'dyro']]],
-  ['numbers_20core_20random_20h_18',['Random numbers (core/random.h)',['../page_utilities.html#autotoc_md31',1,'']]]
+  ['numbers_20core_20random_20h_18',['Random numbers (core/random.h)',['../page_utilities.html#autotoc_md32',1,'']]]
 ];

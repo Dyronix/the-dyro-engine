@@ -186,12 +186,17 @@ A minimal complete game</h1>
 <div class="line">    std::shared_ptr&lt;dyro::texture&gt; m_ball;</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv)</div>
 <div class="line">{</div>
+<div class="line">    <span class="comment">// args::parser lets any setting be overridden at launch (see below). Each</span></div>
+<div class="line">    <span class="comment">// value you pass here is the fallback used when the setting is not on the</span></div>
+<div class="line">    <span class="comment">// command line, so this doubles as &quot;the default set in code&quot;.</span></div>
+<div class="line">    args::parser arguments(argc, argv);</div>
+<div class="line"> </div>
 <div class="line">    <a class="code hl_struct" href="structdyro_1_1engine__settings.html">dyro::engine_settings</a> settings;</div>
-<div class="line">    settings.<a class="code hl_variable" href="structdyro_1_1engine__settings.html#aeeaf18dd36f204d00ad380b4cd94a791">window_width</a> = 1280;</div>
-<div class="line">    settings.<a class="code hl_variable" href="structdyro_1_1engine__settings.html#ae457e23d7431738beb4b5506fbf5472f">window_height</a> = 720;</div>
-<div class="line">    settings.<a class="code hl_variable" href="structdyro_1_1engine__settings.html#a6c808b167152443408d375f77b161b86">window_title</a> = L<span class="stringliteral">&quot;my first game&quot;</span>;</div>
+<div class="line">    settings.<a class="code hl_variable" href="structdyro_1_1engine__settings.html#aeeaf18dd36f204d00ad380b4cd94a791">window_width</a> = arguments.get(<span class="stringliteral">&quot;window_width&quot;</span>, 1280u);</div>
+<div class="line">    settings.<a class="code hl_variable" href="structdyro_1_1engine__settings.html#ae457e23d7431738beb4b5506fbf5472f">window_height</a> = arguments.get(<span class="stringliteral">&quot;window_height&quot;</span>, 720u);</div>
+<div class="line">    settings.<a class="code hl_variable" href="structdyro_1_1engine__settings.html#a6c808b167152443408d375f77b161b86">window_title</a> = arguments.get(<span class="stringliteral">&quot;window_title&quot;</span>, std::wstring(L<span class="stringliteral">&quot;my first game&quot;</span>));</div>
 <div class="line"> </div>
 <div class="line">    my_game game;</div>
 <div class="line"> </div>
@@ -232,24 +237,29 @@ engine_settings</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">sampler_filter</span>  </td><td class="markdownTableBodyNone">how textures are filtered when scaled; <a class="el" href="namespacedyro.html#afdaa2b492874f44afa5acbb8341258c3ad879c351426770bc0b13c3628db1e636">dyro::texture_filter::nearest</a> keeps pixel art crisp instead of blurring it  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+Overriding settings at launch</h2>
+<p>The window size and title can be overridden on the command line by their own name, without rebuilding. <span class="tt">run.bat</span> forwards any <span class="tt">-name=value</span> argument to the game:</p>
+<div class="fragment"><div class="line">run.bat -game=my_game -window_width=1920 -window_height=1080 -window_title=Demo</div>
+</div><!-- fragment --><p>Settings you do not pass keep the value set in <span class="tt">main()</span>. <span class="tt">gpu_preference</span>, <span class="tt">clear_color</span> and <span class="tt">sampler_filter</span> are set in code and are not exposed on the command line (they rarely change between runs). A misspelled or unsupported setting is logged as a warning and its code default is used. The parsing lives in the small header-only <span class="tt">args</span> library (<span class="tt">source/third_party/args</span>).</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
 Where to put your code</h1>
 <p>Look at <span class="tt">source/games/dyro_game</span>: it contains the demo game. Replace it with your own. The four <a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a> overrides are all optional; override only the ones you need. From here, continue with <a class="el" href="page_drawing.html" title="Drawing">Drawing</a> and <a class="el" href="page_input.html" title="Input">Input</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
 Adding files to your game</h1>
 <p>Game sources are discovered automatically: every <span class="tt">.cpp</span>/<span class="tt">.h</span> file under your game's <span class="tt">private</span> folder is part of the game. To add a class:</p>
 <ol type="1">
-<li>Create the file(s) in <span class="tt">source/games/&lt;your_game&gt;/private</span> — from the file explorer, or in Visual Studio via right-click on the project → <em>Add</em> → <em>New Item...</em>.</li>
-<li>Build. CMake notices the new file, regenerates the project, and Visual Studio asks to reload — click <em>Reload All</em>, then build again.</li>
+<li>Create the file(s) in <span class="tt">source/games/&lt;your_game&gt;/private</span>, from the file explorer, or in Visual Studio via right-click on the project → <em>Add</em> → <em>New Item...</em>.</li>
+<li>Build. CMake notices the new file, regenerates the project, and Visual Studio asks to reload; click <em>Reload All</em>, then build again.</li>
 </ol>
 <p>No <span class="tt">CMakeLists.txt</span> editing, no re-running <span class="tt">generate.bat</span>. Removing or renaming a file works exactly the same way: do it on disk, then build.</p>
-<p><b>One trap to avoid</b>: the <em>Add</em> → <em>New Item...</em> dialog defaults to the project directory inside <span class="tt">build/</span> (e.g. <span class="tt">build/source/games/dyro_game</span>). The <span class="tt">build/</span> folder is generated — it can be deleted and rebuilt at any time, so a file created there is not really part of your game. Always browse to the real source folder, <span class="tt">source/games/&lt;your_game&gt;/private</span>, before clicking <em>Add</em>. If a file does end up in <span class="tt">build/</span>, every build prints this warning in the Error List until you move it, so nothing is lost silently:</p>
+<p><b>One trap to avoid</b>: the <em>Add</em> → <em>New Item...</em> dialog defaults to the project directory inside <span class="tt">build/</span> (e.g. <span class="tt">build/source/games/dyro_game</span>). The <span class="tt">build/</span> folder is generated; it can be deleted and rebuilt at any time, so a file created there is not really part of your game. Always browse to the real source folder, <span class="tt">source/games/&lt;your_game&gt;/private</span>, before clicking <em>Add</em>. If a file does end up in <span class="tt">build/</span>, every build prints this warning in the Error List until you move it, so nothing is lost silently:</p>
 <div class="fragment"><div class="line">warning : This file was created inside the disposable build/ folder - fine</div>
 <div class="line">for a quick test, but it is NOT part of your game and will be lost when the</div>
 <div class="line">project regenerates. Move it to source/games/&lt;your_game&gt;/private/ - run</div>
 <div class="line">docs.bat and read &quot;Adding files to your game&quot; in the getting started guide.</div>
-</div><!-- fragment --><p>The warning starts with the full path of the stray file — double-click it in the Error List to open the file, then move it to your game's <span class="tt">private</span> folder and build again.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+</div><!-- fragment --><p>The warning starts with the full path of the stray file; double-click it in the Error List to open the file, then move it to your game's <span class="tt">private</span> folder and build again.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
 Adding a second game</h1>
 <p>Every game lives in its own folder under <span class="tt">source/games</span>, next to the demo (<span class="tt">source/games/dyro_game</span>). <span class="tt">source/games/CMakeLists.txt</span> lists one <span class="tt">ADD_SUBDIRECTORY(...)</span> per game. That is the <em>only</em> file you touch outside your new game's own folder. Here is everything needed to add one, using <span class="tt">awesome_game</span> as the example name.</p>
 <ol type="1">
@@ -290,13 +300,13 @@ Adding a second game</h1>
 <div class="line">SET_TARGET_PROPERTIES(awesome_game PROPERTIES</div>
 <div class="line">                      FOLDER &quot;games&quot;</div>
 <div class="line">                      VS_DEBUGGER_WORKING_DIRECTORY &quot;$&lt;TARGET_FILE_DIR:awesome_game&gt;&quot;)</div>
-</div><!-- fragment --><p class="startli">Note the sources block: you will never edit this file again to add code — see "Adding files to your game" above. <span class="tt">DYRO_COMPILE_SHADERS</span> and <span class="tt">copy-content</span> are both safe to depend on from more than one game: shaders and content live in one shared <span class="tt">/shaders</span> and <span class="tt">/content</span> folder, so every game shares the same compiled/copied output instead of redoing it per game.</p>
+</div><!-- fragment --><p class="startli">Note the sources block: you will never edit this file again to add code. See "Adding files to your game" above. <span class="tt">DYRO_COMPILE_SHADERS</span> and <span class="tt">copy-content</span> are both safe to depend on from more than one game: shaders and content live in one shared <span class="tt">/shaders</span> and <span class="tt">/content</span> folder, so every game shares the same compiled/copied output instead of redoing it per game.</p>
 </li>
 <li><p class="startli"><b>Register the folder in <span class="tt">source/games/CMakeLists.txt</span></b>. This is the one line this whole process adds outside your game's own folder:</p>
 <div class="fragment"><div class="line">ADD_SUBDIRECTORY(dyro_game)</div>
 <div class="line">ADD_SUBDIRECTORY(awesome_game)</div>
 </div><!-- fragment --></li>
-<li><p class="startli"><b>Regenerate and build</b>: <span class="tt">generate.bat</span> (or <span class="tt">cmake --preset vs2022</span>), then <span class="tt">build.bat</span>. Regenerating is only needed here because a whole new game (a new <span class="tt">ADD_SUBDIRECTORY</span> line) was added — adding files to an existing game never needs it. Visual Studio will show both <span class="tt">dyro_game</span> and <span class="tt">awesome_game</span> under the "games" folder; the existing startup project is still <span class="tt">dyro_game</span>. Right-click <span class="tt">awesome_game</span> → <em>Set as Startup Project</em> to debug it instead, or just run it without opening Visual Studio at all:</p>
+<li><p class="startli"><b>Regenerate and build</b>: <span class="tt">generate.bat</span> (or <span class="tt">cmake --preset vs2022</span>), then <span class="tt">build.bat</span>. Regenerating is only needed here because a whole new game (a new <span class="tt">ADD_SUBDIRECTORY</span> line) was added; adding files to an existing game never needs it. Visual Studio will show both <span class="tt">dyro_game</span> and <span class="tt">awesome_game</span> under the "games" folder; the existing startup project is still <span class="tt">dyro_game</span>. Right-click <span class="tt">awesome_game</span> → <em>Set as Startup Project</em> to debug it instead, or just run it without opening Visual Studio at all:</p>
 <div class="fragment"><div class="line">run.bat -game=awesome_game</div>
 </div><!-- fragment --></li>
 </ol>

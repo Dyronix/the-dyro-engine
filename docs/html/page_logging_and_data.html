@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('page_logging_a
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyro-engine_2docs_2pages_2logging__and__data"></a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Logging (core/log.h)</h1>
 <p>Three severities, all using fmt's <span class="tt">{}</span> style formatting. Messages appear in the console window and in the log file:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="namespacedyro_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyro::log::info</a>(<span class="stringliteral">&quot;loaded {} textures&quot;</span>, texture_count);</div>
@@ -146,7 +146,7 @@ Logging (core/log.h)</h1>
 <div class="ttc" id="anamespacedyro_1_1log_html_a41c28d4ec3297952f3e83877ecd2fa9e"><div class="ttname"><a href="namespacedyro_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyro::log::info</a></div><div class="ttdeci">void info(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an informational message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00036">log.h:36</a></div></div>
 <div class="ttc" id="anamespacedyro_1_1log_html_a6a42bd3a794182e3e94c975276cd3ff3"><div class="ttname"><a href="namespacedyro_1_1log.html#a6a42bd3a794182e3e94c975276cd3ff3">dyro::log::error</a></div><div class="ttdeci">void error(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an error message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00066">log.h:66</a></div></div>
 </div><!-- fragment --><p>Logging is compiled in for <b>debug builds only</b>. In release every log call collapses to nothing, so no formatting cost is paid.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Asserts (core/assert.h)</h1>
 <p>Use DYRO_ASSERT to document assumptions your code makes; when the condition is false the program halts in the debugger at the call site:</p>
 <div class="fragment"><div class="line"><a class="code hl_define" href="assert_8h.html#a228573e0f3511fd7cc7ff02822c90cc1">DYRO_ASSERT</a>(frame_index &lt; frame_count);</div>

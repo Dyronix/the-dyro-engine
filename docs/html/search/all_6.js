@@ -1,7 +1,7 @@
 var searchData=
 [
   ['g_0',['g',['../structdyro_1_1color.html#a63ece6cdf00b45085eb47a5d34452cc5',1,'dyro::color::g'],['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6ab2f5ff47436671b6e533d8dc3614845d',1,'dyro::g']]],
-  ['game_1',['game',['../page_getting_started.html#autotoc_md7',1,'A minimal complete game'],['../page_getting_started.html#autotoc_md11',1,'Adding a second game'],['../page_getting_started.html#autotoc_md10',1,'Adding files to your game'],['../classdyro_1_1game.html',1,'dyro::game']]],
+  ['game_1',['game',['../page_getting_started.html#autotoc_md7',1,'A minimal complete game'],['../page_getting_started.html#autotoc_md12',1,'Adding a second game'],['../page_getting_started.html#autotoc_md11',1,'Adding files to your game'],['../classdyro_1_1game.html',1,'dyro::game']]],
   ['game_2eh_2',['game.h',['../game_8h.html',1,'']]],
   ['get_5fadapter_5finfo_3',['get_adapter_info',['../classdyro_1_1device.html#aab07b18e441baf054c4a861f74679cdd',1,'dyro::device']]],
   ['get_5fcpu_5fhandle_4',['get_cpu_handle',['../classdyro_1_1descriptor__heap.html#a5a5511978f16d3326fa568758e808732',1,'dyro::descriptor_heap']]],
@@ -33,7 +33,7 @@ var searchData=
   ['glyph_5fsize_30',['glyph_size',['../structdyro_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b',1,'dyro::font']]],
   ['glyphs_5fper_5frow_31',['glyphs_per_row',['../structdyro_1_1font.html#a975fd666a26a94bc8e631d56995bb969',1,'dyro::font']]],
   ['gpu_5fpreference_32',['gpu_preference',['../structdyro_1_1engine__settings.html#a20f8818058f8f7a4c8579a1c74179b0c',1,'dyro::engine_settings']]],
-  ['graphics_20card_20selection_33',['Graphics card selection',['../page_under_the_hood.html#autotoc_md22',1,'']]],
+  ['graphics_20card_20selection_33',['Graphics card selection',['../page_under_the_hood.html#autotoc_md23',1,'']]],
   ['green_34',['green',['../namespacedyro_1_1log.html#a8f97704cc9dfea62ed2ba4f1b5b5ad00',1,'dyro::log']]],
   ['grow_35',['grow',['../structdyro_1_1rect.html#aef8125e9ea80035d6e4483d91b2b8cd9',1,'dyro::rect::grow(vec2 point)'],['../structdyro_1_1rect.html#acd2f685b1a2d65e6d13d2eb386b7efc3',1,'dyro::rect::grow(const rect &amp;other)']]]
 ];

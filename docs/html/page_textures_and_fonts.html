@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('page_textures_
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyro-engine_2docs_2pages_2textures__and__fonts"></a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 Loading an image file</h1>
 <p><a class="el" href="classdyro_1_1texture__loader.html" title="Imports image files and uploads them to the gpu as textures.">dyro::texture_loader</a> decodes image files (png, jpg, bmp, tga, ...) and uploads them to the gpu. Load your textures once, in <a class="el" href="classdyro_1_1game.html#a7b25108e5bbb7d133a8a65c201d7e458" title="Called once after the engine started, before the first frame.">dyro::game::initialize</a>:</p>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> my_game::initialize(<a class="code hl_class" href="classdyro_1_1engine.html">dyro::engine</a>&amp; engine)</div>
@@ -147,7 +147,7 @@ Loading an image file</h1>
 <div class="ttc" id="anamespacedyro_1_1paths_html_ac36e0962b745165869d8c984b8b014b8"><div class="ttname"><a href="namespacedyro_1_1paths.html#ac36e0962b745165869d8c984b8b014b8">dyro::paths::get_executable_directory</a></div><div class="ttdeci">std::filesystem::path get_executable_directory()</div><div class="ttdoc">Returns the directory the running executable lives in.</div></div>
 </div><!-- fragment --><p>Textures come back as <span class="tt">std::shared_ptr&lt;<a class="el" href="classdyro_1_1texture.html" title="A 2d texture living in gpu memory, ready to be drawn on sprites.">dyro::texture</a>&gt;</span>. Store them as members and pass them to <span class="tt">draw_sprite</span> every frame. Loading returns <span class="tt">nullptr</span> when the file could not be read (an error is logged to the console).</p>
 <p>Put your images in <span class="tt">content/textures</span>; the build copies the whole <span class="tt">content</span> folder next to the executable, and <a class="el" href="namespacedyro_1_1paths.html#ac36e0962b745165869d8c984b8b014b8" title="Returns the directory the running executable lives in.">dyro::paths::get_executable_directory</a> finds it from there no matter where the game is started from.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Procedural textures</h1>
 <p><a class="el" href="classdyro_1_1texture__loader.html#a067d65d65f7e5a9de60abe4fde7cac52" title="Uploads raw pixels to the gpu, e.g. for procedurally generated textures.">dyro::texture_loader::create_from_pixels</a> uploads raw rgba pixels (4 bytes per pixel), so you can build textures in code. The demo game generates a grayscale texture from smooth noise this way:</p>
 <div class="fragment"><div class="line">std::shared_ptr&lt;dyro::texture&gt; make_noise_texture(<a class="code hl_class" href="classdyro_1_1texture__loader.html">dyro::texture_loader</a>&amp; loader, uint32_t size)</div>
@@ -176,7 +176,7 @@ Procedural textures</h1>
 <div class="ttc" id="aclassdyro_1_1texture__loader_html_a067d65d65f7e5a9de60abe4fde7cac52"><div class="ttname"><a href="classdyro_1_1texture__loader.html#a067d65d65f7e5a9de60abe4fde7cac52">dyro::texture_loader::create_from_pixels</a></div><div class="ttdeci">std::shared_ptr&lt; texture &gt; create_from_pixels(uint32_t width, uint32_t height, const uint8_t *rgba_pixels)</div><div class="ttdoc">Uploads raw pixels to the gpu, e.g. for procedurally generated textures.</div></div>
 <div class="ttc" id="anamespacedyro_html_ab8fd814f3384062ce134f6cad7d0c0c0"><div class="ttname"><a href="namespacedyro.html#ab8fd814f3384062ce134f6cad7d0c0c0">dyro::noise_2d</a></div><div class="ttdeci">float noise_2d(float x, float y)</div><div class="ttdoc">Samples smooth 2d noise, roughly in [-1, 1].</div></div>
 </div><!-- fragment --><p>Pixels with alpha 0 are fully transparent. The demo uses that to build a sprite sheet of circles on a transparent background (see <span class="tt">source/game/private/demo_game.cpp</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
 Bitmap fonts</h1>
 <p><a class="el" href="classdyro_1_1renderer__2d.html#a1c824ac8f88cfe7c83c54364b142a310" title="Draws a line of text with a bitmap font. Newlines (&#39;\n&#39;) continue on the next line.">dyro::renderer_2d::draw_text</a> renders with a <a class="el" href="structdyro_1_1font.html" title="A fixed-grid bitmap font: one atlas texture holding every character in a regular grid,...">dyro::font</a>: one atlas texture holding every character in a fixed grid, in ascii order. The struct only describes the grid; the defaults match the engine's built-in atlas (<span class="tt">content/fonts/font_8x8.png</span>):</p>
 <div class="fragment"><div class="line"><span class="comment">// in initialize:</span></div>

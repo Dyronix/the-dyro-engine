@@ -8,5 +8,6 @@ var searchData=
   ['on_5fmouse_5fbutton_5fevent_5',['on_mouse_button_event',['../classdyro_1_1input.html#a9e0317904cc406d94126704305548f54',1,'dyro::input']]],
   ['on_5fmouse_5fmove_6',['on_mouse_move',['../classdyro_1_1input.html#a1b8cf533be24c4995202497c9dd415d2',1,'dyro::input']]],
   ['on_5fmouse_5fwheel_7',['on_mouse_wheel',['../classdyro_1_1input.html#a016b08b6f202e3dbfbe7d38cdc0191c1',1,'dyro::input']]],
-  ['or_20released_8',['Held, pressed or released?',['../page_input.html#autotoc_md14',1,'']]]
+  ['or_20released_8',['Held, pressed or released?',['../page_input.html#autotoc_md15',1,'']]],
+  ['overriding_20settings_20at_20launch_9',['Overriding settings at launch',['../page_getting_started.html#autotoc_md9',1,'']]]
 ];

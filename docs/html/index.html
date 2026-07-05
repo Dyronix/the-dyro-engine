@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyro-engine_2docs_2pages_2index"></a></p>
 <p>A small DirectX 12 engine for 2D games, written to be read. Every system is one small class with one job, so you can dig into any part of the engine and understand it completely.</p>
-<p>Your game is a class that derives from <a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a> and overrides four functions — the engine owns the main loop and calls them at the right time:</p>
+<p>Your game is a class that derives from <a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a> and overrides four functions. The engine owns the main loop and calls them at the right time:</p>
 <div class="fragment"><div class="line"><span class="keyword">class </span>my_game : <span class="keyword">public</span> <a class="code hl_class" href="classdyro_1_1game.html">dyro::game</a></div>
 <div class="line">{</div>
 <div class="line"><span class="keyword">public</span>:</div>
@@ -150,20 +150,21 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html',''
 <div class="ttc" id="aclassdyro_1_1game_html_acbd4e0b052be54c3e6e350edab2ac012"><div class="ttname"><a href="classdyro_1_1game.html#acbd4e0b052be54c3e6e350edab2ac012">dyro::game::update</a></div><div class="ttdeci">virtual void update(float delta_seconds)</div><div class="ttdoc">Called every frame before drawing.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00035">game.h:35</a></div></div>
 <div class="ttc" id="aclassdyro_1_1game_html_add4689871c53edeca76aadd3f5fb1383"><div class="ttname"><a href="classdyro_1_1game.html#add4689871c53edeca76aadd3f5fb1383">dyro::game::draw</a></div><div class="ttdeci">virtual void draw(renderer_2d &amp;renderer)</div><div class="ttdoc">Called every frame to draw the game.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00040">game.h:40</a></div></div>
 <div class="ttc" id="aclassdyro_1_1renderer__2d_html"><div class="ttname"><a href="classdyro_1_1renderer__2d.html">dyro::renderer_2d</a></div><div class="ttdoc">Draws textured quads (sprites) into the current back buffer.</div><div class="ttdef"><b>Definition</b> <a href="renderer__2d_8h_source.html#l00046">renderer_2d.h:47</a></div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
 Finding things</h1>
-<p><b>Use the search box in the top-right corner.</b> Type the name of whatever you are working with — <span class="tt">draw_sprite</span>, <span class="tt">was_key_pressed</span>, <span class="tt">noise_2d</span>, <span class="tt">engine_settings</span> — and jump straight to its documentation. Every public class, function and parameter is in there.</p>
+<p><b>Use the search box in the top-right corner.</b> Type the name of whatever you are working with, such as <span class="tt">draw_sprite</span>, <span class="tt">was_key_pressed</span>, <span class="tt">noise_2d</span>, or <span class="tt">engine_settings</span>, and jump straight to its documentation. Every public class, function and parameter is in there.</p>
 <p>The guide pages below show each system in action, with code you can copy into your own game:</p>
 <ul>
-<li><a class="el" href="page_getting_started.html" title="Getting started">Getting started</a> — build the project and write your first game</li>
-<li><a class="el" href="page_drawing.html" title="Drawing">Drawing</a> — sprites, sprite sheets, rectangles, lines and text</li>
-<li><a class="el" href="page_input.html" title="Input">Input</a> — keyboard and mouse</li>
-<li><a class="el" href="page_textures_and_fonts.html" title="Textures and fonts">Textures and fonts</a> — loading images, procedural textures, bitmap fonts</li>
-<li><a class="el" href="page_utilities.html" title="Utilities">Utilities</a> — math, rects, timers, random numbers and noise</li>
-<li><a class="el" href="page_logging_and_data.html" title="Logging, asserts and json">Logging, asserts and json</a> — logging, asserts and json files</li>
-<li><a class="el" href="page_under_the_hood.html" title="Under the hood">Under the hood</a> — how the engine works inside</li>
+<li><a class="el" href="page_getting_started.html" title="Getting started">Getting started</a> : build the project and write your first game</li>
+<li><a class="el" href="page_drawing.html" title="Drawing">Drawing</a> : sprites, sprite sheets, rectangles, lines and text</li>
+<li><a class="el" href="page_input.html" title="Input">Input</a> : keyboard and mouse</li>
+<li><a class="el" href="page_textures_and_fonts.html" title="Textures and fonts">Textures and fonts</a> : loading images, procedural textures, bitmap fonts</li>
+<li><a class="el" href="page_utilities.html" title="Utilities">Utilities</a> : math, rects, timers, random numbers, noise and paths</li>
+<li><a class="el" href="page_logging_and_data.html" title="Logging and asserts">Logging and asserts</a> : logging and asserts</li>
+<li><a class="el" href="page_json.html" title="Json files">Json files</a> : reading and writing json files</li>
+<li><a class="el" href="page_under_the_hood.html" title="Under the hood">Under the hood</a> : how the engine works inside</li>
 </ul>
-<p>For the full API reference, browse the class list in the sidebar — start with <a class="el" href="classdyro_1_1engine.html" title="Owns all engine systems and runs the main loop.">dyro::engine</a>, <a class="el" href="classdyro_1_1renderer__2d.html" title="Draws textured quads (sprites) into the current back buffer.">dyro::renderer_2d</a> and <a class="el" href="classdyro_1_1input.html" title="Keeps track of the keyboard and mouse state.">dyro::input</a>, the three classes your game talks to every frame. </p>
+<p>For the full API reference, browse the class list in the sidebar. Start with <a class="el" href="classdyro_1_1engine.html" title="Owns all engine systems and runs the main loop.">dyro::engine</a>, <a class="el" href="classdyro_1_1renderer__2d.html" title="Draws textured quads (sprites) into the current back buffer.">dyro::renderer_2d</a> and <a class="el" href="classdyro_1_1input.html" title="Keeps track of the keyboard and mouse state.">dyro::input</a>, the three classes your game talks to every frame. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

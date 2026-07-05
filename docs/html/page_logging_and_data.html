@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: Logging, asserts and json</title>
+<title>DyroEngine: Logging and asserts</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -129,11 +129,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('page_logging_a
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Logging, asserts and json </div></div>
+  <div class="headertitle"><div class="title">Logging and asserts </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyro-engine_2docs_2pages_2logging__and__data"></a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
 Logging (core/log.h)</h1>
 <p>Three severities, all using fmt's <span class="tt">{}</span> style formatting. Messages appear in the console window and in the log file:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="namespacedyro_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyro::log::info</a>(<span class="stringliteral">&quot;loaded {} textures&quot;</span>, texture_count);</div>
@@ -145,47 +145,21 @@ Logging (core/log.h)</h1>
 <div class="ttc" id="anamespacedyro_1_1log_html_a3c257a1d07b29992a33d5000f03df4ae"><div class="ttname"><a href="namespacedyro_1_1log.html#a3c257a1d07b29992a33d5000f03df4ae">dyro::log::warn</a></div><div class="ttdeci">void warn(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs a warning message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00051">log.h:51</a></div></div>
 <div class="ttc" id="anamespacedyro_1_1log_html_a41c28d4ec3297952f3e83877ecd2fa9e"><div class="ttname"><a href="namespacedyro_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyro::log::info</a></div><div class="ttdeci">void info(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an informational message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00036">log.h:36</a></div></div>
 <div class="ttc" id="anamespacedyro_1_1log_html_a6a42bd3a794182e3e94c975276cd3ff3"><div class="ttname"><a href="namespacedyro_1_1log.html#a6a42bd3a794182e3e94c975276cd3ff3">dyro::log::error</a></div><div class="ttdeci">void error(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an error message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00066">log.h:66</a></div></div>
-</div><!-- fragment --><p>Logging is compiled in for <b>debug builds only</b> — in release every log call collapses to nothing, so no formatting cost is paid.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+</div><!-- fragment --><p>Logging is compiled in for <b>debug builds only</b>. In release every log call collapses to nothing, so no formatting cost is paid.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Asserts (core/assert.h)</h1>
 <p>Use DYRO_ASSERT to document assumptions your code makes; when the condition is false the program halts in the debugger at the call site:</p>
 <div class="fragment"><div class="line"><a class="code hl_define" href="assert_8h.html#a228573e0f3511fd7cc7ff02822c90cc1">DYRO_ASSERT</a>(frame_index &lt; frame_count);</div>
 <div class="line"><a class="code hl_define" href="assert_8h.html#aab9f80651a8199031111dce77b9527b2">DYRO_ASSERT_MSG</a>(frame_index &lt; frame_count, <span class="stringliteral">&quot;frame {} out of range&quot;</span>, frame_index);</div>
 <div class="ttc" id="aassert_8h_html_a228573e0f3511fd7cc7ff02822c90cc1"><div class="ttname"><a href="assert_8h.html#a228573e0f3511fd7cc7ff02822c90cc1">DYRO_ASSERT</a></div><div class="ttdeci">#define DYRO_ASSERT(condition)</div><div class="ttdoc">Halts the program in the debugger when the condition is false.</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00051">assert.h:51</a></div></div>
 <div class="ttc" id="aassert_8h_html_aab9f80651a8199031111dce77b9527b2"><div class="ttname"><a href="assert_8h.html#aab9f80651a8199031111dce77b9527b2">DYRO_ASSERT_MSG</a></div><div class="ttdeci">#define DYRO_ASSERT_MSG(condition,...)</div><div class="ttdoc">Same as DYRO_ASSERT, with an extra message explaining the failure (fmt &quot;{}&quot; style formatting):</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00071">assert.h:71</a></div></div>
-</div><!-- fragment --><p>Like logging, asserts are compiled away in release builds — <b>the condition is not even evaluated</b>, so never put code with side effects inside one.</p>
+</div><!-- fragment --><p>Like logging, asserts are compiled away in release builds. <b>The condition is not even evaluated</b>, so never put code with side effects inside one.</p>
 <p>For errors the game cannot recover from (in any build), <a class="el" href="namespacedyro.html#a4a43411f8bd58c95cb0dc2e6964a1319" title="Reports an unrecoverable error and terminates the program: logs the message, shows a message box,...">dyro::fatal_error</a> logs the message, shows a message box and exits:</p>
 <div class="fragment"><div class="line"><span class="keywordflow">if</span> (!m_ball_texture)</div>
 <div class="line">{</div>
 <div class="line">    <a class="code hl_function" href="namespacedyro.html#a4a43411f8bd58c95cb0dc2e6964a1319">dyro::fatal_error</a>(<span class="stringliteral">&quot;could not load {}&quot;</span>, path.string());</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacedyro_html_a4a43411f8bd58c95cb0dc2e6964a1319"><div class="ttname"><a href="namespacedyro.html#a4a43411f8bd58c95cb0dc2e6964a1319">dyro::fatal_error</a></div><div class="ttdeci">void fatal_error(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Reports an unrecoverable error and terminates the program: logs the message, shows a message box,...</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00036">assert.h:36</a></div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
-Json files (core/json.h)</h1>
-<p>For settings, save games and level data. <a class="el" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">dyro::json</a> is <a href="https://json.nlohmann.me">nlohmann::json</a>; <a class="el" href="namespacedyro.html#a933d1b0317c44dbcecf1c6c9a8037272" title="Loads and parses a json text file.">dyro::load_json</a> and <a class="el" href="namespacedyro.html#ae63ead95689b994efe4c7f014646db11" title="Saves a json value to a text file, pretty printed so the file stays readable in a text editor....">dyro::save_json</a> do the file handling:</p>
-<div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> path = <a class="code hl_function" href="namespacedyro_1_1paths.html#ac36e0962b745165869d8c984b8b014b8">dyro::paths::get_executable_directory</a>() / <span class="stringliteral">&quot;content&quot;</span> / <span class="stringliteral">&quot;settings.json&quot;</span>;</div>
-<div class="line"> </div>
-<div class="line"><a class="code hl_typedef" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">dyro::json</a> settings = <a class="code hl_function" href="namespacedyro.html#a933d1b0317c44dbcecf1c6c9a8037272">dyro::load_json</a>(path);</div>
-<div class="line"><span class="keywordflow">if</span> (!settings.is_discarded()) <span class="comment">// load_json logs an error and returns a discarded value on failure</span></div>
-<div class="line">{</div>
-<div class="line">    m_volume = settings[<span class="stringliteral">&quot;volume&quot;</span>];</div>
-<div class="line">    m_player_name = settings[<span class="stringliteral">&quot;player&quot;</span>][<span class="stringliteral">&quot;name&quot;</span>];</div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// saving: build a json value and write it (missing directories are created)</span></div>
-<div class="line"><a class="code hl_typedef" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">dyro::json</a> save;</div>
-<div class="line">save[<span class="stringliteral">&quot;volume&quot;</span>] = m_volume;</div>
-<div class="line">save[<span class="stringliteral">&quot;unlocked_levels&quot;</span>] = { 1, 2, 3 };</div>
-<div class="line"><a class="code hl_function" href="namespacedyro.html#ae63ead95689b994efe4c7f014646db11">dyro::save_json</a>(<a class="code hl_function" href="namespacedyro_1_1paths.html#ac36e0962b745165869d8c984b8b014b8">dyro::paths::get_executable_directory</a>() / <span class="stringliteral">&quot;save&quot;</span> / <span class="stringliteral">&quot;save.json&quot;</span>, save);</div>
-<div class="ttc" id="anamespacedyro_1_1paths_html_ac36e0962b745165869d8c984b8b014b8"><div class="ttname"><a href="namespacedyro_1_1paths.html#ac36e0962b745165869d8c984b8b014b8">dyro::paths::get_executable_directory</a></div><div class="ttdeci">std::filesystem::path get_executable_directory()</div><div class="ttdoc">Returns the directory the running executable lives in.</div></div>
-<div class="ttc" id="anamespacedyro_html_a933d1b0317c44dbcecf1c6c9a8037272"><div class="ttname"><a href="namespacedyro.html#a933d1b0317c44dbcecf1c6c9a8037272">dyro::load_json</a></div><div class="ttdeci">json load_json(const std::filesystem::path &amp;path)</div><div class="ttdoc">Loads and parses a json text file.</div></div>
-<div class="ttc" id="anamespacedyro_html_ae63ead95689b994efe4c7f014646db11"><div class="ttname"><a href="namespacedyro.html#ae63ead95689b994efe4c7f014646db11">dyro::save_json</a></div><div class="ttdeci">bool save_json(const std::filesystem::path &amp;path, const json &amp;data)</div><div class="ttdoc">Saves a json value to a text file, pretty printed so the file stays readable in a text editor....</div></div>
-<div class="ttc" id="anamespacedyro_html_af055d4db742acb75a7140af4ef0e36d2"><div class="ttname"><a href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">dyro::json</a></div><div class="ttdeci">nlohmann::json json</div><div class="ttdef"><b>Definition</b> <a href="json_8h_source.html#l00011">json.h:11</a></div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
-Paths (core/paths.h)</h1>
-<p><a class="el" href="namespacedyro_1_1paths.html#ac36e0962b745165869d8c984b8b014b8" title="Returns the directory the running executable lives in.">dyro::paths::get_executable_directory</a> returns the directory the running executable lives in. Load <b>all</b> content relative to it — a path like <span class="tt">"content/textures/ball.png"</span> only works when the game happens to be started from the right working directory, which is not the case when launching from Visual Studio or a shortcut:</p>
-<div class="fragment"><div class="line"><span class="keyword">const</span> std::filesystem::path content = <a class="code hl_function" href="namespacedyro_1_1paths.html#ac36e0962b745165869d8c984b8b014b8">dyro::paths::get_executable_directory</a>() / <span class="stringliteral">&quot;content&quot;</span>;</div>
-<div class="line">m_texture = engine.get_texture_loader().load_from_file(content / <span class="stringliteral">&quot;textures&quot;</span> / <span class="stringliteral">&quot;ball.png&quot;</span>);</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

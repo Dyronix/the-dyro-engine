@@ -138,7 +138,7 @@ Building the project</h1>
 <p>You need <b>Visual Studio 2022</b> with the <em>Desktop development with C++</em> workload and a recent <b>Windows 10/11 SDK</b> (both are part of the default workload installation).</p>
 <div class="fragment"><div class="line">cmake --preset vs2022        # generates build/dyro_engine.sln</div>
 <div class="line">cmake --build --preset debug # or open the solution and press F5</div>
-</div><!-- fragment --><p>The solution sets <span class="tt">dyro_game</span> as the startup project. Run it and you should see a checkerboard, a rotating red quad, a bouncing ball and a small hud — move the ball with wasd, tint it with space, resize it with the mouse wheel.</p>
+</div><!-- fragment --><p>The solution sets <span class="tt">dyro_game</span> as the startup project. Run it and you should see a checkerboard, a rotating red quad, a bouncing ball and a small hud. Move the ball with wasd, tint it with space, resize it with the mouse wheel.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Convenience scripts</h2>
 <p>If you'd rather skip Visual Studio and the raw CMake commands, the repo root has a few <span class="tt">.bat</span> wrappers around the same workflow:</p>
@@ -152,7 +152,7 @@ Convenience scripts</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">run.bat [-debug\|-release] [-game=name]</span>  </td><td class="markdownTableBodyNone">launches the built <span class="tt">dyro_game.exe</span> from <span class="tt">build/&lt;config&gt;</span>; pass <span class="tt">-game=name</span> to run a different executable, e.g. <span class="tt">-game=awesome_game</span>  </td></tr>
 </table>
-<p>And a second one for the docs you're reading right now:</p>
+<p>And an additional one for the docs you're reading right now:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">script  </th><th class="markdownTableHeadNone">what it does  </th></tr>
@@ -215,7 +215,7 @@ A minimal complete game</h1>
 <div class="ttc" id="astructdyro_1_1engine__settings_html_a6c808b167152443408d375f77b161b86"><div class="ttname"><a href="structdyro_1_1engine__settings.html#a6c808b167152443408d375f77b161b86">dyro::engine_settings::window_title</a></div><div class="ttdeci">std::wstring window_title</div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00028">engine.h:28</a></div></div>
 <div class="ttc" id="astructdyro_1_1engine__settings_html_ae457e23d7431738beb4b5506fbf5472f"><div class="ttname"><a href="structdyro_1_1engine__settings.html#ae457e23d7431738beb4b5506fbf5472f">dyro::engine_settings::window_height</a></div><div class="ttdeci">uint32_t window_height</div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00027">engine.h:27</a></div></div>
 <div class="ttc" id="astructdyro_1_1engine__settings_html_aeeaf18dd36f204d00ad380b4cd94a791"><div class="ttname"><a href="structdyro_1_1engine__settings.html#aeeaf18dd36f204d00ad380b4cd94a791">dyro::engine_settings::window_width</a></div><div class="ttdeci">uint32_t window_width</div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00026">engine.h:26</a></div></div>
-</div><!-- fragment --><p>A regular <span class="tt">main()</span> (instead of the win32 <span class="tt">WinMain</span>) keeps a console window around — that is where all engine log messages appear.</p>
+</div><!-- fragment --><p>A regular <span class="tt">main()</span> (instead of the win32 <span class="tt">WinMain</span>) keeps a console window around. That is where all engine log messages appear.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
 engine_settings</h1>
 <table class="markdownTable">
@@ -234,10 +234,24 @@ engine_settings</h1>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 Where to put your code</h1>
-<p>Look at <span class="tt">source/games/dyro_game</span>: it contains the demo game — replace it with your own. The four <a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a> overrides are all optional; override only the ones you need. From here, continue with <a class="el" href="page_drawing.html" title="Drawing">Drawing</a> and <a class="el" href="page_input.html" title="Input">Input</a>.</p>
+<p>Look at <span class="tt">source/games/dyro_game</span>: it contains the demo game. Replace it with your own. The four <a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a> overrides are all optional; override only the ones you need. From here, continue with <a class="el" href="page_drawing.html" title="Drawing">Drawing</a> and <a class="el" href="page_input.html" title="Input">Input</a>.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+Adding files to your game</h1>
+<p>Game sources are discovered automatically: every <span class="tt">.cpp</span>/<span class="tt">.h</span> file under your game's <span class="tt">private</span> folder is part of the game. To add a class:</p>
+<ol type="1">
+<li>Create the file(s) in <span class="tt">source/games/&lt;your_game&gt;/private</span> — from the file explorer, or in Visual Studio via right-click on the project → <em>Add</em> → <em>New Item...</em>.</li>
+<li>Build. CMake notices the new file, regenerates the project, and Visual Studio asks to reload — click <em>Reload All</em>, then build again.</li>
+</ol>
+<p>No <span class="tt">CMakeLists.txt</span> editing, no re-running <span class="tt">generate.bat</span>. Removing or renaming a file works exactly the same way: do it on disk, then build.</p>
+<p><b>One trap to avoid</b>: the <em>Add</em> → <em>New Item...</em> dialog defaults to the project directory inside <span class="tt">build/</span> (e.g. <span class="tt">build/source/games/dyro_game</span>). The <span class="tt">build/</span> folder is generated — it can be deleted and rebuilt at any time, so a file created there is not really part of your game. Always browse to the real source folder, <span class="tt">source/games/&lt;your_game&gt;/private</span>, before clicking <em>Add</em>. If a file does end up in <span class="tt">build/</span>, every build prints this warning in the Error List until you move it, so nothing is lost silently:</p>
+<div class="fragment"><div class="line">warning : This file was created inside the disposable build/ folder - fine</div>
+<div class="line">for a quick test, but it is NOT part of your game and will be lost when the</div>
+<div class="line">project regenerates. Move it to source/games/&lt;your_game&gt;/private/ - run</div>
+<div class="line">docs.bat and read &quot;Adding files to your game&quot; in the getting started guide.</div>
+</div><!-- fragment --><p>The warning starts with the full path of the stray file — double-click it in the Error List to open the file, then move it to your game's <span class="tt">private</span> folder and build again.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
 Adding a second game</h1>
-<p>Every game lives in its own folder under <span class="tt">source/games</span>, next to the demo (<span class="tt">source/games/dyro_game</span>). <span class="tt">source/games/CMakeLists.txt</span> lists one <span class="tt">ADD_SUBDIRECTORY(...)</span> per game — that is the <em>only</em> file you touch outside your new game's own folder. Here is everything needed to add one, using <span class="tt">awesome_game</span> as the example name.</p>
+<p>Every game lives in its own folder under <span class="tt">source/games</span>, next to the demo (<span class="tt">source/games/dyro_game</span>). <span class="tt">source/games/CMakeLists.txt</span> lists one <span class="tt">ADD_SUBDIRECTORY(...)</span> per game. That is the <em>only</em> file you touch outside your new game's own folder. Here is everything needed to add one, using <span class="tt">awesome_game</span> as the example name.</p>
 <ol type="1">
 <li><p class="startli"><b>Create the folder and its files</b>:</p>
 <div class="fragment"><div class="line">source/games/awesome_game/</div>
@@ -247,16 +261,18 @@ Adding a second game</h1>
 <div class="line">    awesome_game.h</div>
 <div class="line">    awesome_game.cpp</div>
 </div><!-- fragment --><p class="startli"><span class="tt">awesome_game.h</span>/<span class="tt">.cpp</span> hold your <span class="tt"><a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a></span> subclass (see "A minimal
-   complete game" above); <span class="tt">main.cpp</span> follows the same <span class="tt">main()</span> pattern, with its own <span class="tt">window_title</span>.</p>
+   complete game" above); <span class="tt">main.cpp</span> follows the same <span class="tt">main()</span> pattern, with its own <span class="tt">window_title</span>. Create these files before the generate step below: the build takes whatever is in <span class="tt">private</span> when it runs, and a game with an empty <span class="tt">private</span> folder fails to configure (no source files).</p>
 </li>
-<li><p class="startli"><b>Add <span class="tt">source/games/awesome_game/CMakeLists.txt</span></b>, modeled on <span class="tt">source/games/dyro_game/CMakeLists.txt</span> with the target renamed throughout — this name is also what you pass to <span class="tt">run.bat -game=</span>:</p>
+<li><p class="startli"><b>Add <span class="tt">source/games/awesome_game/CMakeLists.txt</span></b>, modeled on <span class="tt">source/games/dyro_game/CMakeLists.txt</span> with the target renamed throughout. This name is also what you pass to <span class="tt">run.bat -game=</span>:</p>
 <div class="fragment"><div class="line">MESSAGE(STATUS &quot;Adding game - awesome_game&quot;)</div>
 <div class="line">ADD_EXECUTABLE(awesome_game)</div>
 <div class="line"> </div>
-<div class="line">TARGET_SOURCES(awesome_game PRIVATE</div>
-<div class="line">    ${CMAKE_CURRENT_LIST_DIR}/private/main.cpp</div>
-<div class="line">    ${CMAKE_CURRENT_LIST_DIR}/private/awesome_game.h</div>
-<div class="line">    ${CMAKE_CURRENT_LIST_DIR}/private/awesome_game.cpp)</div>
+<div class="line"># Sources: every .cpp/.h file under the private/ folder is part of this game</div>
+<div class="line">FILE(GLOB_RECURSE game_sources CONFIGURE_DEPENDS</div>
+<div class="line">     &quot;${CMAKE_CURRENT_LIST_DIR}/private/*.cpp&quot;</div>
+<div class="line">     &quot;${CMAKE_CURRENT_LIST_DIR}/private/*.h&quot;</div>
+<div class="line">     &quot;${CMAKE_CURRENT_LIST_DIR}/private/*.hpp&quot;)</div>
+<div class="line">TARGET_SOURCES(awesome_game PRIVATE ${game_sources})</div>
 <div class="line"> </div>
 <div class="line">GROUPSOURCES(${CMAKE_CURRENT_LIST_DIR}/private private)</div>
 <div class="line"> </div>
@@ -268,20 +284,23 @@ Adding a second game</h1>
 <div class="line"># Wait for the shared /content folder to be copied next to the exe</div>
 <div class="line">ADD_DEPENDENCIES(awesome_game copy-content)</div>
 <div class="line"> </div>
+<div class="line"># Warn on every build about source files accidentally created in build/</div>
+<div class="line">ADD_DEPENDENCIES(awesome_game check_stray_sources)</div>
+<div class="line"> </div>
 <div class="line">SET_TARGET_PROPERTIES(awesome_game PROPERTIES</div>
 <div class="line">                      FOLDER &quot;games&quot;</div>
 <div class="line">                      VS_DEBUGGER_WORKING_DIRECTORY &quot;$&lt;TARGET_FILE_DIR:awesome_game&gt;&quot;)</div>
-</div><!-- fragment --><p class="startli"><span class="tt">DYRO_COMPILE_SHADERS</span> and <span class="tt">copy-content</span> are both safe to depend on from more than one game: shaders and content live in one shared <span class="tt">/shaders</span> and <span class="tt">/content</span> folder, so every game shares the same compiled/copied output instead of redoing it per game.</p>
+</div><!-- fragment --><p class="startli">Note the sources block: you will never edit this file again to add code — see "Adding files to your game" above. <span class="tt">DYRO_COMPILE_SHADERS</span> and <span class="tt">copy-content</span> are both safe to depend on from more than one game: shaders and content live in one shared <span class="tt">/shaders</span> and <span class="tt">/content</span> folder, so every game shares the same compiled/copied output instead of redoing it per game.</p>
 </li>
-<li><p class="startli"><b>Register the folder in <span class="tt">source/games/CMakeLists.txt</span></b> — the one line this whole process adds outside your game's own folder:</p>
+<li><p class="startli"><b>Register the folder in <span class="tt">source/games/CMakeLists.txt</span></b>. This is the one line this whole process adds outside your game's own folder:</p>
 <div class="fragment"><div class="line">ADD_SUBDIRECTORY(dyro_game)</div>
 <div class="line">ADD_SUBDIRECTORY(awesome_game)</div>
 </div><!-- fragment --></li>
-<li><p class="startli"><b>Regenerate and build</b>: <span class="tt">generate.bat</span> (or <span class="tt">cmake --preset vs2022</span>), then <span class="tt">build.bat</span>. Visual Studio will show both <span class="tt">dyro_game</span> and <span class="tt">awesome_game</span> under the "games" folder; the existing startup project is still <span class="tt">dyro_game</span> — right-click <span class="tt">awesome_game</span> → <em>Set as Startup Project</em> to debug it instead, or just run it without opening Visual Studio at all:</p>
+<li><p class="startli"><b>Regenerate and build</b>: <span class="tt">generate.bat</span> (or <span class="tt">cmake --preset vs2022</span>), then <span class="tt">build.bat</span>. Regenerating is only needed here because a whole new game (a new <span class="tt">ADD_SUBDIRECTORY</span> line) was added — adding files to an existing game never needs it. Visual Studio will show both <span class="tt">dyro_game</span> and <span class="tt">awesome_game</span> under the "games" folder; the existing startup project is still <span class="tt">dyro_game</span>. Right-click <span class="tt">awesome_game</span> → <em>Set as Startup Project</em> to debug it instead, or just run it without opening Visual Studio at all:</p>
 <div class="fragment"><div class="line">run.bat -game=awesome_game</div>
 </div><!-- fragment --></li>
 </ol>
-<p>Everything else — the engine library, the shared <span class="tt">/content</span> and <span class="tt">/shaders</span> folders, <span class="tt"><a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a></span>, <span class="tt"><a class="el" href="classdyro_1_1engine.html" title="Owns all engine systems and runs the main loop.">dyro::engine</a></span> — is exactly the same for every game in the project. </p>
+<p>Everything else is exactly the same for every game in the project: the engine library, the shared <span class="tt">/content</span> and <span class="tt">/shaders</span> folders, <span class="tt"><a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a></span>, and <span class="tt"><a class="el" href="classdyro_1_1engine.html" title="Owns all engine systems and runs the main loop.">dyro::engine</a></span>. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

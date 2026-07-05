@@ -14,7 +14,7 @@ void my_game::initialize(dyro::engine& engine)
 }
 ```
 
-Textures come back as `std::shared_ptr<dyro::texture>` — store them as
+Textures come back as `std::shared_ptr<dyro::texture>`. Store them as
 members and pass them to `draw_sprite` every frame. Loading returns
 `nullptr` when the file could not be read (an error is logged to the
 console).
@@ -54,7 +54,7 @@ std::shared_ptr<dyro::texture> make_noise_texture(dyro::texture_loader& loader, 
 }
 ```
 
-Pixels with alpha 0 are fully transparent — the demo uses that to build a
+Pixels with alpha 0 are fully transparent. The demo uses that to build a
 sprite sheet of circles on a transparent background (see
 `source/game/private/demo_game.cpp`).
 

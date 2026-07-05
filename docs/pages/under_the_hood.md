@@ -1,6 +1,6 @@
 # Under the hood {#page_under_the_hood}
 
-You do not need anything on this page to make a game — but the whole point
+You do not need anything on this page to make a game, but the whole point
 of this engine is that you *can* read it. dyro::engine::run brings the
 systems up in dependency order, then runs the main loop. Each system is one
 small class:
@@ -21,7 +21,7 @@ small class:
 | dyro::renderer_2d | draws textured quads (this is a 2D engine: everything is a quad) |
 
 Every class name above links to its documentation, and from there the
-**source browser** shows you the full header — the headers are written to be
+**source browser** shows you the full header. The headers are written to be
 read.
 
 ## Graphics card selection
@@ -31,9 +31,9 @@ picking one (dyro::adapter_selection). Each adapter gets a score based on
 its dedicated video memory (the dominant factor), maximum feature level and
 highest shader model. Software adapters (WARP) score zero and are only used
 when no real card exists. Set `engine_settings::gpu_preference` to
-dyro::adapter_preference::lowest_score to run on the weakest card — handy
-for testing how your game behaves on low-end hardware. The scoring of every
-card is printed to the console at startup.
+dyro::adapter_preference::lowest_score to run on the weakest card, which is
+handy for testing how your game behaves on low-end hardware. The scoring of
+every card is printed to the console at startup.
 
 ## Shader compilation (the toolchain)
 
@@ -42,11 +42,11 @@ DirectX 12 can only load *compiled* shaders. The `shader_compiler` tool
 turns `.hlsl` files into `.cso` bytecode that dyro::shader_library loads at
 startup.
 
-It is wired into the build by `DYRO_COMPILE_SHADERS` in the root
-`CMakeLists.txt`: every `*.hlsl` file in `/shaders` is compiled into
+It is wired into the build by `DYRO_COMPILE_SHADERS` in
+`cmake/compile_shaders.cmake`: every `*.hlsl` file in `/shaders` is compiled into
 `<build>/<config>/content/shaders/` as part of a normal build. CMake tracks
-the dependencies, so a shader is only recompiled when its source changed —
-exactly like C++ files. The shader profile is derived from the file name:
+the dependencies, so a shader is only recompiled when its source changed,
+just like C++ files. The shader profile is derived from the file name:
 `foo_vs.hlsl` becomes a vertex shader, `foo_ps.hlsl` a pixel shader. To add
 a shader, drop the file in `/shaders` and build.
 
@@ -76,7 +76,7 @@ dyro::renderer_2d::draw_text renders with a bitmap font: one atlas texture
 holding every character in a fixed grid (`content/fonts/font_8x8.png`,
 based on the public domain [font8x8](https://github.com/dhepper/font8x8) by
 Daniel Hepper). The dyro::font struct describes the grid; each character
-becomes one quad that shows its part of the atlas — text rendering is just
+becomes one quad that shows its part of the atlas. Text rendering is just
 sprite sheet drawing.
 
 ## The frame
@@ -86,8 +86,8 @@ memory; every `draw_sprite` call draws that same quad with its own
 transform, texture and tint (passed as root constants + a descriptor
 table). The engine keeps one command allocator per back buffer and uses a
 fence (dyro::command_queue) to wait until the gpu released a buffer before
-recording into it again — the classic "frames in flight" pattern, in its
-smallest possible form.
+recording into it again. This is the classic "frames in flight" pattern, in
+its smallest possible form.
 
 Textures are sampled through a single static sampler baked into the root
 signature at startup, so its filter cannot change mid-run. Set

@@ -3,8 +3,8 @@
 All drawing happens in your dyro::game::draw override, through the
 dyro::renderer_2d the engine passes you. The engine already called
 dyro::renderer_2d::begin_frame (which clears the screen) before your draw,
-and calls dyro::renderer_2d::end_frame (which presents the frame) after it —
-inside `draw` you only submit what you want to see.
+and calls dyro::renderer_2d::end_frame (which presents the frame) after it.
+Inside `draw` you only submit what you want to see.
 
 ## Coordinates
 
@@ -29,7 +29,7 @@ void my_game::draw(dyro::renderer_2d& renderer)
 
 The tint is multiplied with the texture: white (the default) leaves the
 texture untouched, and the alpha component makes the sprite transparent.
-See dyro::color — components are in the [0, 1] range.
+See dyro::color; components are in the [0, 1] range.
 
 ## Sprite sheets
 
@@ -49,7 +49,7 @@ renderer.draw_sprite(*m_circle_sheet, frame_rect, { 1030.0f, 200.0f }, { 100.0f,
 
 ## Rectangles and lines
 
-Useful for debug overlays, health bars and simple shapes — no texture
+Useful for debug overlays, health bars and simple shapes. No texture is
 needed:
 
 ```cpp

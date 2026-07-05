@@ -18,7 +18,7 @@ if (input.was_key_released(dyro::key::escape)) { /* only the frame it came up  *
 ```
 
 Use `is_key_down` for continuous actions (moving, shooting a beam) and
-`was_key_pressed` for one-shot actions (jump, toggle pause) — with
+`was_key_pressed` for one-shot actions (jump, toggle pause). With
 `is_key_down` a single tap would fire on every frame it spans.
 
 The available keys are the dyro::key enum: letters (`dyro::key::a` ...),

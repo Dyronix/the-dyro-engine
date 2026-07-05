@@ -101,18 +101,18 @@ ones you need. From here, continue with @ref page_drawing and @ref page_input.
 Game sources are discovered automatically: every `.cpp`/`.h` file under your
 game's `private` folder is part of the game. To add a class:
 
-1. Create the file(s) in `source/games/<your_game>/private` — from the file
+1. Create the file(s) in `source/games/<your_game>/private`, from the file
    explorer, or in Visual Studio via right-click on the project → *Add* →
    *New Item...*.
 2. Build. CMake notices the new file, regenerates the project, and Visual
-   Studio asks to reload — click *Reload All*, then build again.
+   Studio asks to reload; click *Reload All*, then build again.
 
 No `CMakeLists.txt` editing, no re-running `generate.bat`. Removing or
 renaming a file works exactly the same way: do it on disk, then build.
 
 **One trap to avoid**: the *Add* → *New Item...* dialog defaults to the
 project directory inside `build/` (e.g. `build/source/games/dyro_game`). The
-`build/` folder is generated — it can be deleted and rebuilt at any time, so
+`build/` folder is generated; it can be deleted and rebuilt at any time, so
 a file created there is not really part of your game. Always browse to the
 real source folder, `source/games/<your_game>/private`, before clicking
 *Add*. If a file does end up in `build/`, every build prints this warning in
@@ -125,7 +125,7 @@ project regenerates. Move it to source/games/<your_game>/private/ - run
 docs.bat and read "Adding files to your game" in the getting started guide.
 ```
 
-The warning starts with the full path of the stray file — double-click it in
+The warning starts with the full path of the stray file; double-click it in
 the Error List to open the file, then move it to your game's `private`
 folder and build again.
 
@@ -187,8 +187,8 @@ your new game's own folder. Here is everything needed to add one, using
                          VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:awesome_game>")
    ```
 
-   Note the sources block: you will never edit this file again to add code —
-   see "Adding files to your game" above. `DYRO_COMPILE_SHADERS` and
+   Note the sources block: you will never edit this file again to add code.
+   See "Adding files to your game" above. `DYRO_COMPILE_SHADERS` and
    `copy-content` are both safe to depend on from more than one game: shaders
    and content live in one shared `/shaders` and `/content` folder, so every
    game shares the same compiled/copied output instead of redoing it per
@@ -204,7 +204,7 @@ your new game's own folder. Here is everything needed to add one, using
 
 4. **Regenerate and build**: `generate.bat` (or `cmake --preset vs2022`),
    then `build.bat`. Regenerating is only needed here because a whole new
-   game (a new `ADD_SUBDIRECTORY` line) was added — adding files to an
+   game (a new `ADD_SUBDIRECTORY` line) was added; adding files to an
    existing game never needs it. Visual Studio will show both `dyro_game` and
    `awesome_game` under the "games" folder; the existing startup project is
    still `dyro_game`. Right-click `awesome_game` → *Set as Startup Project*

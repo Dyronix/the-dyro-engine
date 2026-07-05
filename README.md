@@ -23,15 +23,17 @@ cmake --build --preset debug # or open the solution and press F5
 ```
 
 The solution sets `dyro_game` as the startup project. Run it and you should
-see a checkerboard, a rotating red quad, a bouncing ball and a small hud —
-move the ball with wasd, tint it with space, resize it with the mouse wheel.
+see a checkerboard, a rotating red quad, a bouncing ball and a small hud.
+Move the ball with wasd, tint it with space, resize it with the mouse wheel.
 
 ## Making your own game
 
 Look at `source/games/dyro_game`: a game is a class that derives from
-`dyro::game` and overrides four functions. Want to add a second game
-alongside the demo instead of replacing it? See "Adding a second game" in
-[the getting started guide](docs/html/page_getting_started.html).
+`dyro::game` and overrides four functions. To add code, just create new
+`.cpp`/`.h` files in `source/games/dyro_game/private` and build; they are
+picked up automatically, no build-system editing needed. Want to add a
+second game alongside the demo instead of replacing it? See "Adding a second
+game" in [the getting started guide](docs/html/page_getting_started.html).
 
 ```cpp
 class my_game : public dyro::game
@@ -82,6 +84,7 @@ Math is [glm](https://github.com/g-truc/glm) under dyro names: `dyro::vec2`,
 ## Folder structure
 
 ```
+cmake/            build-system helper scripts (each one is commented)
 content/          textures, fonts and other assets (copied next to the exe at build time)
 shaders/          hlsl shader source files (compiled at build time)
 source/
@@ -89,7 +92,8 @@ source/
     public/       headers your game may include
     private/      implementation details
   games/          one folder per game (see source/games/CMakeLists.txt)
-    dyro_game/    the demo game - replace it, or add more games next to it
+    dyro_game/    the demo game; replace it, or add more games next to it
+                  (new .cpp/.h files in its private/ folder are picked up automatically)
   tools/
     shader_compiler/  build tool that compiles hlsl to directx bytecode
   third_party/    code you use but do not need to read:
@@ -130,7 +134,7 @@ picking one. Each adapter gets a score based on its dedicated video memory
 (the dominant factor), maximum feature level and highest shader model.
 Software adapters (WARP) score zero and are only used when no real card
 exists. Set `engine_settings::gpu_preference` to
-`adapter_preference::lowest_score` to run on the weakest card — handy for
+`adapter_preference::lowest_score` to run on the weakest card, handy for
 testing how your game behaves on low-end hardware. The scoring of every card
 is printed to the console at startup.
 
@@ -140,11 +144,11 @@ DirectX 12 can only load *compiled* shaders. The `shader_compiler` tool (built
 from `source/tools/shader_compiler`, using Microsoft's DXC compiler) turns
 `.hlsl` files into `.cso` bytecode.
 
-It is wired into the build by `DYRO_COMPILE_SHADERS` in the root
-`CMakeLists.txt`: every `*.hlsl` file in `/shaders` is compiled into
+It is wired into the build by `DYRO_COMPILE_SHADERS` in
+`cmake/compile_shaders.cmake`: every `*.hlsl` file in `/shaders` is compiled into
 `<build>/<config>/content/shaders/` as part of a normal build. CMake tracks
 the dependencies, so a shader is only recompiled when its source changed or
-when it has never been compiled — exactly like C++ files.
+when it has never been compiled, just like C++ files.
 
 The shader profile is derived from the file name: `foo_vs.hlsl` becomes a
 vertex shader, `foo_ps.hlsl` a pixel shader. To add a shader, drop the file in
@@ -168,7 +172,7 @@ again on shutdown. Watch the console: `created from scratch` on the first run,
 read cpu memory directly: pixels are written into an *upload buffer*, the gpu
 copies them into the final texture resource, and a *shader resource view* is
 created so shaders can sample it. All of that lives in one readable function:
-`texture_loader::create_from_pixels` — which you can also call yourself with
+`texture_loader::create_from_pixels`, which you can also call yourself with
 raw rgba pixels to build textures procedurally (the demo generates a noise
 texture and a sprite sheet this way).
 
@@ -181,7 +185,7 @@ folder next to the executable.
 character in a fixed grid (`content/fonts/font_8x8.png`, based on the public
 domain [font8x8](https://github.com/dhepper/font8x8) by Daniel Hepper). The
 `font` struct describes the grid; each character becomes one quad that shows
-its part of the atlas — text rendering is just sprite sheet drawing.
+its part of the atlas. Text rendering is just sprite sheet drawing.
 
 ### The frame
 
@@ -189,8 +193,8 @@ its part of the atlas — text rendering is just sprite sheet drawing.
 memory; every `draw_sprite` call draws that same quad with its own
 transform, texture and tint (passed as root constants + a descriptor table).
 The engine keeps one command allocator per back buffer and uses a fence to
-wait until the gpu released a buffer before recording into it again — the
-classic "frames in flight" pattern, in its smallest possible form.
+wait until the gpu released a buffer before recording into it again. This is
+the classic "frames in flight" pattern, in its smallest possible form.
 
 ## Ideas to extend it
 

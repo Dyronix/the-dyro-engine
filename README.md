@@ -13,14 +13,18 @@ public headers or the guide pages.)
 
 ## Getting started
 
-You need **Visual Studio 2022** with the *Desktop development with C++*
-workload and a recent **Windows 10/11 SDK** (both are part of the default
-workload installation).
+You need **Visual Studio 2026** (or **2022**) with the *Desktop development
+with C++* workload and a recent **Windows 10/11 SDK** (both are part of the
+default workload installation).
 
 ```
-cmake --preset vs2022        # generates build/dyro_engine.sln
-cmake --build --preset debug # or open the solution and press F5
+generate.bat                 # generates build/dyro_engine.sln (VS2026 by default)
+build.bat -debug             # or open the solution and press F5
 ```
+
+`generate.bat` targets Visual Studio 2026 by default; pass `-2022` to target
+Visual Studio 2022 instead. Switching between them re-generates from scratch.
+(VS2026 generation requires CMake 4.2 or newer.)
 
 The solution sets `dyro_game` as the startup project. Run it and you should
 see a checkerboard, a rotating red quad, a bouncing ball and a small hud.

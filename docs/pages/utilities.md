@@ -4,7 +4,7 @@
 
 The engine uses [glm](https://github.com/g-truc/glm) under dyro names:
 dyro::vec2, dyro::vec3, dyro::vec4, dyro::mat4, ... These are aliases, not
-wrappers — every glm function works on them directly, and the most used
+wrappers. Every glm function works on them directly, and the most used
 ones are available as `dyro::` too:
 
 ```cpp
@@ -19,7 +19,7 @@ float angle = dyro::radians(45.0f); // degrees -> radians (rotations are in radi
 m_smoothed_fps = dyro::lerp(m_smoothed_fps, 1.0f / delta_seconds, 0.05f);
 ```
 
-Colors are dyro::color — four floats `r, g, b, a` in [0, 1], defaulting to
+Colors are dyro::color: four floats `r, g, b, a` in [0, 1], defaulting to
 white.
 
 ## Rectangles (core/rect.h)
@@ -62,7 +62,7 @@ int damage = dyro::random_range(3, 5);            // [min, max] both inclusive
 ## Noise (core/noise.h)
 
 Smooth noise for procedural content: terrain heights, cloud patterns,
-camera shake, wobbly movement. Unlike `random_float` it has no state — the
+camera shake, wobbly movement. Unlike `random_float`, it has no state; the
 same coordinates always return the same value, and nearby coordinates
 return similar values:
 
@@ -75,6 +75,19 @@ float height = dyro::noise_2d(x * 0.01f, y * 0.01f); // slow, smooth
 float wobble = dyro::noise_3d(x * 0.05f, y * 0.05f, m_time);
 ```
 
-Both return values roughly in [-1, 1] — remap with `* 0.5f + 0.5f` when you
+Both return values roughly in [-1, 1]. Remap with `* 0.5f + 0.5f` when you
 need [0, 1] (see the procedural texture example in
 @ref page_textures_and_fonts).
+
+## Paths (core/paths.h)
+
+dyro::paths::get_executable_directory returns the directory the running
+executable lives in. Load **all** content relative to it. A path like
+`"content/textures/ball.png"` only works when the game happens to be
+started from the right working directory, which is not the case when
+launching from Visual Studio or a shortcut:
+
+```cpp
+const std::filesystem::path content = dyro::paths::get_executable_directory() / "content";
+m_texture = engine.get_texture_loader().load_from_file(content / "textures" / "ball.png");
+```

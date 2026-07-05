@@ -63,12 +63,17 @@ private:
     std::shared_ptr<dyro::texture> m_ball;
 };
 
-int main()
+int main(int argc, char** argv)
 {
+    // args::parser lets any setting be overridden at launch (see below). Each
+    // value you pass here is the fallback used when the setting is not on the
+    // command line, so this doubles as "the default set in code".
+    args::parser arguments(argc, argv);
+
     dyro::engine_settings settings;
-    settings.window_width = 1280;
-    settings.window_height = 720;
-    settings.window_title = L"my first game";
+    settings.window_width = arguments.get("window_width", 1280u);
+    settings.window_height = arguments.get("window_height", 720u);
+    settings.window_title = arguments.get("window_title", std::wstring(L"my first game"));
 
     my_game game;
 
@@ -89,6 +94,22 @@ around. That is where all engine log messages appear.
 | `gpu_preference` | which graphics card to run on; dyro::adapter_preference::lowest_score is handy to test how your game behaves on weaker hardware |
 | `clear_color` | the color the screen is cleared with before your game draws |
 | `sampler_filter` | how textures are filtered when scaled; dyro::texture_filter::nearest keeps pixel art crisp instead of blurring it |
+
+### Overriding settings at launch
+
+The window size and title can be overridden on the command line by their own
+name, without rebuilding. `run.bat` forwards any `-name=value` argument to the
+game:
+
+```
+run.bat -game=my_game -window_width=1920 -window_height=1080 -window_title=Demo
+```
+
+Settings you do not pass keep the value set in `main()`. `gpu_preference`,
+`clear_color` and `sampler_filter` are set in code and are not exposed on the
+command line (they rarely change between runs). A misspelled or unsupported
+setting is logged as a warning and its code default is used. The parsing lives
+in the small header-only `args` library (`source/third_party/args`).
 
 ## Where to put your code
 

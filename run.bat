@@ -4,6 +4,7 @@ setlocal
 set "CONFIG=Debug"
 set "CONFIG_ARG=-debug"
 set "GAME=dyro_game"
+set "FORWARD="
 
 :parse_args
 if "%~1"=="" goto args_done
@@ -26,7 +27,7 @@ rem cmd.exe splits "-game=name" into two args at the "=", so accept both
 rem the quoted form ("-game=name" as a single %1) and the unquoted one.
 if /i "%~1"=="-game" (
     if "%~2"=="" (
-        echo Usage: %~nx0 [-debug^|-release] [-game=name]
+        echo Usage: %~nx0 [-debug^|-release] [-game=name] [-setting=value ...]
         exit /b 1
     )
     set "GAME=%~2"
@@ -42,8 +43,22 @@ if /i "%ARG:~0,6%"=="-game=" (
     goto parse_args
 )
 
-echo Usage: %~nx0 [-debug^|-release] [-game=name]
-exit /b 1
+rem Anything else (e.g. -window_width=1920) is an engine setting; hand it to
+rem the game executable, which overrides engine_settings with it. Like -game
+rem above, cmd.exe splits an unquoted "-name=value" at the "=" into two args,
+rem so rejoin a "-name" token with the value token that follows it. The next
+rem token is a value only when it does not itself start with "-".
+set "NEXT=%~2"
+if not "%NEXT%"=="" if not "%NEXT:~0,1%"=="-" (
+    set "FORWARD=%FORWARD% %~1=%~2"
+    shift
+    shift
+    goto parse_args
+)
+
+set "FORWARD=%FORWARD% %~1"
+shift
+goto parse_args
 
 :args_done
 
@@ -62,7 +77,7 @@ if not exist "%EXE_PATH%" (
 
 pushd "%EXE_DIR%" >nul
 
-"%EXE_PATH%"
+"%EXE_PATH%"%FORWARD%
 set "EXIT_CODE=%ERRORLEVEL%"
 
 popd >nul

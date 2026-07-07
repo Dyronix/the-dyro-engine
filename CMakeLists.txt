@@ -6,8 +6,8 @@ IF(NOT WIN32)
     MESSAGE(FATAL_ERROR "DyxEngine uses DirectX 12 and can only be built on Windows.")
 ENDIF()
 
-# Use C++ 17 as a standard
-SET(CMAKE_CXX_STANDARD 17)
+# Use C++ 20 as a standard, the same standard current game consoles compile with
+SET(CMAKE_CXX_STANDARD 20)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Enable folder structure in the IDE

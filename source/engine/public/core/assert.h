@@ -1,6 +1,7 @@
 #pragma once
 
 #include <format>
+#include <source_location>
 #include <string_view>
 #include <utility>
 
@@ -18,7 +19,12 @@ namespace dyx
 		//----------------------------------------------------------
 		/// @brief Reports a failed assert (logs it), then returns so the
 		/// macro can break into the debugger at the call site.
-		void on_assert_failed(const char* condition, const char* file, int line, std::string_view message);
+		///
+		/// The defaulted location parameter is evaluated where the call is
+		/// written, and the assert macros expand at their call site, so it
+		/// captures the file, line and function of the failing assert (what
+		/// __FILE__ and __LINE__ used to do, plus the function name).
+		void on_assert_failed(const char* condition, std::string_view message, std::source_location location = std::source_location::current());
 
 		//----------------------------------------------------------
 		/// @brief Reports an unrecoverable error and terminates the program.
@@ -46,13 +52,18 @@ namespace dyx
 /// DYX_ASSERT(frame_index < frame_count);
 /// @endcode
 /// Compiled away in release builds.
+///
+/// A macro (instead of a function) is still needed here: only a macro can
+/// stringize the condition with #condition, skip evaluating it entirely in
+/// release, and fire __debugbreak() at the call site instead of inside a
+/// helper function.
 #if defined(DYX_ASSERT_ENABLED)
 	#define DYX_ASSERT(condition) \
 		do \
 		{ \
 			if (!(condition)) \
 			{ \
-				dyx::internal::on_assert_failed(#condition, __FILE__, __LINE__, {}); \
+				dyx::internal::on_assert_failed(#condition, {}); \
 				__debugbreak(); \
 			} \
 		} while (false)
@@ -72,7 +83,7 @@ namespace dyx
 		{ \
 			if (!(condition)) \
 			{ \
-				dyx::internal::on_assert_failed(#condition, __FILE__, __LINE__, std::format(__VA_ARGS__)); \
+				dyx::internal::on_assert_failed(#condition, std::format(__VA_ARGS__)); \
 				__debugbreak(); \
 			} \
 		} while (false)

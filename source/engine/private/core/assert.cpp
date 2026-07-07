@@ -13,15 +13,15 @@ namespace dyx
 	namespace internal
 	{
 		//--------------------------------------------------------------
-		void on_assert_failed(const char* condition, const char* file, int line, std::string_view message)
+		void on_assert_failed(const char* condition, std::string_view message, std::source_location location)
 		{
 			if (message.empty())
 			{
-				log::error("Assert failed: {} ({}:{})", condition, file, line);
+				log::error("Assert failed: {} in {} ({}:{})", condition, location.function_name(), location.file_name(), location.line());
 			}
 			else
 			{
-				log::error("Assert failed: {} - {} ({}:{})", condition, message, file, line);
+				log::error("Assert failed: {} - {} in {} ({}:{})", condition, message, location.function_name(), location.file_name(), location.line());
 			}
 		}
 

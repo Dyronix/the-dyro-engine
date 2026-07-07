@@ -116,15 +116,19 @@ namespace dyx
 		const float clear_values[] = { clear_color.r, clear_color.g, clear_color.b, clear_color.a };
 		m_command_list->ClearRenderTargetView(render_target_view, clear_values, 0, nullptr);
 
-		D3D12_VIEWPORT viewport = {};
-		viewport.Width = static_cast<float>(m_swap_chain->get_width());
-		viewport.Height = static_cast<float>(m_swap_chain->get_height());
-		viewport.MaxDepth = 1.0f;
+		const D3D12_VIEWPORT viewport =
+		{
+			.Width = static_cast<float>(m_swap_chain->get_width()),
+			.Height = static_cast<float>(m_swap_chain->get_height()),
+			.MaxDepth = 1.0f,
+		};
 		m_command_list->RSSetViewports(1, &viewport);
 
-		D3D12_RECT scissor = {};
-		scissor.right = static_cast<LONG>(m_swap_chain->get_width());
-		scissor.bottom = static_cast<LONG>(m_swap_chain->get_height());
+		const D3D12_RECT scissor =
+		{
+			.right = static_cast<LONG>(m_swap_chain->get_width()),
+			.bottom = static_cast<LONG>(m_swap_chain->get_height()),
+		};
 		m_command_list->RSSetScissorRects(1, &scissor);
 
 		// All sprites share the same pipeline, quad and texture heap
@@ -271,6 +275,9 @@ namespace dyx
 	{
 		// Parameter 0: the sprite constants (transform + tint), passed as
 		// root constants because they change for every draw call.
+		// (Not a designated initializer like elsewhere: the two array
+		// elements fill different members of the parameter union, and
+		// element 1 needs texture_range which is declared between them.)
 		D3D12_ROOT_PARAMETER parameters[2] = {};
 		parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
 		parameters[0].Constants.ShaderRegister = 0; // register(b0)
@@ -279,10 +286,12 @@ namespace dyx
 
 		// Parameter 1: the sprite texture, passed as a descriptor table
 		// pointing into the shader visible srv heap.
-		D3D12_DESCRIPTOR_RANGE texture_range = {};
-		texture_range.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-		texture_range.NumDescriptors = 1;
-		texture_range.BaseShaderRegister = 0; // register(t0)
+		const D3D12_DESCRIPTOR_RANGE texture_range =
+		{
+			.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
+			.NumDescriptors = 1,
+			.BaseShaderRegister = 0, // register(t0)
+		};
 
 		parameters[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 		parameters[1].DescriptorTable.NumDescriptorRanges = 1;
@@ -292,21 +301,25 @@ namespace dyx
 		// A single sampler baked into the root signature; its filter is fixed
 		// for the lifetime of the renderer (rebuilding a root signature at
 		// runtime just to flip a filter isn't worth the complexity).
-		D3D12_STATIC_SAMPLER_DESC sampler = {};
-		sampler.Filter = sampler_filter == texture_filter::nearest ? D3D12_FILTER_MIN_MAG_MIP_POINT : D3D12_FILTER_MIN_MAG_MIP_LINEAR;
-		sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
-		sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
-		sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
-		sampler.MaxLOD = D3D12_FLOAT32_MAX;
-		sampler.ShaderRegister = 0; // register(s0)
-		sampler.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+		const D3D12_STATIC_SAMPLER_DESC sampler =
+		{
+			.Filter = sampler_filter == texture_filter::nearest ? D3D12_FILTER_MIN_MAG_MIP_POINT : D3D12_FILTER_MIN_MAG_MIP_LINEAR,
+			.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
+			.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
+			.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
+			.MaxLOD = D3D12_FLOAT32_MAX,
+			.ShaderRegister = 0, // register(s0)
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
+		};
 
-		D3D12_ROOT_SIGNATURE_DESC root_signature_desc = {};
-		root_signature_desc.NumParameters = _countof(parameters);
-		root_signature_desc.pParameters = parameters;
-		root_signature_desc.NumStaticSamplers = 1;
-		root_signature_desc.pStaticSamplers = &sampler;
-		root_signature_desc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+		const D3D12_ROOT_SIGNATURE_DESC root_signature_desc =
+		{
+			.NumParameters = _countof(parameters),
+			.pParameters = parameters,
+			.NumStaticSamplers = 1,
+			.pStaticSamplers = &sampler,
+			.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT,
+		};
 
 		ComPtr<ID3DBlob> serialized;
 		ComPtr<ID3DBlob> error_messages;
@@ -324,13 +337,18 @@ namespace dyx
 	bool renderer_2d::create_pipeline(shader_library& shaders, pso_cache& pipeline_cache)
 	{
 		// The vertex layout must match the sprite_vertex struct and the
-		// input of sprite_vs.hlsl.
+		// input of sprite_vs.hlsl. (Positional one-row-per-element init suits
+		// a table like this better than designated initializers would.)
 		const D3D12_INPUT_ELEMENT_DESC input_layout[] =
 		{
 			{ "POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 8, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		};
 
+		// This desc is deliberately not a designated initializer: C++ cannot
+		// designate an array element like RTVFormats[0], the VS/PS null check
+		// happens mid-construction, and the blend/rasterizer/depth sections
+		// below read better grouped under their own comments.
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC pipeline_desc = {};
 		pipeline_desc.pRootSignature = m_root_signature.Get();
 		pipeline_desc.VS = shaders.get_shader("sprite_vs");

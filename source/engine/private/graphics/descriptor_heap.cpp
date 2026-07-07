@@ -8,10 +8,12 @@ namespace dyx
 	//--------------------------------------------------------------
 	bool descriptor_heap::initialize(ID3D12Device* d3d_device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t capacity, bool shader_visible)
 	{
-		D3D12_DESCRIPTOR_HEAP_DESC heap_desc = {};
-		heap_desc.Type = type;
-		heap_desc.NumDescriptors = capacity;
-		heap_desc.Flags = shader_visible ? D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE : D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+		const D3D12_DESCRIPTOR_HEAP_DESC heap_desc =
+		{
+			.Type = type,
+			.NumDescriptors = capacity,
+			.Flags = shader_visible ? D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE : D3D12_DESCRIPTOR_HEAP_FLAG_NONE,
+		};
 
 		if (!d3d::verify(d3d_device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&m_heap)), "CreateDescriptorHeap"))
 		{

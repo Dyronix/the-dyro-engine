@@ -7,8 +7,7 @@ namespace dyx
 	//--------------------------------------------------------------
 	bool command_queue::initialize(ID3D12Device* d3d_device, D3D12_COMMAND_LIST_TYPE type)
 	{
-		D3D12_COMMAND_QUEUE_DESC queue_desc = {};
-		queue_desc.Type = type;
+		const D3D12_COMMAND_QUEUE_DESC queue_desc = { .Type = type };
 
 		if (!d3d::verify(d3d_device->CreateCommandQueue(&queue_desc, IID_PPV_ARGS(&m_queue)), "CreateCommandQueue"))
 		{

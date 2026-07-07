@@ -14,14 +14,16 @@ namespace dyx
 		m_width = width;
 		m_height = height;
 
-		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
-		swap_chain_desc.Width = width;
-		swap_chain_desc.Height = height;
-		swap_chain_desc.Format = k_back_buffer_format;
-		swap_chain_desc.SampleDesc.Count = 1;
-		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		swap_chain_desc.BufferCount = k_back_buffer_count;
-		swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+		const DXGI_SWAP_CHAIN_DESC1 swap_chain_desc =
+		{
+			.Width = width,
+			.Height = height,
+			.Format = k_back_buffer_format,
+			.SampleDesc = { .Count = 1 },
+			.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
+			.BufferCount = k_back_buffer_count,
+			.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD,
+		};
 
 		IDXGIFactory4* factory = graphics_device.get_dxgi_factory();
 

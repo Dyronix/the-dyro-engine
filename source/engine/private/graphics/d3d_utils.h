@@ -76,14 +76,20 @@ namespace dyx
 		/// @return Filled in transition barrier.
 		inline D3D12_RESOURCE_BARRIER make_transition_barrier(ID3D12Resource* resource, D3D12_RESOURCE_STATES state_before, D3D12_RESOURCE_STATES state_after)
 		{
-			D3D12_RESOURCE_BARRIER barrier = {};
-			barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
-			barrier.Transition.pResource = resource;
-			barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
-			barrier.Transition.StateBefore = state_before;
-			barrier.Transition.StateAfter = state_after;
-
-			return barrier;
+			// Designated initializers (C++20) name each field they set; every
+			// field not named stays zero. .Transition picks which member of
+			// the barrier's union this initializer fills in.
+			return D3D12_RESOURCE_BARRIER
+			{
+				.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION,
+				.Transition =
+				{
+					.pResource = resource,
+					.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES,
+					.StateBefore = state_before,
+					.StateAfter = state_after,
+				},
+			};
 		}
 
 		//----------------------------------------------------------
@@ -92,17 +98,17 @@ namespace dyx
 		/// @return Filled in buffer resource description.
 		inline D3D12_RESOURCE_DESC make_buffer_desc(UINT64 size)
 		{
-			D3D12_RESOURCE_DESC desc = {};
-			desc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-			desc.Width = size;
-			desc.Height = 1;
-			desc.DepthOrArraySize = 1;
-			desc.MipLevels = 1;
-			desc.Format = DXGI_FORMAT_UNKNOWN;
-			desc.SampleDesc.Count = 1;
-			desc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
-
-			return desc;
+			return D3D12_RESOURCE_DESC
+			{
+				.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER,
+				.Width = size,
+				.Height = 1,
+				.DepthOrArraySize = 1,
+				.MipLevels = 1,
+				.Format = DXGI_FORMAT_UNKNOWN,
+				.SampleDesc = { .Count = 1 },
+				.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR,
+			};
 		}
 
 		//----------------------------------------------------------
@@ -111,10 +117,7 @@ namespace dyx
 		/// @return Filled in heap properties.
 		inline D3D12_HEAP_PROPERTIES make_heap_properties(D3D12_HEAP_TYPE type)
 		{
-			D3D12_HEAP_PROPERTIES properties = {};
-			properties.Type = type;
-
-			return properties;
+			return D3D12_HEAP_PROPERTIES{ .Type = type };
 		}
 	}
 }

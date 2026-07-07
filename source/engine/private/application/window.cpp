@@ -98,12 +98,14 @@ namespace dyx
 
 		const HINSTANCE instance = GetModuleHandleW(nullptr);
 
-		WNDCLASSEXW window_class = {};
-		window_class.cbSize = sizeof(window_class);
-		window_class.lpfnWndProc = window_procedure;
-		window_class.hInstance = instance;
-		window_class.hCursor = LoadCursor(nullptr, IDC_ARROW);
-		window_class.lpszClassName = window_class_name;
+		const WNDCLASSEXW window_class =
+		{
+			.cbSize = sizeof(WNDCLASSEXW),
+			.lpfnWndProc = window_procedure,
+			.hInstance = instance,
+			.hCursor = LoadCursor(nullptr, IDC_ARROW),
+			.lpszClassName = window_class_name,
+		};
 
 		if (RegisterClassExW(&window_class) == 0)
 		{

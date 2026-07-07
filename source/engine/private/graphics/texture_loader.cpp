@@ -72,14 +72,16 @@ namespace dyx
 		ID3D12Device* d3d_device = m_device->get_d3d_device();
 
 		// Create the texture resource in gpu memory
-		D3D12_RESOURCE_DESC texture_desc = {};
-		texture_desc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-		texture_desc.Width = static_cast<UINT64>(width);
-		texture_desc.Height = static_cast<UINT>(height);
-		texture_desc.DepthOrArraySize = 1;
-		texture_desc.MipLevels = 1;
-		texture_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-		texture_desc.SampleDesc.Count = 1;
+		const D3D12_RESOURCE_DESC texture_desc =
+		{
+			.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
+			.Width = static_cast<UINT64>(width),
+			.Height = static_cast<UINT>(height),
+			.DepthOrArraySize = 1,
+			.MipLevels = 1,
+			.Format = DXGI_FORMAT_R8G8B8A8_UNORM,
+			.SampleDesc = { .Count = 1 },
+		};
 
 		const D3D12_HEAP_PROPERTIES default_heap = d3d::make_heap_properties(D3D12_HEAP_TYPE_DEFAULT);
 
@@ -128,14 +130,18 @@ namespace dyx
 		m_command_allocator->Reset();
 		m_command_list->Reset(m_command_allocator.Get(), nullptr);
 
-		D3D12_TEXTURE_COPY_LOCATION copy_destination = {};
-		copy_destination.pResource = texture_resource.Get();
-		copy_destination.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
+		const D3D12_TEXTURE_COPY_LOCATION copy_destination =
+		{
+			.pResource = texture_resource.Get(),
+			.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX,
+		};
 
-		D3D12_TEXTURE_COPY_LOCATION copy_source = {};
-		copy_source.pResource = upload_buffer.Get();
-		copy_source.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
-		copy_source.PlacedFootprint = footprint;
+		const D3D12_TEXTURE_COPY_LOCATION copy_source =
+		{
+			.pResource = upload_buffer.Get(),
+			.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT,
+			.PlacedFootprint = footprint,
+		};
 
 		m_command_list->CopyTextureRegion(&copy_destination, 0, 0, 0, &copy_source, nullptr);
 
@@ -153,11 +159,13 @@ namespace dyx
 		// Create the shader resource view so shaders can sample the texture
 		const uint32_t srv_index = m_srv_heap->allocate();
 
-		D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-		srv_desc.Format = texture_desc.Format;
-		srv_desc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
-		srv_desc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-		srv_desc.Texture2D.MipLevels = 1;
+		const D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc =
+		{
+			.Format = texture_desc.Format,
+			.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D,
+			.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING,
+			.Texture2D = { .MipLevels = 1 },
+		};
 
 		d3d_device->CreateShaderResourceView(texture_resource.Get(), &srv_desc, m_srv_heap->get_cpu_handle(srv_index));
 

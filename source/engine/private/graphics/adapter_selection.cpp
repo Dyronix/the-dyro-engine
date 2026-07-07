@@ -36,9 +36,13 @@ namespace
 			D3D_FEATURE_LEVEL_11_0,
 		};
 
-		D3D12_FEATURE_DATA_FEATURE_LEVELS feature_data = {};
-		feature_data.NumFeatureLevels = _countof(levels_to_check);
-		feature_data.pFeatureLevelsRequested = levels_to_check;
+		// Not const: CheckFeatureSupport writes its answer into
+		// MaxSupportedFeatureLevel, the one field left unset here.
+		D3D12_FEATURE_DATA_FEATURE_LEVELS feature_data =
+		{
+			.NumFeatureLevels = _countof(levels_to_check),
+			.pFeatureLevelsRequested = levels_to_check,
+		};
 
 		if (FAILED(d3d_device->CheckFeatureSupport(D3D12_FEATURE_FEATURE_LEVELS, &feature_data, sizeof(feature_data))))
 		{

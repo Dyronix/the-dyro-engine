@@ -33,7 +33,7 @@ namespace dyx
 			// CheckFeatureSupport fails when the shader model enum value is
 			// unknown to the installed runtime, so a failure simply means
 			// "try the next one down".
-			D3D12_FEATURE_DATA_SHADER_MODEL feature_data = { shader_model };
+			D3D12_FEATURE_DATA_SHADER_MODEL feature_data = { .HighestShaderModel = shader_model };
 			if (SUCCEEDED(d3d_device->CheckFeatureSupport(D3D12_FEATURE_SHADER_MODEL, &feature_data, sizeof(feature_data))))
 			{
 				return feature_data.HighestShaderModel;

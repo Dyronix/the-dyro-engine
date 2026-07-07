@@ -15,6 +15,10 @@ namespace dyx
 		vec2 max = { 0.0f, 0.0f };
 
 		//----------------------------------------------------------
+		/// @brief Compares both corners; exact float equality, no epsilon.
+		bool operator==(const rect&) const = default;
+
+		//----------------------------------------------------------
 		/// @brief Builds a rect from its center and size, matching how
 		/// sprites are positioned in draw_sprite.
 		/// @param center Position of the rect center in pixels.

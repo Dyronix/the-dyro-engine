@@ -8,6 +8,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <concepts>
+
 namespace dyx
 {
 	//--------------------------------------------------------------
@@ -42,14 +44,31 @@ namespace dyx
 		float g = 1.0f;
 		float b = 1.0f;
 		float a = 1.0f;
+
+		/// @brief Compares all components; exact float equality, no epsilon.
+		bool operator==(const color&) const = default;
 	};
+
+	//--------------------------------------------------------------
+	/// @brief Satisfied by the types lerp supports: floating-point values
+	/// and the glm vector types.
+	///
+	/// A concept describes what a template needs from its type parameter.
+	/// Calling lerp with anything else fails right at the call site with
+	/// "lerpable<T> evaluated to false" instead of pages of glm template
+	/// errors from deep inside the implementation.
+	template<typename T>
+	concept lerpable = std::floating_point<T>
+		|| std::same_as<T, vec2>
+		|| std::same_as<T, vec3>
+		|| std::same_as<T, vec4>;
 
 	//--------------------------------------------------------------
 	/// @brief Linearly interpolates between a and b.
 	/// @param a Value returned at t = 0.
 	/// @param b Value returned at t = 1.
 	/// @param t Interpolation factor; values outside [0, 1] extrapolate.
-	template<typename T>
+	template<lerpable T>
 	inline T lerp(const T& a, const T& b, float t)
 	{
 		return glm::mix(a, b, t);

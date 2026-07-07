@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: DyroEngine documentation</title>
+<title>DyxEngine: DyxEngine documentation</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +25,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
-<link href="dyro-docs.css" rel="stylesheet" type="text/css"/>
+<link href="dyx-docs.css" rel="stylesheet" type="text/css"/>
 <!-- doxygen-awesome extensions (see docs/doxygen-awesome/) -->
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
 <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
@@ -43,7 +43,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DyroEngine
+   <div id="projectname">DyxEngine
    </div>
    <div id="projectbrief">a small DirectX 12 engine for 2D games, written to be read</div>
   </td>
@@ -129,27 +129,27 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html',''
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">DyroEngine documentation </div></div>
+  <div class="headertitle"><div class="title">DyxEngine documentation </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyro-engine_2docs_2pages_2index"></a></p>
+<div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyx-engine_2docs_2pages_2index"></a></p>
 <p>A small DirectX 12 engine for 2D games, written to be read. Every system is one small class with one job, so you can dig into any part of the engine and understand it completely.</p>
-<p>Your game is a class that derives from <a class="el" href="classdyro_1_1game.html" title="Base class every game derives from.">dyro::game</a> and overrides four functions. The engine owns the main loop and calls them at the right time:</p>
-<div class="fragment"><div class="line"><span class="keyword">class </span>my_game : <span class="keyword">public</span> <a class="code hl_class" href="classdyro_1_1game.html">dyro::game</a></div>
+<p>Your game is a class that derives from <a class="el" href="classdyx_1_1game.html" title="Base class every game derives from.">dyx::game</a> and overrides four functions. The engine owns the main loop and calls them at the right time:</p>
+<div class="fragment"><div class="line"><span class="keyword">class </span>my_game : <span class="keyword">public</span> <a class="code hl_class" href="classdyx_1_1game.html">dyx::game</a></div>
 <div class="line">{</div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    <span class="keywordtype">void</span> <a class="code hl_function" href="classdyro_1_1game.html#a7b25108e5bbb7d133a8a65c201d7e458">initialize</a>(<a class="code hl_class" href="classdyro_1_1engine.html">dyro::engine</a>&amp; engine) <span class="keyword">override</span>;  <span class="comment">// load your textures here</span></div>
-<div class="line">    <span class="keywordtype">void</span> <a class="code hl_function" href="classdyro_1_1game.html#acbd4e0b052be54c3e6e350edab2ac012">update</a>(<span class="keywordtype">float</span> delta_seconds) <span class="keyword">override</span>;       <span class="comment">// game logic here</span></div>
-<div class="line">    <span class="keywordtype">void</span> <a class="code hl_function" href="classdyro_1_1game.html#add4689871c53edeca76aadd3f5fb1383">draw</a>(<a class="code hl_class" href="classdyro_1_1renderer__2d.html">dyro::renderer_2d</a>&amp; renderer) <span class="keyword">override</span>; <span class="comment">// draw sprites here</span></div>
-<div class="line">    <span class="keywordtype">void</span> <a class="code hl_function" href="classdyro_1_1game.html#a6c000af5f1175858366d6eccd9c83ab3">shutdown</a>() <span class="keyword">override</span>;                        <span class="comment">// cleanup here</span></div>
+<div class="line">    <span class="keywordtype">void</span> <a class="code hl_function" href="classdyx_1_1game.html#a7b25108e5bbb7d133a8a65c201d7e458">initialize</a>(<a class="code hl_class" href="classdyx_1_1engine.html">dyx::engine</a>&amp; engine) <span class="keyword">override</span>;  <span class="comment">// load your textures here</span></div>
+<div class="line">    <span class="keywordtype">void</span> <a class="code hl_function" href="classdyx_1_1game.html#acbd4e0b052be54c3e6e350edab2ac012">update</a>(<span class="keywordtype">float</span> delta_seconds) <span class="keyword">override</span>;       <span class="comment">// game logic here</span></div>
+<div class="line">    <span class="keywordtype">void</span> <a class="code hl_function" href="classdyx_1_1game.html#add4689871c53edeca76aadd3f5fb1383">draw</a>(<a class="code hl_class" href="classdyx_1_1renderer__2d.html">dyx::renderer_2d</a>&amp; renderer) <span class="keyword">override</span>; <span class="comment">// draw sprites here</span></div>
+<div class="line">    <span class="keywordtype">void</span> <a class="code hl_function" href="classdyx_1_1game.html#a6c000af5f1175858366d6eccd9c83ab3">shutdown</a>() <span class="keyword">override</span>;                        <span class="comment">// cleanup here</span></div>
 <div class="line">};</div>
-<div class="ttc" id="aclassdyro_1_1engine_html"><div class="ttname"><a href="classdyro_1_1engine.html">dyro::engine</a></div><div class="ttdoc">Owns all engine systems and runs the main loop.</div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00050">engine.h:51</a></div></div>
-<div class="ttc" id="aclassdyro_1_1game_html"><div class="ttname"><a href="classdyro_1_1game.html">dyro::game</a></div><div class="ttdoc">Base class every game derives from.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00022">game.h:23</a></div></div>
-<div class="ttc" id="aclassdyro_1_1game_html_a6c000af5f1175858366d6eccd9c83ab3"><div class="ttname"><a href="classdyro_1_1game.html#a6c000af5f1175858366d6eccd9c83ab3">dyro::game::shutdown</a></div><div class="ttdeci">virtual void shutdown()</div><div class="ttdoc">Called once when the game is closing.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00044">game.h:44</a></div></div>
-<div class="ttc" id="aclassdyro_1_1game_html_a7b25108e5bbb7d133a8a65c201d7e458"><div class="ttname"><a href="classdyro_1_1game.html#a7b25108e5bbb7d133a8a65c201d7e458">dyro::game::initialize</a></div><div class="ttdeci">virtual void initialize(engine &amp;engine)</div><div class="ttdoc">Called once after the engine started, before the first frame.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00030">game.h:30</a></div></div>
-<div class="ttc" id="aclassdyro_1_1game_html_acbd4e0b052be54c3e6e350edab2ac012"><div class="ttname"><a href="classdyro_1_1game.html#acbd4e0b052be54c3e6e350edab2ac012">dyro::game::update</a></div><div class="ttdeci">virtual void update(float delta_seconds)</div><div class="ttdoc">Called every frame before drawing.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00035">game.h:35</a></div></div>
-<div class="ttc" id="aclassdyro_1_1game_html_add4689871c53edeca76aadd3f5fb1383"><div class="ttname"><a href="classdyro_1_1game.html#add4689871c53edeca76aadd3f5fb1383">dyro::game::draw</a></div><div class="ttdeci">virtual void draw(renderer_2d &amp;renderer)</div><div class="ttdoc">Called every frame to draw the game.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00040">game.h:40</a></div></div>
-<div class="ttc" id="aclassdyro_1_1renderer__2d_html"><div class="ttname"><a href="classdyro_1_1renderer__2d.html">dyro::renderer_2d</a></div><div class="ttdoc">Draws textured quads (sprites) into the current back buffer.</div><div class="ttdef"><b>Definition</b> <a href="renderer__2d_8h_source.html#l00046">renderer_2d.h:47</a></div></div>
+<div class="ttc" id="aclassdyx_1_1engine_html"><div class="ttname"><a href="classdyx_1_1engine.html">dyx::engine</a></div><div class="ttdoc">Owns all engine systems and runs the main loop.</div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00050">engine.h:51</a></div></div>
+<div class="ttc" id="aclassdyx_1_1game_html"><div class="ttname"><a href="classdyx_1_1game.html">dyx::game</a></div><div class="ttdoc">Base class every game derives from.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00022">game.h:23</a></div></div>
+<div class="ttc" id="aclassdyx_1_1game_html_a6c000af5f1175858366d6eccd9c83ab3"><div class="ttname"><a href="classdyx_1_1game.html#a6c000af5f1175858366d6eccd9c83ab3">dyx::game::shutdown</a></div><div class="ttdeci">virtual void shutdown()</div><div class="ttdoc">Called once when the game is closing.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00044">game.h:44</a></div></div>
+<div class="ttc" id="aclassdyx_1_1game_html_a7b25108e5bbb7d133a8a65c201d7e458"><div class="ttname"><a href="classdyx_1_1game.html#a7b25108e5bbb7d133a8a65c201d7e458">dyx::game::initialize</a></div><div class="ttdeci">virtual void initialize(engine &amp;engine)</div><div class="ttdoc">Called once after the engine started, before the first frame.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00030">game.h:30</a></div></div>
+<div class="ttc" id="aclassdyx_1_1game_html_acbd4e0b052be54c3e6e350edab2ac012"><div class="ttname"><a href="classdyx_1_1game.html#acbd4e0b052be54c3e6e350edab2ac012">dyx::game::update</a></div><div class="ttdeci">virtual void update(float delta_seconds)</div><div class="ttdoc">Called every frame before drawing.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00035">game.h:35</a></div></div>
+<div class="ttc" id="aclassdyx_1_1game_html_add4689871c53edeca76aadd3f5fb1383"><div class="ttname"><a href="classdyx_1_1game.html#add4689871c53edeca76aadd3f5fb1383">dyx::game::draw</a></div><div class="ttdeci">virtual void draw(renderer_2d &amp;renderer)</div><div class="ttdoc">Called every frame to draw the game.</div><div class="ttdef"><b>Definition</b> <a href="game_8h_source.html#l00040">game.h:40</a></div></div>
+<div class="ttc" id="aclassdyx_1_1renderer__2d_html"><div class="ttname"><a href="classdyx_1_1renderer__2d.html">dyx::renderer_2d</a></div><div class="ttdoc">Draws textured quads (sprites) into the current back buffer.</div><div class="ttdef"><b>Definition</b> <a href="renderer__2d_8h_source.html#l00046">renderer_2d.h:47</a></div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
 Finding things</h1>
 <p><b>Use the search box in the top-right corner.</b> Type the name of whatever you are working with, such as <span class="tt">draw_sprite</span>, <span class="tt">was_key_pressed</span>, <span class="tt">noise_2d</span>, or <span class="tt">engine_settings</span>, and jump straight to its documentation. Every public class, function and parameter is in there.</p>
@@ -164,7 +164,7 @@ Finding things</h1>
 <li><a class="el" href="page_json.html" title="Json files">Json files</a> : reading and writing json files</li>
 <li><a class="el" href="page_under_the_hood.html" title="Under the hood">Under the hood</a> : how the engine works inside</li>
 </ul>
-<p>For the full API reference, browse the class list in the sidebar. Start with <a class="el" href="classdyro_1_1engine.html" title="Owns all engine systems and runs the main loop.">dyro::engine</a>, <a class="el" href="classdyro_1_1renderer__2d.html" title="Draws textured quads (sprites) into the current back buffer.">dyro::renderer_2d</a> and <a class="el" href="classdyro_1_1input.html" title="Keeps track of the keyboard and mouse state.">dyro::input</a>, the three classes your game talks to every frame. </p>
+<p>For the full API reference, browse the class list in the sidebar. Start with <a class="el" href="classdyx_1_1engine.html" title="Owns all engine systems and runs the main loop.">dyx::engine</a>, <a class="el" href="classdyx_1_1renderer__2d.html" title="Draws textured quads (sprites) into the current back buffer.">dyx::renderer_2d</a> and <a class="el" href="classdyx_1_1input.html" title="Keeps track of the keyboard and mouse state.">dyx::input</a>, the three classes your game talks to every frame. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

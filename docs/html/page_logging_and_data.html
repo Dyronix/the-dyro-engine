@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: Logging and asserts</title>
+<title>DyxEngine: Logging and asserts</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +25,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
-<link href="dyro-docs.css" rel="stylesheet" type="text/css"/>
+<link href="dyx-docs.css" rel="stylesheet" type="text/css"/>
 <!-- doxygen-awesome extensions (see docs/doxygen-awesome/) -->
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
 <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
@@ -43,7 +43,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DyroEngine
+   <div id="projectname">DyxEngine
    </div>
    <div id="projectbrief">a small DirectX 12 engine for 2D games, written to be read</div>
   </td>
@@ -132,34 +132,34 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('page_logging_a
   <div class="headertitle"><div class="title">Logging and asserts </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyro-engine_2docs_2pages_2logging__and__data"></a></p>
+<div class="textblock"><p><a class="anchor" id="md__h_1_2dsquad_2the-dyx-engine_2docs_2pages_2logging__and__data"></a></p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Logging (core/log.h)</h1>
 <p>Three severities, all using fmt's <span class="tt">{}</span> style formatting. Messages appear in the console window and in the log file:</p>
-<div class="fragment"><div class="line"><a class="code hl_function" href="namespacedyro_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyro::log::info</a>(<span class="stringliteral">&quot;loaded {} textures&quot;</span>, texture_count);</div>
-<div class="line"><a class="code hl_function" href="namespacedyro_1_1log.html#a3c257a1d07b29992a33d5000f03df4ae">dyro::log::warn</a>(<span class="stringliteral">&quot;health {} is above the maximum, clamping&quot;</span>, health);</div>
-<div class="line"><a class="code hl_function" href="namespacedyro_1_1log.html#a6a42bd3a794182e3e94c975276cd3ff3">dyro::log::error</a>(<span class="stringliteral">&quot;could not read {}&quot;</span>, path.string());</div>
+<div class="fragment"><div class="line"><a class="code hl_function" href="namespacedyx_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyx::log::info</a>(<span class="stringliteral">&quot;loaded {} textures&quot;</span>, texture_count);</div>
+<div class="line"><a class="code hl_function" href="namespacedyx_1_1log.html#a3c257a1d07b29992a33d5000f03df4ae">dyx::log::warn</a>(<span class="stringliteral">&quot;health {} is above the maximum, clamping&quot;</span>, health);</div>
+<div class="line"><a class="code hl_function" href="namespacedyx_1_1log.html#a6a42bd3a794182e3e94c975276cd3ff3">dyx::log::error</a>(<span class="stringliteral">&quot;could not read {}&quot;</span>, path.string());</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// format specifiers work too: {:.2f} = two decimals</span></div>
-<div class="line"><a class="code hl_function" href="namespacedyro_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyro::log::info</a>(<span class="stringliteral">&quot;New ball tint: ({:.2f}, {:.2f}, {:.2f})&quot;</span>, tint.r, tint.g, tint.b);</div>
-<div class="ttc" id="anamespacedyro_1_1log_html_a3c257a1d07b29992a33d5000f03df4ae"><div class="ttname"><a href="namespacedyro_1_1log.html#a3c257a1d07b29992a33d5000f03df4ae">dyro::log::warn</a></div><div class="ttdeci">void warn(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs a warning message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00051">log.h:51</a></div></div>
-<div class="ttc" id="anamespacedyro_1_1log_html_a41c28d4ec3297952f3e83877ecd2fa9e"><div class="ttname"><a href="namespacedyro_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyro::log::info</a></div><div class="ttdeci">void info(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an informational message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00036">log.h:36</a></div></div>
-<div class="ttc" id="anamespacedyro_1_1log_html_a6a42bd3a794182e3e94c975276cd3ff3"><div class="ttname"><a href="namespacedyro_1_1log.html#a6a42bd3a794182e3e94c975276cd3ff3">dyro::log::error</a></div><div class="ttdeci">void error(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an error message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00066">log.h:66</a></div></div>
+<div class="line"><a class="code hl_function" href="namespacedyx_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyx::log::info</a>(<span class="stringliteral">&quot;New ball tint: ({:.2f}, {:.2f}, {:.2f})&quot;</span>, tint.r, tint.g, tint.b);</div>
+<div class="ttc" id="anamespacedyx_1_1log_html_a3c257a1d07b29992a33d5000f03df4ae"><div class="ttname"><a href="namespacedyx_1_1log.html#a3c257a1d07b29992a33d5000f03df4ae">dyx::log::warn</a></div><div class="ttdeci">void warn(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs a warning message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00051">log.h:51</a></div></div>
+<div class="ttc" id="anamespacedyx_1_1log_html_a41c28d4ec3297952f3e83877ecd2fa9e"><div class="ttname"><a href="namespacedyx_1_1log.html#a41c28d4ec3297952f3e83877ecd2fa9e">dyx::log::info</a></div><div class="ttdeci">void info(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an informational message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00036">log.h:36</a></div></div>
+<div class="ttc" id="anamespacedyx_1_1log_html_a6a42bd3a794182e3e94c975276cd3ff3"><div class="ttname"><a href="namespacedyx_1_1log.html#a6a42bd3a794182e3e94c975276cd3ff3">dyx::log::error</a></div><div class="ttdeci">void error(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Logs an error message (fmt &quot;{}&quot; style formatting).</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00066">log.h:66</a></div></div>
 </div><!-- fragment --><p>Logging is compiled in for <b>debug builds only</b>. In release every log call collapses to nothing, so no formatting cost is paid.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Asserts (core/assert.h)</h1>
-<p>Use DYRO_ASSERT to document assumptions your code makes; when the condition is false the program halts in the debugger at the call site:</p>
-<div class="fragment"><div class="line"><a class="code hl_define" href="assert_8h.html#a228573e0f3511fd7cc7ff02822c90cc1">DYRO_ASSERT</a>(frame_index &lt; frame_count);</div>
-<div class="line"><a class="code hl_define" href="assert_8h.html#aab9f80651a8199031111dce77b9527b2">DYRO_ASSERT_MSG</a>(frame_index &lt; frame_count, <span class="stringliteral">&quot;frame {} out of range&quot;</span>, frame_index);</div>
-<div class="ttc" id="aassert_8h_html_a228573e0f3511fd7cc7ff02822c90cc1"><div class="ttname"><a href="assert_8h.html#a228573e0f3511fd7cc7ff02822c90cc1">DYRO_ASSERT</a></div><div class="ttdeci">#define DYRO_ASSERT(condition)</div><div class="ttdoc">Halts the program in the debugger when the condition is false.</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00051">assert.h:51</a></div></div>
-<div class="ttc" id="aassert_8h_html_aab9f80651a8199031111dce77b9527b2"><div class="ttname"><a href="assert_8h.html#aab9f80651a8199031111dce77b9527b2">DYRO_ASSERT_MSG</a></div><div class="ttdeci">#define DYRO_ASSERT_MSG(condition,...)</div><div class="ttdoc">Same as DYRO_ASSERT, with an extra message explaining the failure (fmt &quot;{}&quot; style formatting):</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00071">assert.h:71</a></div></div>
+<p>Use DYX_ASSERT to document assumptions your code makes; when the condition is false the program halts in the debugger at the call site:</p>
+<div class="fragment"><div class="line"><a class="code hl_define" href="assert_8h.html#a228573e0f3511fd7cc7ff02822c90cc1">DYX_ASSERT</a>(frame_index &lt; frame_count);</div>
+<div class="line"><a class="code hl_define" href="assert_8h.html#aab9f80651a8199031111dce77b9527b2">DYX_ASSERT_MSG</a>(frame_index &lt; frame_count, <span class="stringliteral">&quot;frame {} out of range&quot;</span>, frame_index);</div>
+<div class="ttc" id="aassert_8h_html_a228573e0f3511fd7cc7ff02822c90cc1"><div class="ttname"><a href="assert_8h.html#a228573e0f3511fd7cc7ff02822c90cc1">DYX_ASSERT</a></div><div class="ttdeci">#define DYX_ASSERT(condition)</div><div class="ttdoc">Halts the program in the debugger when the condition is false.</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00051">assert.h:51</a></div></div>
+<div class="ttc" id="aassert_8h_html_aab9f80651a8199031111dce77b9527b2"><div class="ttname"><a href="assert_8h.html#aab9f80651a8199031111dce77b9527b2">DYX_ASSERT_MSG</a></div><div class="ttdeci">#define DYX_ASSERT_MSG(condition,...)</div><div class="ttdoc">Same as DYX_ASSERT, with an extra message explaining the failure (fmt &quot;{}&quot; style formatting):</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00071">assert.h:71</a></div></div>
 </div><!-- fragment --><p>Like logging, asserts are compiled away in release builds. <b>The condition is not even evaluated</b>, so never put code with side effects inside one.</p>
-<p>For errors the game cannot recover from (in any build), <a class="el" href="namespacedyro.html#a4a43411f8bd58c95cb0dc2e6964a1319" title="Reports an unrecoverable error and terminates the program: logs the message, shows a message box,...">dyro::fatal_error</a> logs the message, shows a message box and exits:</p>
+<p>For errors the game cannot recover from (in any build), <a class="el" href="namespacedyx.html#a4a43411f8bd58c95cb0dc2e6964a1319" title="Reports an unrecoverable error and terminates the program: logs the message, shows a message box,...">dyx::fatal_error</a> logs the message, shows a message box and exits:</p>
 <div class="fragment"><div class="line"><span class="keywordflow">if</span> (!m_ball_texture)</div>
 <div class="line">{</div>
-<div class="line">    <a class="code hl_function" href="namespacedyro.html#a4a43411f8bd58c95cb0dc2e6964a1319">dyro::fatal_error</a>(<span class="stringliteral">&quot;could not load {}&quot;</span>, path.string());</div>
+<div class="line">    <a class="code hl_function" href="namespacedyx.html#a4a43411f8bd58c95cb0dc2e6964a1319">dyx::fatal_error</a>(<span class="stringliteral">&quot;could not load {}&quot;</span>, path.string());</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacedyro_html_a4a43411f8bd58c95cb0dc2e6964a1319"><div class="ttname"><a href="namespacedyro.html#a4a43411f8bd58c95cb0dc2e6964a1319">dyro::fatal_error</a></div><div class="ttdeci">void fatal_error(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Reports an unrecoverable error and terminates the program: logs the message, shows a message box,...</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00036">assert.h:36</a></div></div>
+<div class="ttc" id="anamespacedyx_html_a4a43411f8bd58c95cb0dc2e6964a1319"><div class="ttname"><a href="namespacedyx.html#a4a43411f8bd58c95cb0dc2e6964a1319">dyx::fatal_error</a></div><div class="ttdeci">void fatal_error(const FormatString &amp;format, const Args &amp;... args)</div><div class="ttdoc">Reports an unrecoverable error and terminates the program: logs the message, shows a message box,...</div><div class="ttdef"><b>Definition</b> <a href="assert_8h_source.html#l00036">assert.h:36</a></div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -167,7 +167,7 @@ Asserts (core/assert.h)</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">DyroEngine documentation</a></li>
+    <li class="navelem"><a href="index.html">DyxEngine documentation</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
   </ul>
 </div>

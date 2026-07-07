@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	void input::new_frame()

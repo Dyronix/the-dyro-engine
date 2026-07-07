@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief Wraps a directx 12 command queue together with its fence.

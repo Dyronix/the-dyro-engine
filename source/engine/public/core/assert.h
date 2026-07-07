@@ -6,13 +6,13 @@
 #include <string_view>
 
 // Asserts are compiled in for debug builds only, exactly like logging. In
-// release (NDEBUG) a DYRO_ASSERT disappears completely: the condition is not
+// release (NDEBUG) a DYX_ASSERT disappears completely: the condition is not
 // even evaluated, so never put code with side effects inside one.
 #if !defined(NDEBUG)
-	#define DYRO_ASSERT_ENABLED
+	#define DYX_ASSERT_ENABLED
 #endif
 
-namespace dyro
+namespace dyx
 {
 	namespace internal
 	{
@@ -44,39 +44,39 @@ namespace dyro
 ///
 /// Use it to document assumptions your code makes:
 /// @code{.cpp}
-/// DYRO_ASSERT(frame_index < frame_count);
+/// DYX_ASSERT(frame_index < frame_count);
 /// @endcode
 /// Compiled away in release builds.
-#if defined(DYRO_ASSERT_ENABLED)
-	#define DYRO_ASSERT(condition) \
+#if defined(DYX_ASSERT_ENABLED)
+	#define DYX_ASSERT(condition) \
 		do \
 		{ \
 			if (!(condition)) \
 			{ \
-				dyro::internal::on_assert_failed(#condition, __FILE__, __LINE__, {}); \
+				dyx::internal::on_assert_failed(#condition, __FILE__, __LINE__, {}); \
 				__debugbreak(); \
 			} \
 		} while (false)
 #else
-	#define DYRO_ASSERT(condition) ((void)0)
+	#define DYX_ASSERT(condition) ((void)0)
 #endif
 
 //--------------------------------------------------------------
-/// @brief Same as DYRO_ASSERT, with an extra message explaining the failure
+/// @brief Same as DYX_ASSERT, with an extra message explaining the failure
 /// (fmt "{}" style formatting):
 /// @code{.cpp}
-/// DYRO_ASSERT_MSG(frame_index < frame_count, "frame {} out of range", frame_index);
+/// DYX_ASSERT_MSG(frame_index < frame_count, "frame {} out of range", frame_index);
 /// @endcode
-#if defined(DYRO_ASSERT_ENABLED)
-	#define DYRO_ASSERT_MSG(condition, ...) \
+#if defined(DYX_ASSERT_ENABLED)
+	#define DYX_ASSERT_MSG(condition, ...) \
 		do \
 		{ \
 			if (!(condition)) \
 			{ \
-				dyro::internal::on_assert_failed(#condition, __FILE__, __LINE__, fmt::format(__VA_ARGS__)); \
+				dyx::internal::on_assert_failed(#condition, __FILE__, __LINE__, fmt::format(__VA_ARGS__)); \
 				__debugbreak(); \
 			} \
 		} while (false)
 #else
-	#define DYRO_ASSERT_MSG(condition, ...) ((void)0)
+	#define DYX_ASSERT_MSG(condition, ...) ((void)0)
 #endif

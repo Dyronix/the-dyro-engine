@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: graphics/shader_model.h Source File</title>
+<title>DyxEngine: graphics/shader_model.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +25,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
-<link href="dyro-docs.css" rel="stylesheet" type="text/css"/>
+<link href="dyx-docs.css" rel="stylesheet" type="text/css"/>
 <!-- doxygen-awesome extensions (see docs/doxygen-awesome/) -->
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
 <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
@@ -43,7 +43,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DyroEngine
+   <div id="projectname">DyxEngine
    </div>
    <div id="projectbrief">a small DirectX 12 engine for 2D games, written to be read</div>
   </td>
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('shader__model_
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyro.html">dyro</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyx.html">dyx</a></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="comment">//--------------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">    /// @brief Returns the highest shader model supported by the given device.</span></div>
@@ -148,17 +148,17 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('shader__model_
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">    ///</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">    /// @param d3d_device Device to query.</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">    /// @return Highest supported shader model.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="namespacedyro.html#a0e9612964ad034237815f8f4529f4a75">   17</a></span>    D3D_SHADER_MODEL <a class="code hl_function" href="namespacedyro.html#a0e9612964ad034237815f8f4529f4a75">query_highest_shader_model</a>(ID3D12Device* d3d_device);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="namespacedyx.html#a0e9612964ad034237815f8f4529f4a75">   17</a></span>    D3D_SHADER_MODEL <a class="code hl_function" href="namespacedyx.html#a0e9612964ad034237815f8f4529f4a75">query_highest_shader_model</a>(ID3D12Device* d3d_device);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="comment">//--------------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">    /// @brief Converts a shader model value to a readable string (e.g. &quot;6.6&quot;).</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">    /// @param shader_model Shader model to convert.</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">    /// @return Readable version string.</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="namespacedyro.html#afe6af3084666822d109030ab6e066108">   23</a></span>    std::string <a class="code hl_function" href="namespacedyro.html#afe6af3084666822d109030ab6e066108">shader_model_to_string</a>(D3D_SHADER_MODEL shader_model);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="namespacedyx.html#afe6af3084666822d109030ab6e066108">   23</a></span>    std::string <a class="code hl_function" href="namespacedyx.html#afe6af3084666822d109030ab6e066108">shader_model_to_string</a>(D3D_SHADER_MODEL shader_model);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
-<div class="ttc" id="anamespacedyro_html"><div class="ttname"><a href="namespacedyro.html">dyro</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
-<div class="ttc" id="anamespacedyro_html_a0e9612964ad034237815f8f4529f4a75"><div class="ttname"><a href="namespacedyro.html#a0e9612964ad034237815f8f4529f4a75">dyro::query_highest_shader_model</a></div><div class="ttdeci">D3D_SHADER_MODEL query_highest_shader_model(ID3D12Device *d3d_device)</div><div class="ttdoc">Returns the highest shader model supported by the given device.</div></div>
-<div class="ttc" id="anamespacedyro_html_afe6af3084666822d109030ab6e066108"><div class="ttname"><a href="namespacedyro.html#afe6af3084666822d109030ab6e066108">dyro::shader_model_to_string</a></div><div class="ttdeci">std::string shader_model_to_string(D3D_SHADER_MODEL shader_model)</div><div class="ttdoc">Converts a shader model value to a readable string (e.g. &quot;6.6&quot;).</div></div>
+<div class="ttc" id="anamespacedyx_html"><div class="ttname"><a href="namespacedyx.html">dyx</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
+<div class="ttc" id="anamespacedyx_html_a0e9612964ad034237815f8f4529f4a75"><div class="ttname"><a href="namespacedyx.html#a0e9612964ad034237815f8f4529f4a75">dyx::query_highest_shader_model</a></div><div class="ttdeci">D3D_SHADER_MODEL query_highest_shader_model(ID3D12Device *d3d_device)</div><div class="ttdoc">Returns the highest shader model supported by the given device.</div></div>
+<div class="ttc" id="anamespacedyx_html_afe6af3084666822d109030ab6e066108"><div class="ttname"><a href="namespacedyx.html#afe6af3084666822d109030ab6e066108">dyx::shader_model_to_string</a></div><div class="ttdeci">std::string shader_model_to_string(D3D_SHADER_MODEL shader_model)</div><div class="ttdoc">Converts a shader model value to a readable string (e.g. &quot;6.6&quot;).</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

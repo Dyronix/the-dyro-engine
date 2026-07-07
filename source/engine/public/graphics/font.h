@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <memory>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief A fixed-grid bitmap font: one atlas texture holding every
@@ -16,7 +16,7 @@ namespace dyro
 	/// All glyph data lives in the atlas image (content/fonts/), this struct
 	/// only describes the grid so draw_text can find each character:
 	/// @code{.cpp}
-	/// dyro::font font;
+	/// dyx::font font;
 	/// font.atlas = engine.get_texture_loader().load_from_file(path_to_atlas);
 	/// renderer.draw_text(font, "hello", { 20.0f, 20.0f }, 16.0f);
 	/// @endcode

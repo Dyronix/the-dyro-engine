@@ -1,4 +1,4 @@
 var game_8h =
 [
-    [ "dyro::game", "classdyro_1_1game.html", "classdyro_1_1game" ]
+    [ "dyx::game", "classdyx_1_1game.html", "classdyx_1_1game" ]
 ];

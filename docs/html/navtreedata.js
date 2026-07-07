@@ -24,8 +24,8 @@
 */
 var NAVTREE =
 [
-  [ "DyroEngine", "index.html", [
-    [ "DyroEngine documentation", "index.html", "index" ],
+  [ "DyxEngine", "index.html", [
+    [ "DyxEngine documentation", "index.html", "index" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -58,7 +58,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "adapter__selection_8h.html",
-"namespacedyro.html#a8ec9e8e9df2338ea4dd7a997a278e3a9"
+"namespacedyx.html#a8ec9e8e9df2338ea4dd7a997a278e3a9"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

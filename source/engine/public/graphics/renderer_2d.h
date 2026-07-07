@@ -13,7 +13,7 @@
 #include <memory>
 #include <string_view>
 
-namespace dyro
+namespace dyx
 {
 	class device;
 	class command_queue;

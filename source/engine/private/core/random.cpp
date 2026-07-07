@@ -4,7 +4,7 @@
 
 #include <rnd/rnd.h>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	void set_random_seed(uint32_t seed)
@@ -27,14 +27,14 @@ namespace dyro
 	//--------------------------------------------------------------
 	float random_range(float min, float max)
 	{
-		DYRO_ASSERT_MSG(min <= max, "random_range: min ({}) must not be larger than max ({})", min, max);
+		DYX_ASSERT_MSG(min <= max, "random_range: min ({}) must not be larger than max ({})", min, max);
 		return min + random_float() * (max - min);
 	}
 
 	//--------------------------------------------------------------
 	int random_range(int min, int max)
 	{
-		DYRO_ASSERT_MSG(min <= max, "random_range: min ({}) must not be larger than max ({})", min, max);
+		DYX_ASSERT_MSG(min <= max, "random_range: min ({}) must not be larger than max ({})", min, max);
 		const uint32_t range = static_cast<uint32_t>(max - min) + 1u;
 		return min + static_cast<int>(random_uint() % range);
 	}

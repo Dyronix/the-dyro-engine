@@ -5,7 +5,7 @@
 
 namespace
 {
-	constexpr const wchar_t* window_class_name = L"dyro_engine_window";
+	constexpr const wchar_t* window_class_name = L"dyx_engine_window";
 
 	//--------------------------------------------------------------
 	/// @brief Handles messages windows sends to our window.
@@ -13,8 +13,8 @@ namespace
 	{
 		// The window instance stored itself in the window user data during
 		// initialize, so this free function can reach its input state.
-		auto* owner = reinterpret_cast<dyro::window*>(GetWindowLongPtrW(handle, GWLP_USERDATA));
-		dyro::input* input = owner != nullptr ? owner->get_input() : nullptr;
+		auto* owner = reinterpret_cast<dyx::window*>(GetWindowLongPtrW(handle, GWLP_USERDATA));
+		dyx::input* input = owner != nullptr ? owner->get_input() : nullptr;
 
 		switch (message)
 		{
@@ -34,7 +34,7 @@ namespace
 		case WM_LBUTTONUP:
 			if (input != nullptr)
 			{
-				input->on_mouse_button_event(dyro::mouse_button::left, message == WM_LBUTTONDOWN);
+				input->on_mouse_button_event(dyx::mouse_button::left, message == WM_LBUTTONDOWN);
 			}
 			return 0;
 
@@ -42,7 +42,7 @@ namespace
 		case WM_RBUTTONUP:
 			if (input != nullptr)
 			{
-				input->on_mouse_button_event(dyro::mouse_button::right, message == WM_RBUTTONDOWN);
+				input->on_mouse_button_event(dyx::mouse_button::right, message == WM_RBUTTONDOWN);
 			}
 			return 0;
 
@@ -50,7 +50,7 @@ namespace
 		case WM_MBUTTONUP:
 			if (input != nullptr)
 			{
-				input->on_mouse_button_event(dyro::mouse_button::middle, message == WM_MBUTTONDOWN);
+				input->on_mouse_button_event(dyx::mouse_button::middle, message == WM_MBUTTONDOWN);
 			}
 			return 0;
 
@@ -88,7 +88,7 @@ namespace
 	}
 }
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	bool window::initialize(uint32_t width, uint32_t height, const std::wstring& title)

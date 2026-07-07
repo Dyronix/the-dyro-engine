@@ -1,9 +1,9 @@
 # Drawing {#page_drawing}
 
-All drawing happens in your dyro::game::draw override, through the
-dyro::renderer_2d the engine passes you. The engine already called
-dyro::renderer_2d::begin_frame (which clears the screen) before your draw,
-and calls dyro::renderer_2d::end_frame (which presents the frame) after it.
+All drawing happens in your dyx::game::draw override, through the
+dyx::renderer_2d the engine passes you. The engine already called
+dyx::renderer_2d::begin_frame (which clears the screen) before your draw,
+and calls dyx::renderer_2d::end_frame (which presents the frame) after it.
 Inside `draw` you only submit what you want to see.
 
 ## Coordinates
@@ -16,7 +16,7 @@ them, so draw the background first and the hud last.
 ## Sprites
 
 ```cpp
-void my_game::draw(dyro::renderer_2d& renderer)
+void my_game::draw(dyx::renderer_2d& renderer)
 {
     // texture, center position, size (all in pixels)
     renderer.draw_sprite(*m_background, { 640.0f, 360.0f }, { 1280.0f, 720.0f });
@@ -29,18 +29,18 @@ void my_game::draw(dyro::renderer_2d& renderer)
 
 The tint is multiplied with the texture: white (the default) leaves the
 texture untouched, and the alpha component makes the sprite transparent.
-See dyro::color; components are in the [0, 1] range.
+See dyx::color; components are in the [0, 1] range.
 
 ## Sprite sheets
 
 Put all animation frames in one texture and draw only the part you need by
-passing a source dyro::rect in **texture pixels**. Picking the frame from
+passing a source dyx::rect in **texture pixels**. Picking the frame from
 the elapsed time animates the sprite (from the demo game):
 
 ```cpp
 // Four 64x64 frames laid out next to each other, 8 frames per second
 const auto frame = static_cast<uint32_t>(m_time * 8.0f) % 4;
-const dyro::rect frame_rect = {
+const dyx::rect frame_rect = {
     { static_cast<float>(frame) * 64.0f, 0.0f },
     { static_cast<float>(frame + 1) * 64.0f, 64.0f } };
 
@@ -58,12 +58,12 @@ renderer.draw_rect_outline(area, 2.0f, { 1.0f, 0.2f, 0.2f, 1.0f }); // 2px outli
 renderer.draw_line(from, to, 2.0f, { 1.0f, 1.0f, 0.2f, 0.4f });     // 2px line
 ```
 
-`area` is a dyro::rect; build one around a sprite with
-dyro::rect::from_center_size, which matches how sprites are positioned.
+`area` is a dyx::rect; build one around a sprite with
+dyx::rect::from_center_size, which matches how sprites are positioned.
 
 ## Text
 
-dyro::renderer_2d::draw_text renders with a bitmap font
+dyx::renderer_2d::draw_text renders with a bitmap font
 (see @ref page_textures_and_fonts for how fonts work):
 
 ```cpp

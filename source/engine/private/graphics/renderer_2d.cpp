@@ -20,23 +20,23 @@ namespace
 	/// @brief A single vertex of the unit quad.
 	struct sprite_vertex
 	{
-		dyro::vec2 position;
-		dyro::vec2 uv;
+		dyx::vec2 position;
+		dyx::vec2 uv;
 	};
 
 	//--------------------------------------------------------------
 	/// @brief Constants sent to the shaders for every sprite (must match sprite_vs.hlsl).
 	struct sprite_constants
 	{
-		dyro::mat4 transform;
-		dyro::color tint;
-		dyro::vec4 uv_rect; // offset in xy, scale in zw (0..1 texture space)
+		dyx::mat4 transform;
+		dyx::color tint;
+		dyx::vec4 uv_rect; // offset in xy, scale in zw (0..1 texture space)
 	};
 
 	constexpr uint32_t sprite_constants_count = sizeof(sprite_constants) / 4; // in 32 bit values
 }
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	bool renderer_2d::initialize(device& graphics_device, command_queue& direct_queue, swap_chain& target_swap_chain, shader_library& shaders, pso_cache& pipeline_cache, descriptor_heap& srv_heap, texture_loader& textures, texture_filter sampler_filter)

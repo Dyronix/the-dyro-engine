@@ -8,7 +8,7 @@
 
 #include <cstdint>
 
-namespace dyro
+namespace dyx
 {
 	class device;
 	class command_queue;

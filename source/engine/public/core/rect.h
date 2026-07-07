@@ -2,7 +2,7 @@
 
 #include "core/math.h"
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief 2D axis aligned rectangle, the workhorse for collision checks.

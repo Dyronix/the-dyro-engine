@@ -1,6 +1,6 @@
 #pragma once
 
-namespace dyro
+namespace dyx
 {
 	// Smooth noise for procedural content: terrain heights, cloud patterns,
 	// camera shake, wobbly movement, ... Unlike random_float these functions
@@ -16,7 +16,7 @@ namespace dyro
 	/// The noise repeats its features about once per unit, so scale your
 	/// input coordinates to control how fast the noise changes:
 	/// @code{.cpp}
-	/// float height = dyro::noise_2d(x * 0.01f, y * 0.01f); // slow, smooth
+	/// float height = dyx::noise_2d(x * 0.01f, y * 0.01f); // slow, smooth
 	/// @endcode
 	float noise_2d(float x, float y);
 

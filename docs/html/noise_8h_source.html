@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: core/noise.h Source File</title>
+<title>DyxEngine: core/noise.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +25,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
-<link href="dyro-docs.css" rel="stylesheet" type="text/css"/>
+<link href="dyx-docs.css" rel="stylesheet" type="text/css"/>
 <!-- doxygen-awesome extensions (see docs/doxygen-awesome/) -->
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
 <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
@@ -43,7 +43,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DyroEngine
+   <div id="projectname">DyxEngine
    </div>
    <div id="projectbrief">a small DirectX 12 engine for 2D games, written to be read</div>
   </td>
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('noise_8h_sourc
 <div class="contents">
 <a href="noise_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyro.html">dyro</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyx.html">dyx</a></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="comment">// Smooth noise for procedural content: terrain heights, cloud patterns,</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="comment">// camera shake, wobbly movement, ... Unlike random_float these functions</span></div>
@@ -150,21 +150,21 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('noise_8h_sourc
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">    /// The noise repeats its features about once per unit, so scale your</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">    /// input coordinates to control how fast the noise changes:</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">    /// @code{.cpp}</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">    /// float height = dyro::noise_2d(x * 0.01f, y * 0.01f); // slow, smooth</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">    /// float height = dyx::noise_2d(x * 0.01f, y * 0.01f); // slow, smooth</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">    /// @endcode</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="namespacedyro.html#ab8fd814f3384062ce134f6cad7d0c0c0">   21</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="namespacedyro.html#ab8fd814f3384062ce134f6cad7d0c0c0">noise_2d</a>(<span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a9dd4e461268c8034f5c8564e155c67a6">x</a>, <span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a415290769594460e2e485922904f345d">y</a>);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="namespacedyx.html#ab8fd814f3384062ce134f6cad7d0c0c0">   21</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="namespacedyx.html#ab8fd814f3384062ce134f6cad7d0c0c0">noise_2d</a>(<span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a9dd4e461268c8034f5c8564e155c67a6">x</a>, <span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a415290769594460e2e485922904f345d">y</a>);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">//--------------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">    /// @brief Samples smooth 3d noise, roughly in [-1, 1]. A common trick is</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">    /// to use time as the third coordinate to animate 2d noise.</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespacedyro.html#aa061af15bfa2ceb3f24a5b4f94f5c31b">   26</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="namespacedyro.html#aa061af15bfa2ceb3f24a5b4f94f5c31b">noise_3d</a>(<span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a9dd4e461268c8034f5c8564e155c67a6">x</a>, <span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a415290769594460e2e485922904f345d">y</a>, <span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6afbade9e36a3f36d3d676c1b808451dd7">z</a>);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespacedyx.html#aa061af15bfa2ceb3f24a5b4f94f5c31b">   26</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="namespacedyx.html#aa061af15bfa2ceb3f24a5b4f94f5c31b">noise_3d</a>(<span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a9dd4e461268c8034f5c8564e155c67a6">x</a>, <span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a415290769594460e2e485922904f345d">y</a>, <span class="keywordtype">float</span> <a class="code hl_enumvalue" href="namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6afbade9e36a3f36d3d676c1b808451dd7">z</a>);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
-<div class="ttc" id="anamespacedyro_html"><div class="ttname"><a href="namespacedyro.html">dyro</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
-<div class="ttc" id="anamespacedyro_html_aa061af15bfa2ceb3f24a5b4f94f5c31b"><div class="ttname"><a href="namespacedyro.html#aa061af15bfa2ceb3f24a5b4f94f5c31b">dyro::noise_3d</a></div><div class="ttdeci">float noise_3d(float x, float y, float z)</div><div class="ttdoc">Samples smooth 3d noise, roughly in [-1, 1]. A common trick is to use time as the third coordinate to...</div></div>
-<div class="ttc" id="anamespacedyro_html_aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a415290769594460e2e485922904f345d"><div class="ttname"><a href="namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a415290769594460e2e485922904f345d">dyro::key::y</a></div><div class="ttdeci">@ y</div><div class="ttdef"><b>Definition</b> <a href="input_8h_source.html#l00036">input.h:36</a></div></div>
-<div class="ttc" id="anamespacedyro_html_aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a9dd4e461268c8034f5c8564e155c67a6"><div class="ttname"><a href="namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a9dd4e461268c8034f5c8564e155c67a6">dyro::key::x</a></div><div class="ttdeci">@ x</div><div class="ttdef"><b>Definition</b> <a href="input_8h_source.html#l00036">input.h:36</a></div></div>
-<div class="ttc" id="anamespacedyro_html_aacf1b1a5e1a25c7f51aa4aa1c51cf6e6afbade9e36a3f36d3d676c1b808451dd7"><div class="ttname"><a href="namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6afbade9e36a3f36d3d676c1b808451dd7">dyro::key::z</a></div><div class="ttdeci">@ z</div><div class="ttdef"><b>Definition</b> <a href="input_8h_source.html#l00036">input.h:36</a></div></div>
-<div class="ttc" id="anamespacedyro_html_ab8fd814f3384062ce134f6cad7d0c0c0"><div class="ttname"><a href="namespacedyro.html#ab8fd814f3384062ce134f6cad7d0c0c0">dyro::noise_2d</a></div><div class="ttdeci">float noise_2d(float x, float y)</div><div class="ttdoc">Samples smooth 2d noise, roughly in [-1, 1].</div></div>
+<div class="ttc" id="anamespacedyx_html"><div class="ttname"><a href="namespacedyx.html">dyx</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
+<div class="ttc" id="anamespacedyx_html_aa061af15bfa2ceb3f24a5b4f94f5c31b"><div class="ttname"><a href="namespacedyx.html#aa061af15bfa2ceb3f24a5b4f94f5c31b">dyx::noise_3d</a></div><div class="ttdeci">float noise_3d(float x, float y, float z)</div><div class="ttdoc">Samples smooth 3d noise, roughly in [-1, 1]. A common trick is to use time as the third coordinate to...</div></div>
+<div class="ttc" id="anamespacedyx_html_aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a415290769594460e2e485922904f345d"><div class="ttname"><a href="namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a415290769594460e2e485922904f345d">dyx::key::y</a></div><div class="ttdeci">@ y</div><div class="ttdef"><b>Definition</b> <a href="input_8h_source.html#l00036">input.h:36</a></div></div>
+<div class="ttc" id="anamespacedyx_html_aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a9dd4e461268c8034f5c8564e155c67a6"><div class="ttname"><a href="namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a9dd4e461268c8034f5c8564e155c67a6">dyx::key::x</a></div><div class="ttdeci">@ x</div><div class="ttdef"><b>Definition</b> <a href="input_8h_source.html#l00036">input.h:36</a></div></div>
+<div class="ttc" id="anamespacedyx_html_aacf1b1a5e1a25c7f51aa4aa1c51cf6e6afbade9e36a3f36d3d676c1b808451dd7"><div class="ttname"><a href="namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6afbade9e36a3f36d3d676c1b808451dd7">dyx::key::z</a></div><div class="ttdeci">@ z</div><div class="ttdef"><b>Definition</b> <a href="input_8h_source.html#l00036">input.h:36</a></div></div>
+<div class="ttc" id="anamespacedyx_html_ab8fd814f3384062ce134f6cad7d0c0c0"><div class="ttname"><a href="namespacedyx.html#ab8fd814f3384062ce134f6cad7d0c0c0">dyx::noise_2d</a></div><div class="ttdeci">float noise_2d(float x, float y)</div><div class="ttdoc">Samples smooth 2d noise, roughly in [-1, 1].</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

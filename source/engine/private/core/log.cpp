@@ -1,6 +1,6 @@
 #include "core/log.h"
 
-#if defined(DYRO_LOG_ENABLED)
+#if defined(DYX_LOG_ENABLED)
 
 #include "core/paths.h"
 
@@ -52,7 +52,7 @@ namespace
 		{
 			enable_console_colors();
 
-			std::printf("%s[%s]%s %.*s\n", color, name, dyro::log::reset,
+			std::printf("%s[%s]%s %.*s\n", color, name, dyx::log::reset,
 				static_cast<int>(text.size()), text.data());
 
 			char debugger_message[2100];
@@ -95,7 +95,7 @@ namespace
 		{
 			sinks.emplace_back(std::make_unique<console_sink>());
 			sinks.emplace_back(std::make_unique<file_sink>(
-				dyro::paths::get_executable_directory() / "dyro.log"));
+				dyx::paths::get_executable_directory() / "dyx.log"));
 		}
 
 		std::vector<std::unique_ptr<sink>> sinks;
@@ -109,7 +109,7 @@ namespace
 	}
 }
 
-namespace dyro
+namespace dyx
 {
 	namespace log
 	{
@@ -129,7 +129,7 @@ namespace dyro
 
 #else
 
-namespace dyro
+namespace dyx
 {
 	namespace log
 	{

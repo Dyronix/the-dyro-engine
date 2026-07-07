@@ -12,7 +12,7 @@
 
 using Microsoft::WRL::ComPtr;
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	bool texture_loader::initialize(device& graphics_device, command_queue& direct_queue, descriptor_heap& srv_heap)

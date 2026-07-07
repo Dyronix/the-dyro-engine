@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['window_0',['window',['../classdyro_1_1window.html',1,'dyro']]]
+  ['window_0',['window',['../classdyx_1_1window.html',1,'dyx']]]
 ];

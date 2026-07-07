@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief Loads compiled shaders (*.cso files) from disk and keeps them in memory.

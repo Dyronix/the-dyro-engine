@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	bool shader_library::initialize(const std::filesystem::path& shader_directory)

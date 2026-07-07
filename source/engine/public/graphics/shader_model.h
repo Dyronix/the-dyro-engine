@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief Returns the highest shader model supported by the given device.

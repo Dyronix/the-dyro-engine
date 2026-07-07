@@ -2,7 +2,7 @@
 
 #include <stb/stb_perlin.h>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	float noise_2d(float x, float y)

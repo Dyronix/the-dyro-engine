@@ -1,9 +1,9 @@
 // rnd.h - minimal pseudo random number generation
 //
-// Written for the dyro engine, but engine-agnostic on purpose: this header
+// Written for the dyx engine, but engine-agnostic on purpose: this header
 // lives in third_party because the bit-twiddling below is implementation
 // detail nobody should have to read to understand the engine. Use the
-// friendly dyro API in "core/random.h" instead.
+// friendly dyx API in "core/random.h" instead.
 //
 // Algorithms:
 //   - xorshift32 by George Marsaglia (2003), "Xorshift RNGs". A tiny and fast

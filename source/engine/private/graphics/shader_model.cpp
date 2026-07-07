@@ -21,7 +21,7 @@ namespace
 	};
 }
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	D3D_SHADER_MODEL query_highest_shader_model(ID3D12Device* d3d_device)

@@ -15,7 +15,7 @@
 #include <cstdint>
 #include <string>
 
-namespace dyro
+namespace dyx
 {
 	class game;
 
@@ -25,7 +25,7 @@ namespace dyro
 	{
 		uint32_t window_width = 1280;
 		uint32_t window_height = 720;
-		std::wstring window_title = L"DyroEngine";
+		std::wstring window_title = L"DyxEngine";
 
 		// Which graphics card to run on; lowest_score is handy to test how
 		// the game behaves on weaker hardware.
@@ -41,10 +41,10 @@ namespace dyro
 	//--------------------------------------------------------------
 	/// @brief Owns all engine systems and runs the main loop.
 	///
-	/// Usage (see the dyro_game project for a full example):
+	/// Usage (see the dyx_game project for a full example):
 	/// @code{.cpp}
 	/// my_game game;
-	/// dyro::engine engine;
+	/// dyx::engine engine;
 	/// return engine.run(game, settings);
 	/// @endcode
 	class engine

@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief Which graphics card the engine should pick from the scored list.

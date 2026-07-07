@@ -3,7 +3,7 @@ setlocal
 
 set "CONFIG=Debug"
 set "CONFIG_ARG=-debug"
-set "GAME=dyro_game"
+set "GAME=dyx_game"
 set "FORWARD="
 
 :parse_args

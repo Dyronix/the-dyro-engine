@@ -2,7 +2,7 @@
 
 #include <filesystem>
 
-namespace dyro
+namespace dyx
 {
 	namespace paths
 	{

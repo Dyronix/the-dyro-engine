@@ -2,16 +2,16 @@
 
 #include <chrono>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief Measures elapsed wall clock time with high precision.
 	///
 	/// A freshly constructed timer starts measuring immediately:
 	/// @code{.cpp}
-	/// dyro::timer stopwatch;
+	/// dyx::timer stopwatch;
 	/// expensive_work();
-	/// dyro::log::info("took {} seconds", stopwatch.elapsed_seconds());
+	/// dyx::log::info("took {} seconds", stopwatch.elapsed_seconds());
 	/// @endcode
 	class timer
 	{

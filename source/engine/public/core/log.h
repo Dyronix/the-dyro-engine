@@ -9,10 +9,10 @@
 // call collapses to nothing, so no formatting cost is paid and no log file is
 // created.
 #if !defined(NDEBUG)
-	#define DYRO_LOG_ENABLED
+	#define DYX_LOG_ENABLED
 #endif
 
-namespace dyro
+namespace dyx
 {
 	namespace log
 	{
@@ -35,7 +35,7 @@ namespace dyro
 		template<typename FormatString, typename... Args>
 		void info(const FormatString& format, const Args&... args)
 		{
-#if defined(DYRO_LOG_ENABLED)
+#if defined(DYX_LOG_ENABLED)
 			internal::trace("info", green, fmt::format(fmt::runtime(format), args...));
 #else
 			(void)format;
@@ -50,7 +50,7 @@ namespace dyro
 		template<typename FormatString, typename... Args>
 		void warn(const FormatString& format, const Args&... args)
 		{
-#if defined(DYRO_LOG_ENABLED)
+#if defined(DYX_LOG_ENABLED)
 			internal::trace("warn", magenta, fmt::format(fmt::runtime(format), args...));
 #else
 			(void)format;
@@ -65,7 +65,7 @@ namespace dyro
 		template<typename FormatString, typename... Args>
 		void error(const FormatString& format, const Args&... args)
 		{
-#if defined(DYRO_LOG_ENABLED)
+#if defined(DYX_LOG_ENABLED)
 			internal::trace("error", red, fmt::format(fmt::runtime(format), args...));
 #else
 			(void)format;

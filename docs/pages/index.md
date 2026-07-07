@@ -1,19 +1,19 @@
-# DyroEngine documentation
+# DyxEngine documentation
 
 A small DirectX 12 engine for 2D games, written to be read. Every system is
 one small class with one job, so you can dig into any part of the engine and
 understand it completely.
 
-Your game is a class that derives from dyro::game and overrides four
+Your game is a class that derives from dyx::game and overrides four
 functions. The engine owns the main loop and calls them at the right time:
 
 ```cpp
-class my_game : public dyro::game
+class my_game : public dyx::game
 {
 public:
-    void initialize(dyro::engine& engine) override;  // load your textures here
+    void initialize(dyx::engine& engine) override;  // load your textures here
     void update(float delta_seconds) override;       // game logic here
-    void draw(dyro::renderer_2d& renderer) override; // draw sprites here
+    void draw(dyx::renderer_2d& renderer) override; // draw sprites here
     void shutdown() override;                        // cleanup here
 };
 ```
@@ -38,5 +38,5 @@ into your own game:
 - @subpage page_under_the_hood : how the engine works inside
 
 For the full API reference, browse the class list in the sidebar. Start with
-dyro::engine, dyro::renderer_2d and dyro::input, the three classes your game
+dyx::engine, dyx::renderer_2d and dyx::input, the three classes your game
 talks to every frame.

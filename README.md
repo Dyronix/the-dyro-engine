@@ -1,4 +1,4 @@
-# DyroEngine
+# DyxEngine
 
 A small DirectX 12 engine for 2D games, written to be read. Every system is
 one small class with one job, so you can dig into any part of the engine and
@@ -18,7 +18,7 @@ with C++* workload and a recent **Windows 10/11 SDK** (both are part of the
 default workload installation).
 
 ```
-generate.bat                 # generates build/dyro_engine.sln (VS2026 by default)
+generate.bat                 # generates build/dyx_engine.sln (VS2026 by default)
 build.bat -debug             # or open the solution and press F5
 ```
 
@@ -26,26 +26,26 @@ build.bat -debug             # or open the solution and press F5
 Visual Studio 2022 instead. Switching between them re-generates from scratch.
 (VS2026 generation requires CMake 4.2 or newer.)
 
-The solution sets `dyro_game` as the startup project. Run it and you should
+The solution sets `dyx_game` as the startup project. Run it and you should
 see a checkerboard, a rotating red quad, a bouncing ball and a small hud.
 Move the ball with wasd, tint it with space, resize it with the mouse wheel.
 
 ## Making your own game
 
-Look at `source/games/dyro_game`: a game is a class that derives from
-`dyro::game` and overrides four functions. To add code, just create new
-`.cpp`/`.h` files in `source/games/dyro_game/private` and build; they are
+Look at `source/games/dyx_game`: a game is a class that derives from
+`dyx::game` and overrides four functions. To add code, just create new
+`.cpp`/`.h` files in `source/games/dyx_game/private` and build; they are
 picked up automatically, no build-system editing needed. Want to add a
 second game alongside the demo instead of replacing it? See "Adding a second
 game" in [the getting started guide](docs/html/page_getting_started.html).
 
 ```cpp
-class my_game : public dyro::game
+class my_game : public dyx::game
 {
 public:
-    void initialize(dyro::engine& engine) override;  // load your textures here
+    void initialize(dyx::engine& engine) override;  // load your textures here
     void update(float delta_seconds) override;       // game logic here
-    void draw(dyro::renderer_2d& renderer) override; // draw sprites here
+    void draw(dyx::renderer_2d& renderer) override; // draw sprites here
     void shutdown() override;                        // cleanup here
 };
 ```
@@ -72,18 +72,18 @@ renderer.draw_text(font, "hello", position, pixel_height);  // bitmap font text
 Keyboard and mouse come from `engine.get_input()`:
 
 ```cpp
-if (input.is_key_down(dyro::key::a))         { /* every frame while held */ }
-if (input.was_key_pressed(dyro::key::space)) { /* only the frame it went down */ }
-dyro::vec2 mouse = input.get_mouse_position();
+if (input.is_key_down(dyx::key::a))         { /* every frame while held */ }
+if (input.was_key_pressed(dyx::key::space)) { /* only the frame it went down */ }
+dyx::vec2 mouse = input.get_mouse_position();
 ```
 
-Math is [glm](https://github.com/g-truc/glm) under dyro names: `dyro::vec2`,
-`dyro::mat4`, `dyro::lerp`, `dyro::clamp`, ... (see `core/math.h`), plus a 2D
-`dyro::rect` for bounds and overlap checks (`core/rect.h`). Utilities:
-`dyro::timer` (measure time), `dyro::random_float` and friends
-(`core/random.h`), smooth `dyro::noise_2d` (`core/noise.h`), logging via
-`dyro::log::info/warn/error` and asserts via `DYRO_ASSERT` /
-`dyro::fatal_error` (`core/assert.h`).
+Math is [glm](https://github.com/g-truc/glm) under dyx names: `dyx::vec2`,
+`dyx::mat4`, `dyx::lerp`, `dyx::clamp`, ... (see `core/math.h`), plus a 2D
+`dyx::rect` for bounds and overlap checks (`core/rect.h`). Utilities:
+`dyx::timer` (measure time), `dyx::random_float` and friends
+(`core/random.h`), smooth `dyx::noise_2d` (`core/noise.h`), logging via
+`dyx::log::info/warn/error` and asserts via `DYX_ASSERT` /
+`dyx::fatal_error` (`core/assert.h`).
 
 ## Folder structure
 
@@ -92,11 +92,11 @@ cmake/            build-system helper scripts (each one is commented)
 content/          textures, fonts and other assets (copied next to the exe at build time)
 shaders/          hlsl shader source files (compiled at build time)
 source/
-  engine/         the engine static library (namespace dyro)
+  engine/         the engine static library (namespace dyx)
     public/       headers your game may include
     private/      implementation details
   games/          one folder per game (see source/games/CMakeLists.txt)
-    dyro_game/    the demo game; replace it, or add more games next to it
+    dyx_game/    the demo game; replace it, or add more games next to it
                   (new .cpp/.h files in its private/ folder are picked up automatically)
   tools/
     shader_compiler/  build tool that compiles hlsl to directx bytecode
@@ -112,7 +112,7 @@ and the engine wraps it behind a small, readable api.
 
 ## How the engine works
 
-`dyro::engine::run()` brings the systems up in dependency order, then runs the
+`dyx::engine::run()` brings the systems up in dependency order, then runs the
 main loop. Each system is one class:
 
 | class | job |
@@ -148,7 +148,7 @@ DirectX 12 can only load *compiled* shaders. The `shader_compiler` tool (built
 from `source/tools/shader_compiler`, using Microsoft's DXC compiler) turns
 `.hlsl` files into `.cso` bytecode.
 
-It is wired into the build by `DYRO_COMPILE_SHADERS` in
+It is wired into the build by `DYX_COMPILE_SHADERS` in
 `cmake/compile_shaders.cmake`: every `*.hlsl` file in `/shaders` is compiled into
 `<build>/<config>/content/shaders/` as part of a normal build. CMake tracks
 the dependencies, so a shader is only recompiled when its source changed or

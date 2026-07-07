@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: graphics/font.h Source File</title>
+<title>DyxEngine: graphics/font.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +25,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
-<link href="dyro-docs.css" rel="stylesheet" type="text/css"/>
+<link href="dyx-docs.css" rel="stylesheet" type="text/css"/>
 <!-- doxygen-awesome extensions (see docs/doxygen-awesome/) -->
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
 <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
@@ -43,7 +43,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DyroEngine
+   <div id="projectname">DyxEngine
    </div>
    <div id="projectbrief">a small DirectX 12 engine for 2D games, written to be read</div>
   </td>
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('font_8h_source
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyro.html">dyro</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyx.html">dyx</a></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="comment">//--------------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">    /// @brief A fixed-grid bitmap font: one atlas texture holding every</span></div>
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('font_8h_source
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">    /// All glyph data lives in the atlas image (content/fonts/), this struct</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">    /// only describes the grid so draw_text can find each character:</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">    /// @code{.cpp}</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">    /// dyro::font font;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">    /// dyx::font font;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">    /// font.atlas = engine.get_texture_loader().load_from_file(path_to_atlas);</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">    /// renderer.draw_text(font, &quot;hello&quot;, { 20.0f, 20.0f }, 16.0f);</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">    /// @endcode</span></div>
@@ -159,53 +159,53 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('font_8h_source
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">    /// (content/fonts/font_8x8.png): 8x8 pixel glyphs, 16 per row, starting</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">    /// at the space character (ascii 32).</span></div>
 <div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structdyro_1_1font.html">   27</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdyro_1_1font.html">font</a></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structdyx_1_1font.html">   27</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdyx_1_1font.html">font</a></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structdyro_1_1font.html#a37dcce141c8b8130c598616b53bb9ca4">   29</a></span>        std::shared_ptr&lt;texture&gt; <a class="code hl_variable" href="structdyro_1_1font.html#a37dcce141c8b8130c598616b53bb9ca4">atlas</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structdyx_1_1font.html#a37dcce141c8b8130c598616b53bb9ca4">   29</a></span>        std::shared_ptr&lt;texture&gt; <a class="code hl_variable" href="structdyx_1_1font.html#a37dcce141c8b8130c598616b53bb9ca4">atlas</a>;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structdyro_1_1font.html#a58522ccc3dd408ceac6e4cc1fba6e842">   31</a></span>        uint32_t <a class="code hl_variable" href="structdyro_1_1font.html#a58522ccc3dd408ceac6e4cc1fba6e842">first_character</a> = 32;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structdyro_1_1font.html#ab5051239f17a27bab8c4b27fcc511f6b">   32</a></span>        uint32_t <a class="code hl_variable" href="structdyro_1_1font.html#ab5051239f17a27bab8c4b27fcc511f6b">glyph_count</a> = 96;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structdyro_1_1font.html#a975fd666a26a94bc8e631d56995bb969">   33</a></span>        uint32_t <a class="code hl_variable" href="structdyro_1_1font.html#a975fd666a26a94bc8e631d56995bb969">glyphs_per_row</a> = 16;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structdyro_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">   34</a></span>        <a class="code hl_typedef" href="namespacedyro.html#a6d2e929952e566a17ceb55cd2a3b3862">uvec2</a> <a class="code hl_variable" href="structdyro_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">glyph_size</a> = { 8, 8 };</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structdyx_1_1font.html#a58522ccc3dd408ceac6e4cc1fba6e842">   31</a></span>        uint32_t <a class="code hl_variable" href="structdyx_1_1font.html#a58522ccc3dd408ceac6e4cc1fba6e842">first_character</a> = 32;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structdyx_1_1font.html#ab5051239f17a27bab8c4b27fcc511f6b">   32</a></span>        uint32_t <a class="code hl_variable" href="structdyx_1_1font.html#ab5051239f17a27bab8c4b27fcc511f6b">glyph_count</a> = 96;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structdyx_1_1font.html#a975fd666a26a94bc8e631d56995bb969">   33</a></span>        uint32_t <a class="code hl_variable" href="structdyx_1_1font.html#a975fd666a26a94bc8e631d56995bb969">glyphs_per_row</a> = 16;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structdyx_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">   34</a></span>        <a class="code hl_typedef" href="namespacedyx.html#a6d2e929952e566a17ceb55cd2a3b3862">uvec2</a> <a class="code hl_variable" href="structdyx_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">glyph_size</a> = { 8, 8 };</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="comment">//----------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">        /// @brief Returns where a character&#39;s glyph sits in the atlas, in</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">        /// pixels. Characters the font does not have come out as the first</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">        /// glyph (usually space, so they show up as blank).</span></div>
 <div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structdyro_1_1font.html#a38a79cb5d4a1a4645e22ab315ebb2d4e">   40</a></span>        <a class="code hl_struct" href="structdyro_1_1rect.html">rect</a> <a class="code hl_function" href="structdyro_1_1font.html#a38a79cb5d4a1a4645e22ab315ebb2d4e">get_glyph_source_rect</a>(<span class="keywordtype">char</span> character)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structdyx_1_1font.html#a38a79cb5d4a1a4645e22ab315ebb2d4e">   40</a></span>        <a class="code hl_struct" href="structdyx_1_1rect.html">rect</a> <a class="code hl_function" href="structdyx_1_1font.html#a38a79cb5d4a1a4645e22ab315ebb2d4e">get_glyph_source_rect</a>(<span class="keywordtype">char</span> character)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">        </span>{</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="comment">// The cast via unsigned char keeps characters above 127 from</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="comment">// going negative and ending up as a huge index.</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            uint32_t index = <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(character) - <a class="code hl_variable" href="structdyro_1_1font.html#a58522ccc3dd408ceac6e4cc1fba6e842">first_character</a>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keywordflow">if</span> (index &gt;= <a class="code hl_variable" href="structdyro_1_1font.html#ab5051239f17a27bab8c4b27fcc511f6b">glyph_count</a>)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            uint32_t index = <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(character) - <a class="code hl_variable" href="structdyx_1_1font.html#a58522ccc3dd408ceac6e4cc1fba6e842">first_character</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keywordflow">if</span> (index &gt;= <a class="code hl_variable" href="structdyx_1_1font.html#ab5051239f17a27bab8c4b27fcc511f6b">glyph_count</a>)</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            {</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                index = 0;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            }</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespacedyro.html#ab9c20c22b8a5fda219e308f1e9d79f84">vec2</a> top_left = {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>((index % <a class="code hl_variable" href="structdyro_1_1font.html#a975fd666a26a94bc8e631d56995bb969">glyphs_per_row</a>) * <a class="code hl_variable" href="structdyro_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">glyph_size</a>.x),</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>((index / <a class="code hl_variable" href="structdyro_1_1font.html#a975fd666a26a94bc8e631d56995bb969">glyphs_per_row</a>) * <a class="code hl_variable" href="structdyro_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">glyph_size</a>.y) };</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespacedyx.html#ab9c20c22b8a5fda219e308f1e9d79f84">vec2</a> top_left = {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>((index % <a class="code hl_variable" href="structdyx_1_1font.html#a975fd666a26a94bc8e631d56995bb969">glyphs_per_row</a>) * <a class="code hl_variable" href="structdyx_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">glyph_size</a>.x),</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>((index / <a class="code hl_variable" href="structdyx_1_1font.html#a975fd666a26a94bc8e631d56995bb969">glyphs_per_row</a>) * <a class="code hl_variable" href="structdyx_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">glyph_size</a>.y) };</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keywordflow">return</span> { top_left, top_left + <a class="code hl_typedef" href="namespacedyro.html#ab9c20c22b8a5fda219e308f1e9d79f84">vec2</a>(<a class="code hl_variable" href="structdyro_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">glyph_size</a>) };</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keywordflow">return</span> { top_left, top_left + <a class="code hl_typedef" href="namespacedyx.html#ab9c20c22b8a5fda219e308f1e9d79f84">vec2</a>(<a class="code hl_variable" href="structdyx_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">glyph_size</a>) };</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        }</div>
 </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    };</div>
 </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
 <div class="ttc" id="amath_8h_html"><div class="ttname"><a href="math_8h.html">math.h</a></div></div>
-<div class="ttc" id="anamespacedyro_html"><div class="ttname"><a href="namespacedyro.html">dyro</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
-<div class="ttc" id="anamespacedyro_html_a6d2e929952e566a17ceb55cd2a3b3862"><div class="ttname"><a href="namespacedyro.html#a6d2e929952e566a17ceb55cd2a3b3862">dyro::uvec2</a></div><div class="ttdeci">glm::uvec2 uvec2</div><div class="ttdef"><b>Definition</b> <a href="math_8h_source.html#l00020">math.h:20</a></div></div>
-<div class="ttc" id="anamespacedyro_html_ab9c20c22b8a5fda219e308f1e9d79f84"><div class="ttname"><a href="namespacedyro.html#ab9c20c22b8a5fda219e308f1e9d79f84">dyro::vec2</a></div><div class="ttdeci">glm::vec2 vec2</div><div class="ttdef"><b>Definition</b> <a href="math_8h_source.html#l00016">math.h:16</a></div></div>
+<div class="ttc" id="anamespacedyx_html"><div class="ttname"><a href="namespacedyx.html">dyx</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
+<div class="ttc" id="anamespacedyx_html_a6d2e929952e566a17ceb55cd2a3b3862"><div class="ttname"><a href="namespacedyx.html#a6d2e929952e566a17ceb55cd2a3b3862">dyx::uvec2</a></div><div class="ttdeci">glm::uvec2 uvec2</div><div class="ttdef"><b>Definition</b> <a href="math_8h_source.html#l00020">math.h:20</a></div></div>
+<div class="ttc" id="anamespacedyx_html_ab9c20c22b8a5fda219e308f1e9d79f84"><div class="ttname"><a href="namespacedyx.html#ab9c20c22b8a5fda219e308f1e9d79f84">dyx::vec2</a></div><div class="ttdeci">glm::vec2 vec2</div><div class="ttdef"><b>Definition</b> <a href="math_8h_source.html#l00016">math.h:16</a></div></div>
 <div class="ttc" id="arect_8h_html"><div class="ttname"><a href="rect_8h.html">rect.h</a></div></div>
-<div class="ttc" id="astructdyro_1_1font_html"><div class="ttname"><a href="structdyro_1_1font.html">dyro::font</a></div><div class="ttdoc">A fixed-grid bitmap font: one atlas texture holding every character in a regular grid,...</div><div class="ttdef"><b>Definition</b> <a href="#l00027">font.h:28</a></div></div>
-<div class="ttc" id="astructdyro_1_1font_html_a37dcce141c8b8130c598616b53bb9ca4"><div class="ttname"><a href="structdyro_1_1font.html#a37dcce141c8b8130c598616b53bb9ca4">dyro::font::atlas</a></div><div class="ttdeci">std::shared_ptr&lt; texture &gt; atlas</div><div class="ttdef"><b>Definition</b> <a href="#l00029">font.h:29</a></div></div>
-<div class="ttc" id="astructdyro_1_1font_html_a38a79cb5d4a1a4645e22ab315ebb2d4e"><div class="ttname"><a href="structdyro_1_1font.html#a38a79cb5d4a1a4645e22ab315ebb2d4e">dyro::font::get_glyph_source_rect</a></div><div class="ttdeci">rect get_glyph_source_rect(char character) const</div><div class="ttdoc">Returns where a character&#39;s glyph sits in the atlas, in pixels. Characters the font does not have com...</div><div class="ttdef"><b>Definition</b> <a href="#l00040">font.h:40</a></div></div>
-<div class="ttc" id="astructdyro_1_1font_html_a55789ec5f39e5b69339abe6fb4a5f04b"><div class="ttname"><a href="structdyro_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">dyro::font::glyph_size</a></div><div class="ttdeci">uvec2 glyph_size</div><div class="ttdef"><b>Definition</b> <a href="#l00034">font.h:34</a></div></div>
-<div class="ttc" id="astructdyro_1_1font_html_a58522ccc3dd408ceac6e4cc1fba6e842"><div class="ttname"><a href="structdyro_1_1font.html#a58522ccc3dd408ceac6e4cc1fba6e842">dyro::font::first_character</a></div><div class="ttdeci">uint32_t first_character</div><div class="ttdef"><b>Definition</b> <a href="#l00031">font.h:31</a></div></div>
-<div class="ttc" id="astructdyro_1_1font_html_a975fd666a26a94bc8e631d56995bb969"><div class="ttname"><a href="structdyro_1_1font.html#a975fd666a26a94bc8e631d56995bb969">dyro::font::glyphs_per_row</a></div><div class="ttdeci">uint32_t glyphs_per_row</div><div class="ttdef"><b>Definition</b> <a href="#l00033">font.h:33</a></div></div>
-<div class="ttc" id="astructdyro_1_1font_html_ab5051239f17a27bab8c4b27fcc511f6b"><div class="ttname"><a href="structdyro_1_1font.html#ab5051239f17a27bab8c4b27fcc511f6b">dyro::font::glyph_count</a></div><div class="ttdeci">uint32_t glyph_count</div><div class="ttdef"><b>Definition</b> <a href="#l00032">font.h:32</a></div></div>
-<div class="ttc" id="astructdyro_1_1rect_html"><div class="ttname"><a href="structdyro_1_1rect.html">dyro::rect</a></div><div class="ttdoc">2D axis aligned rectangle, the workhorse for collision checks.</div><div class="ttdef"><b>Definition</b> <a href="rect_8h_source.html#l00012">rect.h:13</a></div></div>
+<div class="ttc" id="astructdyx_1_1font_html"><div class="ttname"><a href="structdyx_1_1font.html">dyx::font</a></div><div class="ttdoc">A fixed-grid bitmap font: one atlas texture holding every character in a regular grid,...</div><div class="ttdef"><b>Definition</b> <a href="#l00027">font.h:28</a></div></div>
+<div class="ttc" id="astructdyx_1_1font_html_a37dcce141c8b8130c598616b53bb9ca4"><div class="ttname"><a href="structdyx_1_1font.html#a37dcce141c8b8130c598616b53bb9ca4">dyx::font::atlas</a></div><div class="ttdeci">std::shared_ptr&lt; texture &gt; atlas</div><div class="ttdef"><b>Definition</b> <a href="#l00029">font.h:29</a></div></div>
+<div class="ttc" id="astructdyx_1_1font_html_a38a79cb5d4a1a4645e22ab315ebb2d4e"><div class="ttname"><a href="structdyx_1_1font.html#a38a79cb5d4a1a4645e22ab315ebb2d4e">dyx::font::get_glyph_source_rect</a></div><div class="ttdeci">rect get_glyph_source_rect(char character) const</div><div class="ttdoc">Returns where a character&#39;s glyph sits in the atlas, in pixels. Characters the font does not have com...</div><div class="ttdef"><b>Definition</b> <a href="#l00040">font.h:40</a></div></div>
+<div class="ttc" id="astructdyx_1_1font_html_a55789ec5f39e5b69339abe6fb4a5f04b"><div class="ttname"><a href="structdyx_1_1font.html#a55789ec5f39e5b69339abe6fb4a5f04b">dyx::font::glyph_size</a></div><div class="ttdeci">uvec2 glyph_size</div><div class="ttdef"><b>Definition</b> <a href="#l00034">font.h:34</a></div></div>
+<div class="ttc" id="astructdyx_1_1font_html_a58522ccc3dd408ceac6e4cc1fba6e842"><div class="ttname"><a href="structdyx_1_1font.html#a58522ccc3dd408ceac6e4cc1fba6e842">dyx::font::first_character</a></div><div class="ttdeci">uint32_t first_character</div><div class="ttdef"><b>Definition</b> <a href="#l00031">font.h:31</a></div></div>
+<div class="ttc" id="astructdyx_1_1font_html_a975fd666a26a94bc8e631d56995bb969"><div class="ttname"><a href="structdyx_1_1font.html#a975fd666a26a94bc8e631d56995bb969">dyx::font::glyphs_per_row</a></div><div class="ttdeci">uint32_t glyphs_per_row</div><div class="ttdef"><b>Definition</b> <a href="#l00033">font.h:33</a></div></div>
+<div class="ttc" id="astructdyx_1_1font_html_ab5051239f17a27bab8c4b27fcc511f6b"><div class="ttname"><a href="structdyx_1_1font.html#ab5051239f17a27bab8c4b27fcc511f6b">dyx::font::glyph_count</a></div><div class="ttdeci">uint32_t glyph_count</div><div class="ttdef"><b>Definition</b> <a href="#l00032">font.h:32</a></div></div>
+<div class="ttc" id="astructdyx_1_1rect_html"><div class="ttname"><a href="structdyx_1_1rect.html">dyx::rect</a></div><div class="ttdoc">2D axis aligned rectangle, the workhorse for collision checks.</div><div class="ttdef"><b>Definition</b> <a href="rect_8h_source.html#l00012">rect.h:13</a></div></div>
 <div class="ttc" id="atexture_8h_html"><div class="ttname"><a href="texture_8h.html">texture.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

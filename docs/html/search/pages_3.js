@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['documentation_0',['DyroEngine documentation',['../index.html',1,'']]],
+  ['documentation_0',['DyxEngine documentation',['../index.html',1,'']]],
   ['drawing_1',['Drawing',['../page_drawing.html',1,'index']]],
-  ['dyroengine_20documentation_2',['DyroEngine documentation',['../index.html',1,'']]]
+  ['dyxengine_20documentation_2',['DyxEngine documentation',['../index.html',1,'']]]
 ];

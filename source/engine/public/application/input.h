@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief The keys the engine understands.
@@ -51,9 +51,9 @@ namespace dyro
 	/// The engine owns one instance (engine::get_input) and the window feeds
 	/// it every input message. Game code just asks questions:
 	/// @code{.cpp}
-	/// if (input.is_key_down(dyro::key::a))            { }  // every frame while held
-	/// if (input.was_key_pressed(dyro::key::space))    { }  // only the frame it went down
-	/// if (input.was_key_released(dyro::key::escape))  { }  // only the frame it came up
+	/// if (input.is_key_down(dyx::key::a))            { }  // every frame while held
+	/// if (input.was_key_pressed(dyx::key::space))    { }  // only the frame it went down
+	/// if (input.was_key_released(dyx::key::escape))  { }  // only the frame it came up
 	/// @endcode
 	class input
 	{

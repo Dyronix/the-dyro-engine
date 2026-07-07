@@ -2,7 +2,7 @@
 
 #include "graphics/d3d_utils.h"
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	bool command_queue::initialize(ID3D12Device* d3d_device, D3D12_COMMAND_LIST_TYPE type)

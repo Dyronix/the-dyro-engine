@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief Caches pipeline state objects (psos) on disk between runs.

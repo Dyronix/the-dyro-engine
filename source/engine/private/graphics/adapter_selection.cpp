@@ -69,7 +69,7 @@ namespace
 	/// graphics card with gigabytes of its own memory always beats an
 	/// integrated gpu that borrows system memory. The feature level and
 	/// shader model act as tie breakers between similar cards.
-	uint64_t calculate_score(const dyro::adapter_info& info)
+	uint64_t calculate_score(const dyx::adapter_info& info)
 	{
 		if (info.is_software)
 		{
@@ -85,9 +85,9 @@ namespace
 
 	//--------------------------------------------------------------
 	/// @brief Returns true when the list contains at least one real (non software) adapter.
-	bool has_hardware_adapter(const std::vector<dyro::adapter_info>& adapters)
+	bool has_hardware_adapter(const std::vector<dyx::adapter_info>& adapters)
 	{
-		for (const dyro::adapter_info& info : adapters)
+		for (const dyx::adapter_info& info : adapters)
 		{
 			if (!info.is_software)
 			{
@@ -99,7 +99,7 @@ namespace
 	}
 }
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	std::vector<adapter_info> enumerate_and_score_adapters(IDXGIFactory1* factory)

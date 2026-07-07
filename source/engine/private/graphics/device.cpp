@@ -22,7 +22,7 @@ namespace
 		if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface))))
 		{
 			debug_interface->EnableDebugLayer();
-			dyro::log::info("Directx 12 debug layer enabled");
+			dyx::log::info("Directx 12 debug layer enabled");
 		}
 #endif
 	}
@@ -42,7 +42,7 @@ namespace
 	}
 }
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	bool device::initialize(adapter_preference preference)

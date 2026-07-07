@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(dyro_engine LANGUAGES CXX)
+project(dyx_engine LANGUAGES CXX)
 
 IF(NOT WIN32)
-    MESSAGE(FATAL_ERROR "DyroEngine uses DirectX 12 and can only be built on Windows.")
+    MESSAGE(FATAL_ERROR "DyxEngine uses DirectX 12 and can only be built on Windows.")
 ENDIF()
 
 # Use C++ 17 as a standard
@@ -32,7 +32,7 @@ SET(SOURCE_SHADER_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/shaders)
 # folder; every script is commented if you are curious how it works.
 LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 INCLUDE(group_sources)       # GROUPSOURCES: mirror a folder tree as IDE filters
-INCLUDE(compile_shaders)     # DYRO_COMPILE_SHADERS: compile the /shaders hlsl files
+INCLUDE(compile_shaders)     # DYX_COMPILE_SHADERS: compile the /shaders hlsl files
 INCLUDE(copy_content)        # copy-content: copy /content next to the executable
 INCLUDE(check_stray_sources) # warn about source files accidentally created in build/
 INCLUDE(docs_target)         # optional "docs" target when doxygen is installed
@@ -45,4 +45,4 @@ ADD_SUBDIRECTORY(${SOURCE_GAMES_DIRECTORY})
 # Make the demo game the startup project when opening the solution in Visual
 # Studio; right-click a different game and "Set as Startup Project" to debug
 # that one instead.
-SET_PROPERTY(DIRECTORY ${CMAKE_CURRENT_LIST_DIR} PROPERTY VS_STARTUP_PROJECT dyro_game)
+SET_PROPERTY(DIRECTORY ${CMAKE_CURRENT_LIST_DIR} PROPERTY VS_STARTUP_PROJECT dyx_game)

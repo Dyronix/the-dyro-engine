@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <string>
 
-namespace dyro
+namespace dyx
 {
 	namespace internal
 	{

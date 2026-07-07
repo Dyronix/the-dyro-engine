@@ -1,4 +1,4 @@
 var device_8h =
 [
-    [ "dyro::device", "classdyro_1_1device.html", "classdyro_1_1device" ]
+    [ "dyx::device", "classdyx_1_1device.html", "classdyx_1_1device" ]
 ];

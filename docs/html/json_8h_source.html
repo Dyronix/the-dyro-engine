@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: core/json.h Source File</title>
+<title>DyxEngine: core/json.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +25,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
-<link href="dyro-docs.css" rel="stylesheet" type="text/css"/>
+<link href="dyx-docs.css" rel="stylesheet" type="text/css"/>
 <!-- doxygen-awesome extensions (see docs/doxygen-awesome/) -->
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
 <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
@@ -43,7 +43,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DyroEngine
+   <div id="projectname">DyxEngine
    </div>
    <div id="projectbrief">a small DirectX 12 engine for 2D games, written to be read</div>
   </td>
@@ -138,11 +138,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('json_8h_source
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyro.html">dyro</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyx.html">dyx</a></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="comment">// A json value: an object, array, string, number, bool or null. This is</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="comment">// nlohmann::json; see https://json.nlohmann.me for how to read values.</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">   11</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">json</a> = nlohmann::json;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespacedyx.html#af055d4db742acb75a7140af4ef0e36d2">   11</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="namespacedyx.html#af055d4db742acb75a7140af4ef0e36d2">json</a> = nlohmann::json;</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment">//--------------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">    /// @brief Loads and parses a json text file.</span></div>
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('json_8h_source
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">    /// @return The parsed json. When the file cannot be read or contains</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">    /// invalid json an error is logged and the returned value reports</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">    /// true for is_discarded().</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="namespacedyro.html#a933d1b0317c44dbcecf1c6c9a8037272">   19</a></span>    <a class="code hl_typedef" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">json</a> <a class="code hl_function" href="namespacedyro.html#a933d1b0317c44dbcecf1c6c9a8037272">load_json</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="namespacedyx.html#a933d1b0317c44dbcecf1c6c9a8037272">   19</a></span>    <a class="code hl_typedef" href="namespacedyx.html#af055d4db742acb75a7140af4ef0e36d2">json</a> <a class="code hl_function" href="namespacedyx.html#a933d1b0317c44dbcecf1c6c9a8037272">load_json</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="comment">//--------------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">    /// @brief Saves a json value to a text file, pretty printed so the</span></div>
@@ -159,12 +159,12 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('json_8h_source
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">    /// @param path Path the file is written to.</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">    /// @param data Json value to save.</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">    /// @return True when the file was written successfully.</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacedyro.html#ae63ead95689b994efe4c7f014646db11">   28</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacedyro.html#ae63ead95689b994efe4c7f014646db11">save_json</a>(<span class="keyword">const</span> std::filesystem::path&amp; path, <span class="keyword">const</span> <a class="code hl_typedef" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">json</a>&amp; data);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacedyx.html#ae63ead95689b994efe4c7f014646db11">   28</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacedyx.html#ae63ead95689b994efe4c7f014646db11">save_json</a>(<span class="keyword">const</span> std::filesystem::path&amp; path, <span class="keyword">const</span> <a class="code hl_typedef" href="namespacedyx.html#af055d4db742acb75a7140af4ef0e36d2">json</a>&amp; data);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
-<div class="ttc" id="anamespacedyro_html"><div class="ttname"><a href="namespacedyro.html">dyro</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
-<div class="ttc" id="anamespacedyro_html_a933d1b0317c44dbcecf1c6c9a8037272"><div class="ttname"><a href="namespacedyro.html#a933d1b0317c44dbcecf1c6c9a8037272">dyro::load_json</a></div><div class="ttdeci">json load_json(const std::filesystem::path &amp;path)</div><div class="ttdoc">Loads and parses a json text file.</div></div>
-<div class="ttc" id="anamespacedyro_html_ae63ead95689b994efe4c7f014646db11"><div class="ttname"><a href="namespacedyro.html#ae63ead95689b994efe4c7f014646db11">dyro::save_json</a></div><div class="ttdeci">bool save_json(const std::filesystem::path &amp;path, const json &amp;data)</div><div class="ttdoc">Saves a json value to a text file, pretty printed so the file stays readable in a text editor....</div></div>
-<div class="ttc" id="anamespacedyro_html_af055d4db742acb75a7140af4ef0e36d2"><div class="ttname"><a href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">dyro::json</a></div><div class="ttdeci">nlohmann::json json</div><div class="ttdef"><b>Definition</b> <a href="#l00011">json.h:11</a></div></div>
+<div class="ttc" id="anamespacedyx_html"><div class="ttname"><a href="namespacedyx.html">dyx</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
+<div class="ttc" id="anamespacedyx_html_a933d1b0317c44dbcecf1c6c9a8037272"><div class="ttname"><a href="namespacedyx.html#a933d1b0317c44dbcecf1c6c9a8037272">dyx::load_json</a></div><div class="ttdeci">json load_json(const std::filesystem::path &amp;path)</div><div class="ttdoc">Loads and parses a json text file.</div></div>
+<div class="ttc" id="anamespacedyx_html_ae63ead95689b994efe4c7f014646db11"><div class="ttname"><a href="namespacedyx.html#ae63ead95689b994efe4c7f014646db11">dyx::save_json</a></div><div class="ttdeci">bool save_json(const std::filesystem::path &amp;path, const json &amp;data)</div><div class="ttdoc">Saves a json value to a text file, pretty printed so the file stays readable in a text editor....</div></div>
+<div class="ttc" id="anamespacedyx_html_af055d4db742acb75a7140af4ef0e36d2"><div class="ttname"><a href="namespacedyx.html#af055d4db742acb75a7140af4ef0e36d2">dyx::json</a></div><div class="ttdeci">nlohmann::json json</div><div class="ttdef"><b>Definition</b> <a href="#l00011">json.h:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

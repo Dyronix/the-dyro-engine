@@ -8,7 +8,7 @@
 #include <filesystem>
 #include <memory>
 
-namespace dyro
+namespace dyx
 {
 	class device;
 	class command_queue;

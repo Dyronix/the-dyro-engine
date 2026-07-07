@@ -2,35 +2,35 @@
 
 ## Loading an image file
 
-dyro::texture_loader decodes image files (png, jpg, bmp, tga, ...) and
+dyx::texture_loader decodes image files (png, jpg, bmp, tga, ...) and
 uploads them to the gpu. Load your textures once, in
-dyro::game::initialize:
+dyx::game::initialize:
 
 ```cpp
-void my_game::initialize(dyro::engine& engine)
+void my_game::initialize(dyx::engine& engine)
 {
-    const auto content = dyro::paths::get_executable_directory() / "content";
+    const auto content = dyx::paths::get_executable_directory() / "content";
     m_ball_texture = engine.get_texture_loader().load_from_file(content / "textures" / "ball.png");
 }
 ```
 
-Textures come back as `std::shared_ptr<dyro::texture>`. Store them as
+Textures come back as `std::shared_ptr<dyx::texture>`. Store them as
 members and pass them to `draw_sprite` every frame. Loading returns
 `nullptr` when the file could not be read (an error is logged to the
 console).
 
 Put your images in `content/textures`; the build copies the whole `content`
-folder next to the executable, and dyro::paths::get_executable_directory
+folder next to the executable, and dyx::paths::get_executable_directory
 finds it from there no matter where the game is started from.
 
 ## Procedural textures
 
-dyro::texture_loader::create_from_pixels uploads raw rgba pixels (4 bytes
+dyx::texture_loader::create_from_pixels uploads raw rgba pixels (4 bytes
 per pixel), so you can build textures in code. The demo game generates a
 grayscale texture from smooth noise this way:
 
 ```cpp
-std::shared_ptr<dyro::texture> make_noise_texture(dyro::texture_loader& loader, uint32_t size)
+std::shared_ptr<dyx::texture> make_noise_texture(dyx::texture_loader& loader, uint32_t size)
 {
     std::vector<uint8_t> pixels(static_cast<size_t>(size) * size * 4);
 
@@ -39,7 +39,7 @@ std::shared_ptr<dyro::texture> make_noise_texture(dyro::texture_loader& loader, 
         for (uint32_t x = 0; x < size; ++x)
         {
             // noise_2d returns roughly [-1, 1]; remap to a 0..255 gray
-            const float sample = dyro::noise_2d(static_cast<float>(x) * 0.05f, static_cast<float>(y) * 0.05f);
+            const float sample = dyx::noise_2d(static_cast<float>(x) * 0.05f, static_cast<float>(y) * 0.05f);
             const auto gray = static_cast<uint8_t>((sample * 0.5f + 0.5f) * 255.0f);
 
             uint8_t* pixel = &pixels[(static_cast<size_t>(y) * size + x) * 4];
@@ -60,7 +60,7 @@ sprite sheet of circles on a transparent background (see
 
 ## Bitmap fonts
 
-dyro::renderer_2d::draw_text renders with a dyro::font: one atlas texture
+dyx::renderer_2d::draw_text renders with a dyx::font: one atlas texture
 holding every character in a fixed grid, in ascii order. The struct only
 describes the grid; the defaults match the engine's built-in atlas
 (`content/fonts/font_8x8.png`):
@@ -75,6 +75,6 @@ renderer.draw_text(m_font, "hello", { 20.0f, 20.0f }, 16.0f);
 
 Text rendering is just sprite sheet drawing: each character becomes one
 quad showing its part of the atlas. To use your own font, draw an atlas
-image with the characters in a regular grid and fill in the dyro::font
+image with the characters in a regular grid and fill in the dyx::font
 fields (`glyph_size`, `glyphs_per_row`, `first_character`, `glyph_count`)
 to match your grid.

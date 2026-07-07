@@ -4,7 +4,7 @@
 
 #include <filesystem>
 
-namespace dyro
+namespace dyx
 {
 	// A json value: an object, array, string, number, bool or null. This is
 	// nlohmann::json; see https://json.nlohmann.me for how to read values.

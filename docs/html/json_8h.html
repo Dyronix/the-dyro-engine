@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: core/json.h File Reference</title>
+<title>DyxEngine: core/json.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +25,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
-<link href="dyro-docs.css" rel="stylesheet" type="text/css"/>
+<link href="dyx-docs.css" rel="stylesheet" type="text/css"/>
 <!-- doxygen-awesome extensions (see docs/doxygen-awesome/) -->
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
 <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
@@ -43,7 +43,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DyroEngine
+   <div id="projectname">DyxEngine
    </div>
    <div id="projectbrief">a small DirectX 12 engine for 2D games, written to be read</div>
   </td>
@@ -143,17 +143,17 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('json_8h.html',
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:dyro" id="r_dyro"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacedyro.html">dyro</a></td></tr>
+<tr class="memitem:dyx" id="r_dyx"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacedyx.html">dyx</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:af055d4db742acb75a7140af4ef0e36d2" id="r_af055d4db742acb75a7140af4ef0e36d2"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">dyro::json</a> = nlohmann::json</td></tr>
+<tr class="memitem:af055d4db742acb75a7140af4ef0e36d2" id="r_af055d4db742acb75a7140af4ef0e36d2"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacedyx.html#af055d4db742acb75a7140af4ef0e36d2">dyx::json</a> = nlohmann::json</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a933d1b0317c44dbcecf1c6c9a8037272" id="r_a933d1b0317c44dbcecf1c6c9a8037272"><td class="memItemLeft"><a class="el" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">json</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacedyro.html#a933d1b0317c44dbcecf1c6c9a8037272">dyro::load_json</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memitem:a933d1b0317c44dbcecf1c6c9a8037272" id="r_a933d1b0317c44dbcecf1c6c9a8037272"><td class="memItemLeft"><a class="el" href="namespacedyx.html#af055d4db742acb75a7140af4ef0e36d2">json</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacedyx.html#a933d1b0317c44dbcecf1c6c9a8037272">dyx::load_json</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a933d1b0317c44dbcecf1c6c9a8037272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads and parses a json text file.  <br /></td></tr>
-<tr class="memitem:ae63ead95689b994efe4c7f014646db11" id="r_ae63ead95689b994efe4c7f014646db11"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacedyro.html#ae63ead95689b994efe4c7f014646db11">dyro::save_json</a> (const std::filesystem::path &amp;path, const <a class="el" href="namespacedyro.html#af055d4db742acb75a7140af4ef0e36d2">json</a> &amp;data)</td></tr>
+<tr class="memitem:ae63ead95689b994efe4c7f014646db11" id="r_ae63ead95689b994efe4c7f014646db11"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacedyx.html#ae63ead95689b994efe4c7f014646db11">dyx::save_json</a> (const std::filesystem::path &amp;path, const <a class="el" href="namespacedyx.html#af055d4db742acb75a7140af4ef0e36d2">json</a> &amp;data)</td></tr>
 <tr class="memdesc:ae63ead95689b994efe4c7f014646db11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a json value to a text file, pretty printed so the file stays readable in a text editor. Missing directories in the path are created.  <br /></td></tr>
 </table>
 </div><!-- contents -->

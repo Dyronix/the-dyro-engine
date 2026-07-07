@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <string>
 
-namespace dyro
+namespace dyx
 {
 	class input;
 

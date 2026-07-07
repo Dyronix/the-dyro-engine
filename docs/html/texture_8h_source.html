@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DyroEngine: graphics/texture.h Source File</title>
+<title>DyxEngine: graphics/texture.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +25,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
-<link href="dyro-docs.css" rel="stylesheet" type="text/css"/>
+<link href="dyx-docs.css" rel="stylesheet" type="text/css"/>
 <!-- doxygen-awesome extensions (see docs/doxygen-awesome/) -->
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
 <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
@@ -43,7 +43,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DyroEngine
+   <div id="projectname">DyxEngine
    </div>
    <div id="projectbrief">a small DirectX 12 engine for 2D games, written to be read</div>
   </td>
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('texture_8h_sou
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyro.html">dyro</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacedyx.html">dyx</a></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">//--------------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">    /// @brief A 2d texture living in gpu memory, ready to be drawn on sprites.</span></div>
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('texture_8h_sou
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">    /// file, uploads the pixels to the gpu and creates the shader resource</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">    /// view (the descriptor shaders use to sample the texture).</span></div>
 <div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classdyro_1_1texture.html">   17</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classdyro_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2">texture</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classdyx_1_1texture.html">   17</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classdyx_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2">texture</a></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    {</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">//----------------------------------------------------------</span><span class="comment"></span></div>
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('texture_8h_sou
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">        /// @param height Height of the texture in pixels.</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">        /// @param srv_gpu_handle Gpu handle of the shader resource view.</span></div>
 <div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classdyro_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2">   26</a></span>        <a class="code hl_function" href="classdyro_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2">texture</a>(Microsoft::WRL::ComPtr&lt;ID3D12Resource&gt; resource, uint32_t width, uint32_t height, D3D12_GPU_DESCRIPTOR_HANDLE srv_gpu_handle)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classdyx_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2">   26</a></span>        <a class="code hl_function" href="classdyx_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2">texture</a>(Microsoft::WRL::ComPtr&lt;ID3D12Resource&gt; resource, uint32_t width, uint32_t height, D3D12_GPU_DESCRIPTOR_HANDLE srv_gpu_handle)</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            : m_resource(std::move(resource))</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            , m_width(width)</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            , m_height(height)</div>
@@ -170,15 +170,15 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('texture_8h_sou
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="comment">//----------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">        /// @brief Returns the width of the texture in pixels.</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classdyro_1_1texture.html#a8ed733ba8d8e806f486150c6695f8a3c">   36</a></span>        uint32_t <a class="code hl_function" href="classdyro_1_1texture.html#a8ed733ba8d8e806f486150c6695f8a3c">get_width</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_width; }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classdyx_1_1texture.html#a8ed733ba8d8e806f486150c6695f8a3c">   36</a></span>        uint32_t <a class="code hl_function" href="classdyx_1_1texture.html#a8ed733ba8d8e806f486150c6695f8a3c">get_width</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_width; }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="comment">//----------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">        /// @brief Returns the height of the texture in pixels.</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classdyro_1_1texture.html#aec54e9af0c26bedc434f1b739699960c">   40</a></span>        uint32_t <a class="code hl_function" href="classdyro_1_1texture.html#aec54e9af0c26bedc434f1b739699960c">get_height</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_height; }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classdyx_1_1texture.html#aec54e9af0c26bedc434f1b739699960c">   40</a></span>        uint32_t <a class="code hl_function" href="classdyx_1_1texture.html#aec54e9af0c26bedc434f1b739699960c">get_height</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_height; }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">//----------------------------------------------------------</span><span class="comment"></span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">        /// @brief Returns the gpu handle of the shader resource view, used while drawing.</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classdyro_1_1texture.html#a276a93b5ddf0cbcb9ca0266bd3298373">   44</a></span>        D3D12_GPU_DESCRIPTOR_HANDLE <a class="code hl_function" href="classdyro_1_1texture.html#a276a93b5ddf0cbcb9ca0266bd3298373">get_srv_gpu_handle</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_srv_gpu_handle; }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classdyx_1_1texture.html#a276a93b5ddf0cbcb9ca0266bd3298373">   44</a></span>        D3D12_GPU_DESCRIPTOR_HANDLE <a class="code hl_function" href="classdyx_1_1texture.html#a276a93b5ddf0cbcb9ca0266bd3298373">get_srv_gpu_handle</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_srv_gpu_handle; }</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        Microsoft::WRL::ComPtr&lt;ID3D12Resource&gt; m_resource;</div>
@@ -190,11 +190,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('texture_8h_sou
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    };</div>
 </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
-<div class="ttc" id="aclassdyro_1_1texture_html_a276a93b5ddf0cbcb9ca0266bd3298373"><div class="ttname"><a href="classdyro_1_1texture.html#a276a93b5ddf0cbcb9ca0266bd3298373">dyro::texture::get_srv_gpu_handle</a></div><div class="ttdeci">D3D12_GPU_DESCRIPTOR_HANDLE get_srv_gpu_handle() const</div><div class="ttdoc">Returns the gpu handle of the shader resource view, used while drawing.</div><div class="ttdef"><b>Definition</b> <a href="#l00044">texture.h:44</a></div></div>
-<div class="ttc" id="aclassdyro_1_1texture_html_a7a4989585a00f15d814de6bb927b74a2"><div class="ttname"><a href="classdyro_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2">dyro::texture::texture</a></div><div class="ttdeci">texture(Microsoft::WRL::ComPtr&lt; ID3D12Resource &gt; resource, uint32_t width, uint32_t height, D3D12_GPU_DESCRIPTOR_HANDLE srv_gpu_handle)</div><div class="ttdoc">Constructs a texture from an uploaded gpu resource.</div><div class="ttdef"><b>Definition</b> <a href="#l00026">texture.h:26</a></div></div>
-<div class="ttc" id="aclassdyro_1_1texture_html_a8ed733ba8d8e806f486150c6695f8a3c"><div class="ttname"><a href="classdyro_1_1texture.html#a8ed733ba8d8e806f486150c6695f8a3c">dyro::texture::get_width</a></div><div class="ttdeci">uint32_t get_width() const</div><div class="ttdoc">Returns the width of the texture in pixels.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">texture.h:36</a></div></div>
-<div class="ttc" id="aclassdyro_1_1texture_html_aec54e9af0c26bedc434f1b739699960c"><div class="ttname"><a href="classdyro_1_1texture.html#aec54e9af0c26bedc434f1b739699960c">dyro::texture::get_height</a></div><div class="ttdeci">uint32_t get_height() const</div><div class="ttdoc">Returns the height of the texture in pixels.</div><div class="ttdef"><b>Definition</b> <a href="#l00040">texture.h:40</a></div></div>
-<div class="ttc" id="anamespacedyro_html"><div class="ttname"><a href="namespacedyro.html">dyro</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
+<div class="ttc" id="aclassdyx_1_1texture_html_a276a93b5ddf0cbcb9ca0266bd3298373"><div class="ttname"><a href="classdyx_1_1texture.html#a276a93b5ddf0cbcb9ca0266bd3298373">dyx::texture::get_srv_gpu_handle</a></div><div class="ttdeci">D3D12_GPU_DESCRIPTOR_HANDLE get_srv_gpu_handle() const</div><div class="ttdoc">Returns the gpu handle of the shader resource view, used while drawing.</div><div class="ttdef"><b>Definition</b> <a href="#l00044">texture.h:44</a></div></div>
+<div class="ttc" id="aclassdyx_1_1texture_html_a7a4989585a00f15d814de6bb927b74a2"><div class="ttname"><a href="classdyx_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2">dyx::texture::texture</a></div><div class="ttdeci">texture(Microsoft::WRL::ComPtr&lt; ID3D12Resource &gt; resource, uint32_t width, uint32_t height, D3D12_GPU_DESCRIPTOR_HANDLE srv_gpu_handle)</div><div class="ttdoc">Constructs a texture from an uploaded gpu resource.</div><div class="ttdef"><b>Definition</b> <a href="#l00026">texture.h:26</a></div></div>
+<div class="ttc" id="aclassdyx_1_1texture_html_a8ed733ba8d8e806f486150c6695f8a3c"><div class="ttname"><a href="classdyx_1_1texture.html#a8ed733ba8d8e806f486150c6695f8a3c">dyx::texture::get_width</a></div><div class="ttdeci">uint32_t get_width() const</div><div class="ttdoc">Returns the width of the texture in pixels.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">texture.h:36</a></div></div>
+<div class="ttc" id="aclassdyx_1_1texture_html_aec54e9af0c26bedc434f1b739699960c"><div class="ttname"><a href="classdyx_1_1texture.html#aec54e9af0c26bedc434f1b739699960c">dyx::texture::get_height</a></div><div class="ttdeci">uint32_t get_height() const</div><div class="ttdoc">Returns the height of the texture in pixels.</div><div class="ttdef"><b>Definition</b> <a href="#l00040">texture.h:40</a></div></div>
+<div class="ttc" id="anamespacedyx_html"><div class="ttname"><a href="namespacedyx.html">dyx</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8h_source.html#l00018">engine.h:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

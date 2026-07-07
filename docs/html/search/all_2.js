@@ -1,18 +1,18 @@
 var searchData=
 [
-  ['c_0',['c',['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a4a8a08f09d37b73795649038408b5f33',1,'dyro']]],
+  ['c_0',['c',['../namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6a4a8a08f09d37b73795649038408b5f33',1,'dyx']]],
   ['caching_1',['PSO caching',['../page_under_the_hood.html#autotoc_md25',1,'']]],
   ['card_20selection_2',['Graphics card selection',['../page_under_the_hood.html#autotoc_md23',1,'']]],
-  ['center_3',['center',['../structdyro_1_1rect.html#a53b29cbf989c04495b717293c939b7d9',1,'dyro::rect']]],
-  ['clear_5fcolor_4',['clear_color',['../structdyro_1_1engine__settings.html#ae8955d0a2cc7330a2625d006763a11c3',1,'dyro::engine_settings']]],
+  ['center_3',['center',['../structdyx_1_1rect.html#a53b29cbf989c04495b717293c939b7d9',1,'dyx::rect']]],
+  ['clear_5fcolor_4',['clear_color',['../structdyx_1_1engine__settings.html#ae8955d0a2cc7330a2625d006763a11c3',1,'dyx::engine_settings']]],
   ['code_5',['Where to put your code',['../page_getting_started.html#autotoc_md10',1,'']]],
-  ['color_6',['color',['../structdyro_1_1color.html',1,'dyro']]],
-  ['command_5fqueue_7',['command_queue',['../classdyro_1_1command__queue.html',1,'dyro']]],
+  ['color_6',['color',['../structdyx_1_1color.html',1,'dyx']]],
+  ['command_5fqueue_7',['command_queue',['../classdyx_1_1command__queue.html',1,'dyx']]],
   ['command_5fqueue_2eh_8',['command_queue.h',['../command__queue_8h.html',1,'']]],
   ['compilation_20the_20toolchain_9',['Shader compilation (the toolchain)',['../page_under_the_hood.html#autotoc_md24',1,'']]],
   ['complete_20game_10',['A minimal complete game',['../page_getting_started.html#autotoc_md7',1,'']]],
-  ['contains_11',['contains',['../structdyro_1_1rect.html#a78c88a1dca932b549557de16cc1ce03e',1,'dyro::rect']]],
-  ['control_12',['control',['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6afc5364bf9dbfa34954526becad136d4b',1,'dyro']]],
+  ['contains_11',['contains',['../structdyx_1_1rect.html#a78c88a1dca932b549557de16cc1ce03e',1,'dyx::rect']]],
+  ['control_12',['control',['../namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6afc5364bf9dbfa34954526becad136d4b',1,'dyx']]],
   ['convenience_20scripts_13',['Convenience scripts',['../page_getting_started.html#autotoc_md6',1,'']]],
   ['coordinates_14',['Coordinates',['../page_drawing.html#autotoc_md0',1,'']]],
   ['core_20assert_20h_15',['Asserts (core/assert.h)',['../page_logging_and_data.html#autotoc_md19',1,'']]],
@@ -23,5 +23,5 @@ var searchData=
   ['core_20random_20h_20',['Random numbers (core/random.h)',['../page_utilities.html#autotoc_md32',1,'']]],
   ['core_20rect_20h_21',['Rectangles (core/rect.h)',['../page_utilities.html#autotoc_md30',1,'']]],
   ['core_20timer_20h_22',['Timers (core/timer.h)',['../page_utilities.html#autotoc_md31',1,'']]],
-  ['create_5ffrom_5fpixels_23',['create_from_pixels',['../classdyro_1_1texture__loader.html#a067d65d65f7e5a9de60abe4fde7cac52',1,'dyro::texture_loader']]]
+  ['create_5ffrom_5fpixels_23',['create_from_pixels',['../classdyx_1_1texture__loader.html#a067d65d65f7e5a9de60abe4fde7cac52',1,'dyx::texture_loader']]]
 ];

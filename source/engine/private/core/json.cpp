@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	json load_json(const std::filesystem::path& path)

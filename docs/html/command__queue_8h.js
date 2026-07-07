@@ -1,4 +1,4 @@
 var command__queue_8h =
 [
-    [ "dyro::command_queue", "classdyro_1_1command__queue.html", "classdyro_1_1command__queue" ]
+    [ "dyx::command_queue", "classdyx_1_1command__queue.html", "classdyx_1_1command__queue" ]
 ];

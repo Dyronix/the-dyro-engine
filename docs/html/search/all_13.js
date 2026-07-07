@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['t_0',['t',['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6ae358efa489f58062f10dd7316b65649e',1,'dyro']]],
-  ['tab_1',['tab',['../namespacedyro.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6ae7f8cbd87d347be881cba92dad128518',1,'dyro']]],
+  ['t_0',['t',['../namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6ae358efa489f58062f10dd7316b65649e',1,'dyx']]],
+  ['tab_1',['tab',['../namespacedyx.html#aacf1b1a5e1a25c7f51aa4aa1c51cf6e6ae7f8cbd87d347be881cba92dad128518',1,'dyx']]],
   ['text_2',['Text',['../page_drawing.html#autotoc_md4',1,'Text'],['../page_under_the_hood.html#autotoc_md27',1,'Text']]],
-  ['texture_3',['texture',['../classdyro_1_1texture.html',1,'dyro::texture'],['../classdyro_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2',1,'dyro::texture::texture()']]],
+  ['texture_3',['texture',['../classdyx_1_1texture.html',1,'dyx::texture'],['../classdyx_1_1texture.html#a7a4989585a00f15d814de6bb927b74a2',1,'dyx::texture::texture()']]],
   ['texture_2eh_4',['texture.h',['../texture_8h.html',1,'']]],
-  ['texture_5ffilter_5',['texture_filter',['../namespacedyro.html#afdaa2b492874f44afa5acbb8341258c3',1,'dyro']]],
-  ['texture_5floader_6',['texture_loader',['../classdyro_1_1texture__loader.html',1,'dyro']]],
+  ['texture_5ffilter_5',['texture_filter',['../namespacedyx.html#afdaa2b492874f44afa5acbb8341258c3',1,'dyx']]],
+  ['texture_5floader_6',['texture_loader',['../classdyx_1_1texture__loader.html',1,'dyx']]],
   ['texture_5floader_2eh_7',['texture_loader.h',['../texture__loader_8h.html',1,'']]],
   ['textures_8',['Textures',['../page_under_the_hood.html#autotoc_md26',1,'']]],
   ['textures_9',['Procedural textures',['../page_textures_and_fonts.html#autotoc_md21',1,'']]],
@@ -17,12 +17,12 @@ var searchData=
   ['the_20project_14',['Building the project',['../page_getting_started.html#autotoc_md5',1,'']]],
   ['the_20toolchain_15',['Shader compilation (the toolchain)',['../page_under_the_hood.html#autotoc_md24',1,'']]],
   ['things_16',['Finding things',['../index.html#autotoc_md14',1,'']]],
-  ['timer_17',['timer',['../classdyro_1_1timer.html',1,'dyro::timer'],['../classdyro_1_1timer.html#a4c5abfc9f108ecec629c4f24cc0790f9',1,'dyro::timer::timer()']]],
+  ['timer_17',['timer',['../classdyx_1_1timer.html',1,'dyx::timer'],['../classdyx_1_1timer.html#a4c5abfc9f108ecec629c4f24cc0790f9',1,'dyx::timer::timer()']]],
   ['timer_20h_18',['Timers (core/timer.h)',['../page_utilities.html#autotoc_md31',1,'']]],
   ['timer_2eh_19',['timer.h',['../timer_8h.html',1,'']]],
   ['timers_20core_20timer_20h_20',['Timers (core/timer.h)',['../page_utilities.html#autotoc_md31',1,'']]],
   ['to_20put_20your_20code_21',['Where to put your code',['../page_getting_started.html#autotoc_md10',1,'']]],
   ['to_20your_20game_22',['Adding files to your game',['../page_getting_started.html#autotoc_md11',1,'']]],
   ['toolchain_23',['Shader compilation (the toolchain)',['../page_under_the_hood.html#autotoc_md24',1,'']]],
-  ['trace_24',['trace',['../namespacedyro_1_1log_1_1internal.html#a2f070d34fcf49aacaa59d712a639fdb1',1,'dyro::log::internal']]]
+  ['trace_24',['trace',['../namespacedyx_1_1log_1_1internal.html#a2f070d34fcf49aacaa59d712a639fdb1',1,'dyx::log::internal']]]
 ];

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace dyro
+namespace dyx
 {
 	class engine;
 	class renderer_2d;
@@ -11,12 +11,12 @@ namespace dyro
 	/// The engine owns the main loop and calls these functions at the right
 	/// time. Override the ones you need:
 	/// @code{.cpp}
-	/// class my_game : public dyro::game
+	/// class my_game : public dyx::game
 	/// {
 	/// public:
-	///     void initialize(dyro::engine& engine) override;   // load textures here
+	///     void initialize(dyx::engine& engine) override;   // load textures here
 	///     void update(float delta_seconds) override;        // game logic here
-	///     void draw(dyro::renderer_2d& renderer) override;  // draw sprites here
+	///     void draw(dyx::renderer_2d& renderer) override;  // draw sprites here
 	/// };
 	/// @endcode
 	class game

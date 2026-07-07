@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-namespace dyro
+namespace dyx
 {
 	//--------------------------------------------------------------
 	/// @brief A simple descriptor heap with linear allocation.

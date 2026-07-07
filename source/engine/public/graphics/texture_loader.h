@@ -7,6 +7,7 @@
 
 #include <filesystem>
 #include <memory>
+#include <span>
 
 namespace dyx
 {
@@ -41,11 +42,17 @@ namespace dyx
 		//----------------------------------------------------------
 		/// @brief Uploads raw pixels to the gpu, e.g. for procedurally
 		/// generated textures.
+		///
+		/// A std::span is a view over contiguous memory that knows its own
+		/// size; a std::vector or a plain array converts to it implicitly.
+		/// Because the span carries its length, the loader can verify the
+		/// pixel data actually matches width * height, which a raw pointer
+		/// could never check.
 		/// @param width Width of the texture in pixels.
 		/// @param height Height of the texture in pixels.
 		/// @param rgba_pixels width * height pixels, 4 bytes (r, g, b, a) each.
 		/// @return The uploaded texture, or nullptr when uploading failed.
-		std::shared_ptr<texture> create_from_pixels(uint32_t width, uint32_t height, const uint8_t* rgba_pixels);
+		std::shared_ptr<texture> create_from_pixels(uint32_t width, uint32_t height, std::span<const uint8_t> rgba_pixels);
 
 	private:
 		device* m_device = nullptr;

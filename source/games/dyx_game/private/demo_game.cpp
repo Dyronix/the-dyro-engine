@@ -37,7 +37,8 @@ namespace
 			}
 		}
 
-		return loader.create_from_pixels(size, size, pixels.data());
+		// The vector converts to the std::span parameter implicitly, size included
+		return loader.create_from_pixels(size, size, pixels);
 	}
 
 	//--------------------------------------------------------------
@@ -73,7 +74,7 @@ namespace
 			}
 		}
 
-		return loader.create_from_pixels(sheet_width, frame_size, pixels.data());
+		return loader.create_from_pixels(sheet_width, frame_size, pixels);
 	}
 }
 

@@ -1,5 +1,6 @@
 #include "graphics/texture_loader.h"
 
+#include "core/assert.h"
 #include "core/log.h"
 #include "graphics/command_queue.h"
 #include "graphics/d3d_utils.h"
@@ -55,7 +56,10 @@ namespace dyx
 			return nullptr;
 		}
 
-		std::shared_ptr<texture> loaded_texture = create_from_pixels(static_cast<uint32_t>(width), static_cast<uint32_t>(height), pixels);
+		std::shared_ptr<texture> loaded_texture = create_from_pixels(
+			static_cast<uint32_t>(width),
+			static_cast<uint32_t>(height),
+			std::span(pixels, static_cast<size_t>(width) * height * 4));
 		stbi_image_free(pixels);
 
 		if (loaded_texture != nullptr)
@@ -67,8 +71,15 @@ namespace dyx
 	}
 
 	//--------------------------------------------------------------
-	std::shared_ptr<texture> texture_loader::create_from_pixels(uint32_t width, uint32_t height, const uint8_t* rgba_pixels)
+	std::shared_ptr<texture> texture_loader::create_from_pixels(uint32_t width, uint32_t height, std::span<const uint8_t> rgba_pixels)
 	{
+		// The span knows how many bytes the caller handed over, so a buffer
+		// that does not match the promised size is caught right here instead
+		// of reading out of bounds during the row copy below.
+		DYX_ASSERT_MSG(rgba_pixels.size() == static_cast<size_t>(width) * height * 4,
+			"pixel data is {} bytes, but a {}x{} rgba texture needs {}",
+			rgba_pixels.size(), width, height, static_cast<size_t>(width) * height * 4);
+
 		ID3D12Device* d3d_device = m_device->get_d3d_device();
 
 		// Create the texture resource in gpu memory
@@ -120,7 +131,7 @@ namespace dyx
 		{
 			std::memcpy(
 				mapped_data + footprint.Offset + static_cast<size_t>(row) * footprint.Footprint.RowPitch,
-				rgba_pixels + static_cast<size_t>(row) * source_row_size,
+				rgba_pixels.data() + static_cast<size_t>(row) * source_row_size,
 				source_row_size);
 		}
 

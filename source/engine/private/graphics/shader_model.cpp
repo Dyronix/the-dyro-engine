@@ -1,5 +1,7 @@
 #include "graphics/shader_model.h"
 
+#include <format>
+
 namespace
 {
 	// All shader models we know about, from the most recent to the oldest.
@@ -47,6 +49,6 @@ namespace dyx
 		const int major = (shader_model >> 4) & 0xf;
 		const int minor = shader_model & 0xf;
 
-		return std::to_string(major) + "." + std::to_string(minor);
+		return std::format("{}.{}", major, minor);
 	}
 }

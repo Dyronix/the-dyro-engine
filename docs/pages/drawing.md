@@ -69,9 +69,9 @@ dyx::renderer_2d::draw_text renders with a bitmap font
 ```cpp
 renderer.draw_text(m_font, "hello", { 20.0f, 20.0f }, 16.0f);
 
-// newlines continue on the next line; fmt::format builds dynamic text
+// newlines continue on the next line; std::format builds dynamic text
 renderer.draw_text(m_font,
-    fmt::format("fps {:.0f}\nscore {}", m_smoothed_fps, m_score),
+    std::format("fps {:.0f}\nscore {}", m_smoothed_fps, m_score),
     { 20.0f, 48.0f }, 16.0f, { 0.6f, 0.8f, 1.0f, 1.0f });
 ```
 

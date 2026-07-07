@@ -2,8 +2,9 @@
 
 ## Logging (core/log.h)
 
-Three severities, all using fmt's `{}` style formatting. Messages appear in
-the console window and in the log file:
+Three severities, all using std::format's `{}` style formatting. The format
+string is checked at compile time, so a placeholder/argument mismatch is a
+compile error. Messages appear in the console window and in the log file:
 
 ```cpp
 dyx::log::info("loaded {} textures", texture_count);

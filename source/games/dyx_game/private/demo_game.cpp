@@ -8,10 +8,8 @@
 #include "core/random.h"
 #include "core/rect.h"
 
-#define FMT_HEADER_ONLY
-#include <fmt/core.h>
-
 #include <cmath>
+#include <format>
 #include <vector>
 
 namespace
@@ -178,6 +176,6 @@ void demo_game::draw(dyx::renderer_2d& renderer)
 	// The hud, drawn last so it sits on top of everything
 	renderer.draw_text(m_font, "wasd moves the ball - space tints it - wheel resizes it", { 20.0f, 20.0f }, 16.0f);
 	renderer.draw_text(m_font,
-		fmt::format("fps {:.0f}\nmouse {:.0f} {:.0f}", m_smoothed_fps, mouse.x, mouse.y),
+		std::format("fps {:.0f}\nmouse {:.0f} {:.0f}", m_smoothed_fps, mouse.x, mouse.y),
 		{ 20.0f, 48.0f }, 16.0f, { 0.6f, 0.8f, 1.0f, 1.0f });
 }

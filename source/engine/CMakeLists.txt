@@ -70,10 +70,10 @@ TARGET_INCLUDE_DIRECTORIES(dyx_engine PUBLIC ${SOURCE_ENGINE_DIRECTORY}/public)
 TARGET_COMPILE_DEFINITIONS(dyx_engine PUBLIC NOMINMAX)
 
 # Dependencies
-# glm, fmt and nlohmann are PUBLIC because the public headers use them:
-# math.h exposes the glm types, log.h and assert.h format their messages
-# with fmt, and json.h exposes the nlohmann json type.
-TARGET_LINK_LIBRARIES(dyx_engine PUBLIC d3d12 dxgi glm fmt nlohmann)
+# glm and nlohmann are PUBLIC because the public headers use them:
+# math.h exposes the glm types and json.h exposes the nlohmann json type.
+# log.h and assert.h format their messages with the standard <format> header.
+TARGET_LINK_LIBRARIES(dyx_engine PUBLIC d3d12 dxgi glm nlohmann)
 TARGET_LINK_LIBRARIES(dyx_engine PRIVATE stb rnd)
 
 # Target properties

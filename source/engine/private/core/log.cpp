@@ -55,10 +55,7 @@ namespace
 			std::printf("%s[%s]%s %.*s\n", color, name, dyx::log::reset,
 				static_cast<int>(text.size()), text.data());
 
-			char debugger_message[2100];
-			std::snprintf(debugger_message, sizeof(debugger_message), "[%s] %.*s\n",
-				name, static_cast<int>(text.size()), text.data());
-			OutputDebugStringA(debugger_message);
+			OutputDebugStringA(std::format("[{}] {}\n", name, text).c_str());
 		}
 	};
 

@@ -1,9 +1,8 @@
 #pragma once
 
-#define FMT_HEADER_ONLY
-#include <fmt/core.h>
-
+#include <format>
 #include <string_view>
+#include <utility>
 
 // Asserts are compiled in for debug builds only, exactly like logging. In
 // release (NDEBUG) a DYX_ASSERT disappears completely: the condition is not
@@ -29,13 +28,13 @@ namespace dyx
 	//--------------------------------------------------------------
 	/// @brief Reports an unrecoverable error and terminates the program:
 	/// logs the message, shows a message box, then exits. Works in both
-	/// debug and release builds (fmt "{}" style formatting).
-	/// @param format Format string with "{}" placeholders.
+	/// debug and release builds (std::format "{}" style formatting).
+	/// @param format Format string with "{}" placeholders, checked at compile time.
 	/// @param args Values inserted into the placeholders.
-	template<typename FormatString, typename... Args>
-	[[noreturn]] void fatal_error(const FormatString& format, const Args&... args)
+	template<typename... Args>
+	[[noreturn]] void fatal_error(std::format_string<Args...> format, Args&&... args)
 	{
-		internal::on_fatal_error(fmt::format(fmt::runtime(format), args...));
+		internal::on_fatal_error(std::format(format, std::forward<Args>(args)...));
 	}
 }
 
@@ -63,7 +62,7 @@ namespace dyx
 
 //--------------------------------------------------------------
 /// @brief Same as DYX_ASSERT, with an extra message explaining the failure
-/// (fmt "{}" style formatting):
+/// (std::format "{}" style formatting):
 /// @code{.cpp}
 /// DYX_ASSERT_MSG(frame_index < frame_count, "frame {} out of range", frame_index);
 /// @endcode
@@ -73,7 +72,7 @@ namespace dyx
 		{ \
 			if (!(condition)) \
 			{ \
-				dyx::internal::on_assert_failed(#condition, __FILE__, __LINE__, fmt::format(__VA_ARGS__)); \
+				dyx::internal::on_assert_failed(#condition, __FILE__, __LINE__, std::format(__VA_ARGS__)); \
 				__debugbreak(); \
 			} \
 		} while (false)

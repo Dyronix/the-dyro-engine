@@ -1,13 +1,16 @@
 #pragma once
 
-#define FMT_HEADER_ONLY
-#include <fmt/core.h>
-
+#include <format>
 #include <string_view>
+#include <utility>
 
 // Logging is compiled in for debug builds only. In release (NDEBUG) every log
 // call collapses to nothing, so no formatting cost is paid and no log file is
-// created.
+// created. The format string is still validated at compile time in both
+// builds: std::format_string checks the placeholders against the argument
+// types while compiling, so a typo like log::info("{} {}", one_value) is a
+// compile error, not a runtime surprise. If you ever need a format string
+// that is only known at runtime, that is what std::vformat is for.
 #if !defined(NDEBUG)
 	#define DYX_LOG_ENABLED
 #endif
@@ -29,14 +32,14 @@ namespace dyx
 		}
 
 		//----------------------------------------------------------
-		/// @brief Logs an informational message (fmt "{}" style formatting).
-		/// @param format Format string with "{}" placeholders.
+		/// @brief Logs an informational message (std::format "{}" style formatting).
+		/// @param format Format string with "{}" placeholders, checked at compile time.
 		/// @param args Values inserted into the placeholders.
-		template<typename FormatString, typename... Args>
-		void info(const FormatString& format, const Args&... args)
+		template<typename... Args>
+		void info(std::format_string<Args...> format, Args&&... args)
 		{
 #if defined(DYX_LOG_ENABLED)
-			internal::trace("info", green, fmt::format(fmt::runtime(format), args...));
+			internal::trace("info", green, std::format(format, std::forward<Args>(args)...));
 #else
 			(void)format;
 			((void)args, ...);
@@ -44,14 +47,14 @@ namespace dyx
 		}
 
 		//----------------------------------------------------------
-		/// @brief Logs a warning message (fmt "{}" style formatting).
-		/// @param format Format string with "{}" placeholders.
+		/// @brief Logs a warning message (std::format "{}" style formatting).
+		/// @param format Format string with "{}" placeholders, checked at compile time.
 		/// @param args Values inserted into the placeholders.
-		template<typename FormatString, typename... Args>
-		void warn(const FormatString& format, const Args&... args)
+		template<typename... Args>
+		void warn(std::format_string<Args...> format, Args&&... args)
 		{
 #if defined(DYX_LOG_ENABLED)
-			internal::trace("warn", magenta, fmt::format(fmt::runtime(format), args...));
+			internal::trace("warn", magenta, std::format(format, std::forward<Args>(args)...));
 #else
 			(void)format;
 			((void)args, ...);
@@ -59,14 +62,14 @@ namespace dyx
 		}
 
 		//----------------------------------------------------------
-		/// @brief Logs an error message (fmt "{}" style formatting).
-		/// @param format Format string with "{}" placeholders.
+		/// @brief Logs an error message (std::format "{}" style formatting).
+		/// @param format Format string with "{}" placeholders, checked at compile time.
 		/// @param args Values inserted into the placeholders.
-		template<typename FormatString, typename... Args>
-		void error(const FormatString& format, const Args&... args)
+		template<typename... Args>
+		void error(std::format_string<Args...> format, Args&&... args)
 		{
 #if defined(DYX_LOG_ENABLED)
-			internal::trace("error", red, fmt::format(fmt::runtime(format), args...));
+			internal::trace("error", red, std::format(format, std::forward<Args>(args)...));
 #else
 			(void)format;
 			((void)args, ...);

@@ -101,8 +101,8 @@ source/
   tools/
     shader_compiler/  build tool that compiles hlsl to directx bytecode
   third_party/    code you use but do not need to read:
-                  stb (image decoding, perlin noise), fmt (text formatting),
-                  glm (math), rnd (random number internals)
+                  stb (image decoding, perlin noise), glm (math),
+                  rnd (random number internals)
 ```
 
 Everything inside `source/engine` and `source/game` is written to be

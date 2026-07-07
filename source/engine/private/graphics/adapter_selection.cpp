@@ -6,6 +6,9 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
+#include <algorithm>
+#include <ranges>
+
 using Microsoft::WRL::ComPtr;
 
 namespace
@@ -27,7 +30,7 @@ namespace
 	/// @brief Returns the highest feature level supported by the given device.
 	D3D_FEATURE_LEVEL query_max_feature_level(ID3D12Device* d3d_device)
 	{
-		const D3D_FEATURE_LEVEL levels_to_check[] =
+		static constexpr D3D_FEATURE_LEVEL levels_to_check[] =
 		{
 			D3D_FEATURE_LEVEL_12_2,
 			D3D_FEATURE_LEVEL_12_1,
@@ -91,15 +94,10 @@ namespace
 	/// @brief Returns true when the list contains at least one real (non software) adapter.
 	bool has_hardware_adapter(const std::vector<dyx::adapter_info>& adapters)
 	{
-		for (const dyx::adapter_info& info : adapters)
-		{
-			if (!info.is_software)
-			{
-				return true;
-			}
-		}
-
-		return false;
+		// any_of asks "does at least one element satisfy the predicate?";
+		// the predicate is a lambda, a small unnamed function written in place.
+		return std::ranges::any_of(adapters,
+			[](const dyx::adapter_info& info) { return !info.is_software; });
 	}
 }
 
@@ -156,30 +154,20 @@ namespace dyx
 		// graphics card in the machine.
 		const bool ignore_software = has_hardware_adapter(adapters);
 
-		const adapter_info* selected = nullptr;
-		for (const adapter_info& info : adapters)
-		{
-			if (ignore_software && info.is_software)
-			{
-				continue;
-			}
+		// A lazy view over the adapters that are allowed to compete; nothing
+		// is copied, the view walks the vector and skips filtered elements.
+		auto candidates = adapters | std::views::filter(
+			[ignore_software](const adapter_info& info) { return !ignore_software || !info.is_software; });
 
-			if (selected == nullptr)
-			{
-				selected = &info;
-				continue;
-			}
+		// max/min_element with a projection: {} keeps the default "less than"
+		// comparison and &adapter_info::score tells it which member to compare,
+		// replacing the hand written selection loop this used to be.
+		const auto selected = (preference == adapter_preference::highest_score)
+			? std::ranges::max_element(candidates, {}, &adapter_info::score)
+			: std::ranges::min_element(candidates, {}, &adapter_info::score);
 
-			const bool is_better = (preference == adapter_preference::highest_score)
-				? info.score > selected->score
-				: info.score < selected->score;
-
-			if (is_better)
-			{
-				selected = &info;
-			}
-		}
-
-		return selected;
+		// The view iterates the vector itself, so &*selected points at an
+		// element of `adapters` and stays valid after the view goes away.
+		return selected != candidates.end() ? &*selected : nullptr;
 	}
 }

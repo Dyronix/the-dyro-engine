@@ -2,14 +2,18 @@
 
 ## Building the project
 
-You need **Visual Studio 2022** with the *Desktop development with C++*
-workload and a recent **Windows 10/11 SDK** (both are part of the default
-workload installation).
+You need **Visual Studio 2026** (or **2022**, version 17.5 or newer) with the
+*Desktop development with C++* workload and a recent **Windows 10/11 SDK**
+(both are part of the default workload installation). The engine is written
+in **C++20**, the same standard current game consoles compile with.
 
 ```
-cmake --preset vs2022        # generates build/dyx_engine.sln
+cmake --preset vs2026        # generates build/dyx_engine.sln (vs2022 also works)
 cmake --build --preset debug # or open the solution and press F5
 ```
+
+(The `vs2026` preset requires CMake 4.2 or newer; use the `vs2022` preset on
+older CMake versions.)
 
 The solution sets `dyx_game` as the startup project. Run it and you should
 see a checkerboard, a rotating red quad, a bouncing ball and a small hud.
@@ -22,7 +26,7 @@ has a few `.bat` wrappers around the same workflow:
 
 | script | what it does |
 |---|---|
-| `generate.bat` | runs `cmake --preset vs2022` to (re)generate `build/dyx_engine.sln` |
+| `generate.bat [-2022\|-2026]` | (re)generates `build/dyx_engine.sln`; targets Visual Studio 2026 by default, `-2022` selects Visual Studio 2022 (switching between them regenerates from scratch) |
 | `build.bat [-debug\|-release]` | builds that solution via `cmake --build`; defaults to debug |
 | `run.bat [-debug\|-release] [-game=name]` | launches the built `dyx_game.exe` from `build/<config>`; pass `-game=name` to run a different executable, e.g. `-game=awesome_game` |
 
@@ -223,7 +227,7 @@ your new game's own folder. Here is everything needed to add one, using
    ADD_SUBDIRECTORY(awesome_game)
    ```
 
-4. **Regenerate and build**: `generate.bat` (or `cmake --preset vs2022`),
+4. **Regenerate and build**: `generate.bat` (or `cmake --preset vs2026`),
    then `build.bat`. Regenerating is only needed here because a whole new
    game (a new `ADD_SUBDIRECTORY` line) was added; adding files to an
    existing game never needs it. Visual Studio will show both `dyx_game` and

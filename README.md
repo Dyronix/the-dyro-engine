@@ -13,9 +13,11 @@ public headers or the guide pages.)
 
 ## Getting started
 
-You need **Visual Studio 2026** (or **2022**) with the *Desktop development
-with C++* workload and a recent **Windows 10/11 SDK** (both are part of the
-default workload installation).
+You need **Visual Studio 2026** (or **2022**, version 17.5 or newer) with the
+*Desktop development with C++* workload and a recent **Windows 10/11 SDK**
+(both are part of the default workload installation). The engine is written
+in **C++20** — the same standard current game consoles compile with — and
+uses `std::format`, concepts, ranges and `std::span` throughout.
 
 ```
 generate.bat                 # generates build/dyx_engine.sln (VS2026 by default)

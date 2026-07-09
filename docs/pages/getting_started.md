@@ -33,15 +33,17 @@ has a few `.bat` wrappers around the same workflow:
 | `build.bat [-debug\|-release]` | builds that solution via `cmake --build`; defaults to debug |
 | `run.bat [-debug\|-release] [-game=name]` | launches the built `dyx_game.exe` from `build/<config>`; pass `-game=name` to run a different executable, e.g. `-game=awesome_game` |
 
-These docs are published online at
-<https://dyronix.github.io/the-dyro-engine/> and rebuilt automatically whenever a
-`v*` version tag is pushed. To preview them locally instead, install
-[Doxygen](https://www.doxygen.nl/download.html) and use these two wrappers:
+These docs are published online at <https://dyronix.github.io/the-dyro-engine/> 
+and rebuilt automatically whenever a `v*` version tag is pushed. 
+To preview them locally instead, install [Doxygen](https://www.doxygen.nl/download.html) 
+and use these two wrappers:
 
 | script | what it does |
 |---|---|
 | `docs/generate_docs.bat` | builds `docs/html` from the headers and these pages (needs Doxygen on your PATH) |
 | `docs.bat` | opens the locally built `docs/html/index.html` in your browser (run `docs/generate_docs.bat` first to generate it) |
+
+Keep in mind that some links and references might be broken in a local build of the documentation.
 
 ## A minimal complete game
 
@@ -161,13 +163,13 @@ The warning starts with the full path of the stray file; double-click it in
 the Error List to open the file, then move it to your game's `private`
 folder and build again.
 
-## Adding a second game
+## Adding a another game
 
 Every game lives in its own folder under `source/games`, next to the demo
-(`source/games/dyx_game`). `source/games/CMakeLists.txt` lists one
-`ADD_SUBDIRECTORY(...)` per game. That is the *only* file you touch outside
-your new game's own folder. Here is everything needed to add one, using
-`awesome_game` as the example name.
+(`source/games/dyx_game`) and the simple game (`source/games/simple_game`). 
+`source/games/CMakeLists.txt` lists one `ADD_SUBDIRECTORY(...)` per game. 
+That is the *only* file you touch outside your new game's own folder. 
+Here is everything needed to add one, using `awesome_game` as the example name.
 
 1. **Create the folder and its files**:
 
@@ -230,6 +232,7 @@ your new game's own folder. Here is everything needed to add one, using
    line this whole process adds outside your game's own folder:
 
    ```cmake
+   ADD_SUBDIRECTORY(simple_game)
    ADD_SUBDIRECTORY(dyx_game)
    ADD_SUBDIRECTORY(awesome_game)
    ```

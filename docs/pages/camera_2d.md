@@ -3,7 +3,7 @@
 > This is a **guided exercise**, not a finished feature. The engine ships with
 > no camera on purpose: building one is how you learn the difference between
 > *world space* and *screen space*. The pseudo code below is a map, not a
-> solution — you write the real C++.
+> solution. You write the real C++.
 
 ## The problem
 
@@ -53,16 +53,16 @@ screen_pos = world_pos - camera.top_left      // world  -> screen (drawing world
 world_pos  = screen_pos + camera.top_left      // screen -> world (e.g. mouse -> world click)
 ```
 
-HUD elements skip the conversion entirely — they are *authored* in screen space,
+HUD elements skip the conversion entirely. They are *authored* in screen space,
 so you draw them at their raw pixel position. That one rule ("world things get
 converted, HUD things don't") is the entire discipline.
 
-## Step 1 — a `camera2d` value
+## Step 1: a `camera2d` value
 
 Start with the smallest thing that works: a struct that just stores where the
 camera is looking. Decide up front whether `position` means the **top-left** of
-the view or its **center**. Center is friendlier — "the camera looks *at* the
-player" — so the examples assume center, and derive the top-left from it.
+the view or its **center**. Center is friendlier ("the camera looks *at* the
+player"), so the examples assume center, and derive the top-left from it.
 
 ```
 struct camera2d
@@ -86,7 +86,7 @@ struct camera2d
 > pixel-art level shimmers as it scrolls. Once things look right, try flooring
 > the offset to whole pixels and see if it looks cleaner.
 
-## Step 2 — follow the player
+## Step 2: follow the player
 
 Each frame, in your `update`, move the camera toward the player. The blunt
 version snaps the center straight onto the player:
@@ -109,7 +109,7 @@ That is correct but twitchy. Two upgrades, in order of how much you'll want them
    player has left the dead-zone rectangle. A dyx::rect built with
    dyx::rect::from_center_size is a natural fit for expressing that box.
 
-## Step 3 — clamp to the level
+## Step 3: clamp to the level
 
 A scrolling level has edges. Without a clamp, the camera walks past the last
 screen and you see the void beyond the level. Stop the camera so the view never
@@ -126,11 +126,11 @@ Watch the case where the level is **smaller** than the viewport on some axis
 (a short level, or a tall window): `min_center` can exceed `max_center` and the
 clamp flips. Detect it and just center the level on that axis.
 
-## Step 4 — draw through the camera
+## Step 4: draw through the camera
 
 Now the payoff. In `draw`, split your rendering into two passes.
 
-**World pass** — convert every world position through the camera:
+**World pass:** convert every world position through the camera:
 
 ```
 // terrain, enemies, player, bullets...
@@ -138,7 +138,7 @@ renderer.draw_sprite(*enemy_tex, camera.world_to_screen(enemy.position), enemy.s
 renderer.draw_sprite(*player_tex, camera.world_to_screen(player.position), player.size)
 ```
 
-**HUD pass** — draw last, in raw screen coordinates, *no* conversion:
+**HUD pass:** draw last, in raw screen coordinates, *no* conversion:
 
 ```
 renderer.draw_text(m_font, score_text, {20, 20}, 16)     // stays put while the world scrolls
@@ -152,7 +152,7 @@ the world pass. Those two symptoms tell you exactly which pass is wrong.
 ## Parallax, for free
 
 Background layers that scroll *slower* than the foreground sell depth. Because
-the camera is one value, parallax is one multiplier — scale the offset per
+the camera is one value, parallax is one multiplier: scale the offset per
 layer instead of hand-tuning each sprite:
 
 ```
@@ -164,7 +164,7 @@ function world_to_screen_parallax(world_pos, factor):
 ```
 
 Draw far layers first with a small factor, the gameplay layer at `1.0`, then
-the HUD. One camera, one knob per layer — instead of a magic number sprinkled
+the HUD. One camera, one knob per layer, instead of a magic number sprinkled
 across every background draw.
 
 ## Where should the subtraction live?
@@ -173,7 +173,7 @@ You have two honest options. Pick deliberately.
 
 - **In game code (recommended to start).** Keep `camera2d` in your game and
   call `world_to_screen` yourself before each world draw, exactly as above. The
-  engine stays untouched, and *you* see every conversion — which is the point
+  engine stays untouched, and *you* see every conversion, which is the point
   of the exercise. The cost is discipline: every world draw must remember the
   call.
 
@@ -181,13 +181,13 @@ You have two honest options. Pick deliberately.
   offset it applies for you, so `draw_sprite` takes world coordinates directly
   and the HUD uses a "draw in screen space" mode. Look at how `submit_quad`
   composes `m_projection * make_sprite_transform(...)`: a camera is one more
-  matrix in that product — a **view** matrix (a translation by `-top_left()`)
+  matrix in that product: a **view** matrix (a translation by `-top_left()`)
   slotted in as `projection * view * model`. You'd add something like
   `set_view(const camera2d&)` and a way to bypass it for HUD draws. This is the
   cleaner API, but touching the renderer is a bigger step. Earn it by making the
   game-code version work first.
 
-Whichever you choose, the concept is identical — the only question is who owns
+Whichever you choose, the concept is identical. The only question is who owns
 the subtraction.
 
 ## Checklist

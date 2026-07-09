@@ -26,7 +26,7 @@ Source = "GitHub Actions".)
   recent **Windows 10/11 SDK**, which the engine needs.
 - **CMake** on your PATH. Visual Studio 2026 generation requires **CMake 4.2 or
   newer**; the 2022 toolset works with older CMake versions.
-- A **C++20** compiler — the standard is the same one current game consoles
+- A **C++20** compiler. The standard is the same one current game consoles
   compile with. The engine uses `std::format`, concepts, ranges and `std::span`
   throughout.
 
@@ -51,9 +51,9 @@ Visual Studio 2022 instead. Switching between them re-generates from scratch.
 The solution sets `simple_game` as the startup project: a tiny "catch the
 ball" game meant as a first project. Run it and slide the paddle with the arrow
 keys to catch the falling ball; the score goes up each catch. When you want to
-see more of what the engine can do, run the demo instead —
-`run.bat -game=dyx_game` — a checkerboard, a rotating red quad, a bouncing ball
-and a small hud. Move that ball with wasd, tint it with space, resize it with
+see more of what the engine can do, run the demo instead:
+`run.bat -game=dyx_game`. It shows a checkerboard, a rotating red quad, a
+bouncing ball and a small hud. Move that ball with wasd, tint it with space, resize it with
 the mouse wheel.
 
 `run.bat` launches a built game: `-debug`/`-release` picks the config,

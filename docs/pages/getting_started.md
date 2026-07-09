@@ -18,7 +18,7 @@ older CMake versions.)
 The solution sets `simple_game` as the startup project: a tiny "catch the
 ball" game meant as a first project. Run it and slide the paddle with the
 arrow keys to catch the falling ball. When you want to see more of the engine
-in one place, run the demo instead — `run.bat -game=dyx_game` — and you should
+in one place, run the demo instead: `run.bat -game=dyx_game`. You should
 see a checkerboard, a rotating red quad, a bouncing ball and a small hud; move
 that ball with wasd, tint it with space, resize it with the mouse wheel.
 

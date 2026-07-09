@@ -14,8 +14,8 @@ void my_game::initialize(dyx::engine& engine)
 ```
 
 dyx::engine::load_texture takes a path relative to the content folder, which
-is where almost every texture lives — no path juggling on your first line of
-code. When you do need a file outside the content folder, reach for
+is where almost every texture lives, so you don't have to juggle paths on your
+first line of code. When you do need a file outside the content folder, reach for
 dyx::texture_loader::load_from_file through `engine.get_texture_loader()` and
 pass it a full path (dyx::paths::get_content_directory is what
 `load_texture` prepends for you).
@@ -23,7 +23,7 @@ pass it a full path (dyx::paths::get_content_directory is what
 Textures come back as `std::shared_ptr<dyx::texture>`. Store them as
 members and pass them to `draw_sprite` every frame. If the file cannot be
 read (a wrong path is the usual cause), an error is logged to the console
-and a magenta-and-black checkerboard placeholder is returned instead — so a
+and a magenta-and-black checkerboard placeholder is returned instead, so a
 typo in a filename shows up as an obvious magenta sprite on screen rather
 than crashing the next `draw_sprite` call.
 

@@ -4,7 +4,7 @@
 > draw one frame of a sprite sheet (dyx::renderer_2d::draw_sprite with a source
 > dyx::rect); it deliberately ships with *no* animation helper. Building one is
 > how you learn to separate **what an animation is** (data) from **where it is
-> right now** (state). The pseudo code below is a map, not a solution — you write
+> right now** (state). The pseudo code below is a map, not a solution. You write
 > the real C++.
 
 ## The problem
@@ -25,7 +25,7 @@ has **idle / run / jump / shoot / die** cycles, each with a different frame
 count, a different speed, and different rules: run loops forever, but *die*
 plays once and holds the last frame. Express all of that with the line above and
 you get a swamp of magic numbers (`8.0f`, `% 4`, `64.0f`) copied and re-tuned at
-every draw call — and no way to ask "has the death animation finished?"
+every draw call, and no way to ask "has the death animation finished?"
 
 A small helper fixes the whole category at once. It splits into two pieces:
 
@@ -36,7 +36,7 @@ A small helper fixes the whole category at once. It splits into two pieces:
 
 Keep those two apart and everything else falls out.
 
-## Step 1 — turn a frame index into a source rect
+## Step 1: turn a frame index into a source rect
 
 Before anything moves, nail the pure geometry: **frame number → dyx::rect in
 texture pixels**. A sheet is a grid, so the demo's single row is just the
@@ -51,15 +51,15 @@ function frame_rect(frame_index, frame_size, columns):
     return rect{ top_left, top_left + frame_size }   // dyx::rect is { min, max }
 ```
 
-Test this alone first — draw frame 0, 1, 2 by hand and confirm the right cell
+Test this alone first: draw frame 0, 1, 2 by hand and confirm the right cell
 shows up. Every later step trusts this function, so make it boring and correct
 before adding time.
 
 > The demo hardcodes 64. Store `frame_size` once (a dyx::vec2) instead of
-> sprinkling the number across the math — that single change already kills most
+> sprinkling the number across the math. That single change already kills most
 > of the magic numbers.
 
-## Step 2 — a `sprite_animation` value
+## Step 2: a `sprite_animation` value
 
 Now *describe* a cycle without playing it. Pure data, no time, no mutation:
 
@@ -82,10 +82,10 @@ jump  = { first_frame: 10, frame_count: 3,  fps: 10, loop: false }
 die   = { first_frame: 13, frame_count: 5,  fps: 8,  loop: false }
 ```
 
-Notice there is still no notion of "now" here — this struct is the same on
+Notice there is still no notion of "now" here. This struct is the same on
 frame 1 and frame 10000. That is the point.
 
-## Step 3 — a `sprite_animator` that holds the playhead
+## Step 3: a `sprite_animator` that holds the playhead
 
 The moving part. It remembers *which* animation is playing and *how long* it has
 been playing, and it exposes the one thing `draw` needs: the current source
@@ -122,11 +122,11 @@ The whole trick is `elapsed * fps`: seconds become a frame count, then `mod`
 
 > **Why store `elapsed` instead of a frame index?** Time is the source of truth;
 > the frame is *derived*. Framerate-independent, and you never have to hand-manage
-> "did enough time pass to advance?" — you recompute it every call.
+> "did enough time pass to advance?" You recompute it every call.
 
-## Step 4 — knowing when a one-shot is done
+## Step 4: knowing when a one-shot is done
 
-A looping run never ends, but *die* and *shoot* do — and gameplay needs to know
+A looping run never ends, but *die* and *shoot* do, and gameplay needs to know
 (revert to idle after a shot, show the game-over screen after death):
 
 ```
@@ -138,10 +138,10 @@ function finished():
 
 Now `update` can react: `if (m_animator.finished()) play(idle)`.
 
-## Step 5 — switching animations
+## Step 5: switching animations
 
 Changing state (idle → run when the player moves) means pointing the animator at
-a new `sprite_animation` **and resetting the playhead** — otherwise a 4-frame
+a new `sprite_animation` **and resetting the playhead**. Otherwise a 4-frame
 idle's leftover `elapsed` lands mid-way through a 6-frame run:
 
 ```
@@ -168,7 +168,7 @@ else:                         m_animator.play(idle)
 m_animator.update(delta_seconds)
 ```
 
-## Step 6 — draw through the animator
+## Step 6: draw through the animator
 
 The payoff: `draw` no longer does timing math. It asks the animator for a rect
 and hands it to the renderer exactly like the demo does:
@@ -180,7 +180,7 @@ renderer.draw_sprite(*m_hero_sheet, src, player.screen_position, player.size)
 ```
 
 Flip the character to face left by drawing with a negative width (or swapping the
-rect's min.x / max.x, depending on how your renderer treats a flipped source) —
+rect's min.x / max.x, depending on how your renderer treats a flipped source),
 but get the forward-facing cycle solid first.
 
 ## A worked side-scroller character
@@ -196,7 +196,7 @@ that changes per state is which `sprite_animation` you `play`:
 | shoot | no   | revert to idle on `finished()` | fire pressed |
 | die   | no   | hold last frame forever | health reaches 0 |
 
-Everything above is ~40 lines of real C++. The value is not the line count — it
+Everything above is ~40 lines of real C++. The value is not the line count. It
 is that *timing, looping, and "is it done?" now live in one place* instead of
 being re-derived at every draw call.
 
@@ -208,7 +208,7 @@ being re-derived at every draw call.
 - [ ] Looping uses `mod`; one-shots `min`/clamp to hold the last frame.
 - [ ] `play()` early-outs when the animation is already current (or it freezes on frame 0).
 - [ ] `finished()` lets gameplay react to one-shots (revert after shoot, game-over after die).
-- [ ] `draw` only calls `current_frame_rect()` — no timing math left in the draw pass.
+- [ ] `draw` only calls `current_frame_rect()`: no timing math left in the draw pass.
 
 See @ref page_drawing for the dyx::renderer_2d::draw_sprite call you are feeding,
 and @ref page_utilities for dyx::rect and the timing helpers.

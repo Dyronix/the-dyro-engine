@@ -12,3 +12,10 @@ span.tt {
     border-radius: var(--border-radius-small);
     padding: 2px 5px;
 }
+
+/* Doxygen 1.17 renders the search box in the top nav bar, right above the
+ * navigation tree. The tree starts flush against it, so give the first item
+ * some breathing room below the search box. */
+#nav-tree {
+    padding-top: var(--spacing-large);
+}

@@ -35,10 +35,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Pin the Doxygen version. docs/header.html is a custom HTML_HEADER
+      # generated for a specific Doxygen release; feeding it to a different
+      # version leaves template tokens like $mermaidjs un-substituted and
+      # breaks the treeview sidebar and search box. apt ships an old Doxygen
+      # (1.9.x on the runners), so download the matching release binary
+      # instead. Keep DOXYGEN_VERSION in sync with the version noted at the
+      # top of docs/header.html when you regenerate that header.
+      #
       # No graphviz needed: the Doxyfile sets HAVE_DOT = NO and the
       # doxygen-awesome theme is committed under docs/doxygen-awesome/.
       - name: Install Doxygen
-        run: sudo apt-get update && sudo apt-get install -y doxygen
+        env:
+          DOXYGEN_VERSION: "1.17.0"
+        run: |
+          curl -fsSL "https://github.com/doxygen/doxygen/releases/download/Release_${DOXYGEN_VERSION//./_}/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz" -o doxygen.tar.gz
+          tar -xzf doxygen.tar.gz
+          sudo make -C "doxygen-${DOXYGEN_VERSION}" install
+          doxygen --version
 
       # Same command as docs/generate_docs.bat and the CMake "docs" target.
       # The Doxyfile uses paths relative to docs/, so run it from there; output

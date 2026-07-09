@@ -2,3 +2,8 @@
 .vscode/
 
 build/
+
+# Generated Doxygen html - built by CI and published to GitHub Pages
+# (https://dyronix.github.io/the-dyro-engine/); run docs/generate_docs.bat to
+# preview it locally.
+docs/html/

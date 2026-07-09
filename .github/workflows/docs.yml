@@ -1,0 +1,61 @@
+name: Docs
+
+# Build the Doxygen html and publish it to GitHub Pages
+# (https://dyronix.github.io/the-dyro-engine/). Runs when a version tag is
+# pushed, or on demand from the Actions tab. The generated html is no longer
+# committed to the repo; this workflow is what students read.
+#
+# One-time setup: GitHub -> Settings -> Pages -> Build and deployment ->
+# Source = "GitHub Actions".
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+# Allow the deploy step to publish to Pages via OIDC.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deployment at a time; cancel superseded runs.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # No graphviz needed: the Doxyfile sets HAVE_DOT = NO and the
+      # doxygen-awesome theme is committed under docs/doxygen-awesome/.
+      - name: Install Doxygen
+        run: sudo apt-get update && sudo apt-get install -y doxygen
+
+      # Same command as docs/generate_docs.bat and the CMake "docs" target.
+      # The Doxyfile uses paths relative to docs/, so run it from there; output
+      # lands in docs/html.
+      - name: Build docs
+        working-directory: docs
+        run: doxygen Doxyfile
+
+      # Static site: skip Jekyll so files/dirs beginning with "_" are served.
+      - name: Disable Jekyll
+        run: touch docs/html/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/html
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

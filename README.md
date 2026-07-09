@@ -11,14 +11,6 @@ full searchable API reference plus guide pages with examples for every system,
 including how to make your own game, the folder structure and how the engine
 works internally.
 
-Maintainers: the site is built by the `Docs` GitHub Actions workflow
-(`.github/workflows/docs.yml`) and published to GitHub Pages automatically when
-a `v*` version tag is pushed (or on demand from the Actions tab). The generated
-html is no longer committed to the repo. To preview your changes before tagging,
-run `docs/generate_docs.bat`, which needs [Doxygen](https://www.doxygen.nl/download.html)
-on your PATH. (One-time repo setup: Settings → Pages → Build and deployment →
-Source = "GitHub Actions".)
-
 ## Requirements
 
 - **Visual Studio 2026**, or **Visual Studio 2022** version 17.5 or newer, with

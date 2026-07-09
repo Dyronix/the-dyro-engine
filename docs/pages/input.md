@@ -1,7 +1,8 @@
 # Input {#page_input}
 
-Keyboard and mouse state lives in dyx::input; grab it from the engine
-(store the engine pointer in `initialize` if you need input in `update`):
+Keyboard and mouse state lives in dyx::input; grab it from the engine.
+Both `update` and `draw` receive the engine, so input is always one call
+away, no need to stash a pointer:
 
 ```cpp
 dyx::input& input = engine.get_input();
@@ -33,9 +34,9 @@ multiplying by `delta_seconds` makes the speed independent of the frame
 rate:
 
 ```cpp
-void demo_game::update(float delta_seconds)
+void demo_game::update(dyx::engine& engine, float delta_seconds)
 {
-    dyx::input& input = m_engine->get_input();
+    dyx::input& input = engine.get_input();
 
     dyx::vec2 direction = { 0.0f, 0.0f };
     if (input.is_key_down(dyx::key::a) || input.is_key_down(dyx::key::left))  { direction.x -= 1.0f; }

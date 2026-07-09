@@ -82,12 +82,22 @@ need [0, 1] (see the procedural texture example in
 ## Paths (core/paths.h)
 
 dyx::paths::get_executable_directory returns the directory the running
-executable lives in. Load **all** content relative to it. A path like
-`"content/textures/ball.png"` only works when the game happens to be
-started from the right working directory, which is not the case when
-launching from Visual Studio or a shortcut:
+executable lives in. Load **all** content relative to it. A bare relative
+path only works when the game happens to be started from the right working
+directory, which is not the case when launching from Visual Studio or a
+shortcut:
 
 ```cpp
 const std::filesystem::path content = dyx::paths::get_executable_directory() / "content";
 m_texture = engine.get_texture_loader().load_from_file(content / "textures" / "ball.png");
+```
+
+dyx::paths::get_content_directory is the shorthand for that first line
+(`get_executable_directory() / "content"`), the folder textures, fonts and
+shaders live in. For textures specifically you rarely need either: reach
+straight for dyx::engine::load_texture, which takes a content-relative path
+and prepends the content directory for you.
+
+```cpp
+m_texture = engine.load_texture("textures/ball.png");
 ```

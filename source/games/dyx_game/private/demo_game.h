@@ -23,16 +23,13 @@ public:
 
 	//----------------------------------------------------------
 	/// @brief Moves the ball with the keyboard and animates the sprites.
-	void update(float delta_seconds) override;
+	void update(dyx::engine& engine, float delta_seconds) override;
 
 	//----------------------------------------------------------
 	/// @brief Draws the scene and the hud.
-	void draw(dyx::renderer_2d& renderer) override;
+	void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override;
 
 private:
-	// Kept to reach the input state (and other engine systems) in update
-	dyx::engine* m_engine = nullptr;
-
 	std::shared_ptr<dyx::texture> m_checker_texture;
 	std::shared_ptr<dyx::texture> m_ball_texture;
 	std::shared_ptr<dyx::texture> m_noise_texture;

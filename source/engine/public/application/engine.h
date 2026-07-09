@@ -13,6 +13,8 @@
 #include "graphics/texture_loader.h"
 
 #include <cstdint>
+#include <filesystem>
+#include <memory>
 #include <string>
 
 namespace dyx
@@ -56,6 +58,22 @@ namespace dyx
 		/// @param settings Startup settings.
 		/// @return Exit code for main (0 on success).
 		int run(game& active_game, const engine_settings& settings);
+
+		//----------------------------------------------------------
+		/// @brief Loads a texture from the content folder.
+		///
+		/// The path is relative to the content directory, so
+		/// @code engine.load_texture("textures/ball.png") @endcode
+		/// loads @c content/textures/ball.png next to the executable. This is
+		/// the shorthand for the common case; call get_texture_loader()
+		/// yourself only for a path outside the content folder.
+		///
+		/// Like dyx::texture_loader::load_from_file, a failed load is logged
+		/// and returns the magenta placeholder rather than nullptr, so a wrong
+		/// path shows up on screen instead of crashing the next draw.
+		/// @param content_relative_path Image file path, relative to the content directory.
+		/// @return The uploaded texture, or the placeholder when loading failed.
+		std::shared_ptr<texture> load_texture(const std::filesystem::path& content_relative_path);
 
 		//----------------------------------------------------------
 		/// @brief Returns the texture loader, used to import textures in game::initialize.

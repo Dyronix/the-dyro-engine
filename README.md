@@ -6,10 +6,16 @@ understand it completely.
 
 ## Documentation
 
-Open [docs/html/index.html](docs/html/index.html) in a browser for the full
-searchable API reference plus guide pages with examples for every system.
-(Maintainers: regenerate it with `docs/generate_docs.bat` after changing the
-public headers or the guide pages.)
+Read the docs online at **<https://dyronix.github.io/the-dyro-engine/>**: the
+full searchable API reference plus guide pages with examples for every system.
+
+Maintainers: the site is built by the `Docs` GitHub Actions workflow
+(`.github/workflows/docs.yml`) and published to GitHub Pages automatically when
+a `v*` version tag is pushed (or on demand from the Actions tab). The generated
+html is no longer committed to the repo. To preview your changes before tagging,
+run `docs/generate_docs.bat`, which needs [Doxygen](https://www.doxygen.nl/download.html)
+on your PATH. (One-time repo setup: Settings → Pages → Build and deployment →
+Source = "GitHub Actions".)
 
 ## Getting started
 
@@ -28,27 +34,32 @@ build.bat -debug             # or open the solution and press F5
 Visual Studio 2022 instead. Switching between them re-generates from scratch.
 (VS2026 generation requires CMake 4.2 or newer.)
 
-The solution sets `dyx_game` as the startup project. Run it and you should
-see a checkerboard, a rotating red quad, a bouncing ball and a small hud.
-Move the ball with wasd, tint it with space, resize it with the mouse wheel.
+The solution sets `simple_game` as the startup project: a tiny "catch the
+ball" game (`source/games/simple_game`) meant as a first project. Run it and
+slide the paddle with the arrow keys to catch the falling ball; the score goes
+up each catch. When you want to see more of what the engine can do, run the
+demo instead — `run.bat -game=dyx_game` — a checkerboard, a rotating red quad,
+a bouncing ball and a small hud. Move that ball with wasd, tint it with space,
+resize it with the mouse wheel.
 
 ## Making your own game
 
-Look at `source/games/dyx_game`: a game is a class that derives from
-`dyx::game` and overrides four functions. To add code, just create new
-`.cpp`/`.h` files in `source/games/dyx_game/private` and build; they are
-picked up automatically, no build-system editing needed. Want to add a
-second game alongside the demo instead of replacing it? See "Adding a second
-game" in [the getting started guide](docs/html/page_getting_started.html).
+A game is a class that derives from `dyx::game` and overrides four functions.
+Start from `source/games/simple_game` for the smallest possible example, or
+`source/games/dyx_game` to see more features in action. To add code to a game,
+just create new `.cpp`/`.h` files in its `private` folder and build; they are
+picked up automatically, no build-system editing needed. Want to add a third
+game alongside these two instead of replacing one? See "Adding a second game"
+in [the getting started guide](https://dyronix.github.io/the-dyro-engine/page_getting_started.html).
 
 ```cpp
 class my_game : public dyx::game
 {
 public:
-    void initialize(dyx::engine& engine) override;  // load your textures here
-    void update(float delta_seconds) override;       // game logic here
-    void draw(dyx::renderer_2d& renderer) override; // draw sprites here
-    void shutdown() override;                        // cleanup here
+    void initialize(dyx::engine& engine) override;                      // load your textures here
+    void update(dyx::engine& engine, float delta_seconds) override;      // game logic here
+    void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override; // draw sprites here
+    void shutdown() override;                                            // cleanup here
 };
 ```
 

@@ -15,5 +15,11 @@ namespace dyx
 
 			return std::filesystem::path(executable_path).parent_path();
 		}
+
+		//----------------------------------------------------------
+		std::filesystem::path get_content_directory()
+		{
+			return get_executable_directory() / "content";
+		}
 	}
 }

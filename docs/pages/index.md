@@ -11,10 +11,10 @@ functions. The engine owns the main loop and calls them at the right time:
 class my_game : public dyx::game
 {
 public:
-    void initialize(dyx::engine& engine) override;  // load your textures here
-    void update(float delta_seconds) override;       // game logic here
-    void draw(dyx::renderer_2d& renderer) override; // draw sprites here
-    void shutdown() override;                        // cleanup here
+    void initialize(dyx::engine& engine) override;                      // load your textures here
+    void update(dyx::engine& engine, float delta_seconds) override;      // game logic here
+    void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override; // draw sprites here
+    void shutdown() override;                                            // cleanup here
 };
 ```
 
@@ -30,6 +30,8 @@ into your own game:
 
 - @subpage page_getting_started : build the project and write your first game
 - @subpage page_drawing : sprites, sprite sheets, rectangles, lines and text
+- @subpage page_camera_2d : guided exercise — build a scrolling 2D camera
+- @subpage page_sprite_animation : guided exercise — build a sprite-animation helper
 - @subpage page_input : keyboard and mouse
 - @subpage page_textures_and_fonts : loading images, procedural textures, bitmap fonts
 - @subpage page_utilities : math, rects, timers, random numbers, noise and paths

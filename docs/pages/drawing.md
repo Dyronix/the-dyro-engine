@@ -16,7 +16,7 @@ them, so draw the background first and the hud last.
 ## Sprites
 
 ```cpp
-void my_game::draw(dyx::renderer_2d& renderer)
+void my_game::draw(dyx::engine& engine, dyx::renderer_2d& renderer)
 {
     // texture, center position, size (all in pixels)
     renderer.draw_sprite(*m_background, { 640.0f, 360.0f }, { 1280.0f, 720.0f });
@@ -46,6 +46,10 @@ const dyx::rect frame_rect = {
 
 renderer.draw_sprite(*m_circle_sheet, frame_rect, { 1030.0f, 200.0f }, { 100.0f, 100.0f });
 ```
+
+That inline timing math is fine for a single strip. Once a character needs
+several cycles (idle, run, jump, die), wrap it in a small animator — see
+@ref page_sprite_animation for a guided build.
 
 ## Rectangles and lines
 

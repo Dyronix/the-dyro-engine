@@ -14,9 +14,9 @@ namespace dyx
 	/// class my_game : public dyx::game
 	/// {
 	/// public:
-	///     void initialize(dyx::engine& engine) override;   // load textures here
-	///     void update(float delta_seconds) override;        // game logic here
-	///     void draw(dyx::renderer_2d& renderer) override;  // draw sprites here
+	///     void initialize(dyx::engine& engine) override;              // load textures here
+	///     void update(dyx::engine& engine, float delta_seconds) override; // game logic here
+	///     void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override; // draw sprites here
 	/// };
 	/// @endcode
 	class game
@@ -31,13 +31,15 @@ namespace dyx
 
 		//----------------------------------------------------------
 		/// @brief Called every frame before drawing.
+		/// @param engine Engine instance, use it to read input and reach other systems.
 		/// @param delta_seconds Time the previous frame took, in seconds.
-		virtual void update(float delta_seconds) {}
+		virtual void update(engine& engine, float delta_seconds) {}
 
 		//----------------------------------------------------------
 		/// @brief Called every frame to draw the game.
+		/// @param engine Engine instance, use it to read input and reach other systems.
 		/// @param renderer Renderer used to draw sprites.
-		virtual void draw(renderer_2d& renderer) {}
+		virtual void draw(engine& engine, renderer_2d& renderer) {}
 
 		//----------------------------------------------------------
 		/// @brief Called once when the game is closing.

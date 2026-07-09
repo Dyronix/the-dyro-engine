@@ -15,9 +15,12 @@ cmake --build --preset debug # or open the solution and press F5
 (The `vs2026` preset requires CMake 4.2 or newer; use the `vs2022` preset on
 older CMake versions.)
 
-The solution sets `dyx_game` as the startup project. Run it and you should
-see a checkerboard, a rotating red quad, a bouncing ball and a small hud.
-Move the ball with wasd, tint it with space, resize it with the mouse wheel.
+The solution sets `simple_game` as the startup project: a tiny "catch the
+ball" game meant as a first project. Run it and slide the paddle with the
+arrow keys to catch the falling ball. When you want to see more of the engine
+in one place, run the demo instead — `run.bat -game=dyx_game` — and you should
+see a checkerboard, a rotating red quad, a bouncing ball and a small hud; move
+that ball with wasd, tint it with space, resize it with the mouse wheel.
 
 ### Convenience scripts
 
@@ -30,11 +33,15 @@ has a few `.bat` wrappers around the same workflow:
 | `build.bat [-debug\|-release]` | builds that solution via `cmake --build`; defaults to debug |
 | `run.bat [-debug\|-release] [-game=name]` | launches the built `dyx_game.exe` from `build/<config>`; pass `-game=name` to run a different executable, e.g. `-game=awesome_game` |
 
-And an additional one for the docs you're reading right now:
+These docs are published online at
+<https://dyronix.github.io/the-dyro-engine/> and rebuilt automatically whenever a
+`v*` version tag is pushed. To preview them locally instead, install
+[Doxygen](https://www.doxygen.nl/download.html) and use these two wrappers:
 
 | script | what it does |
 |---|---|
-| `docs.bat` | opens `docs/html/index.html` in your browser (run `docs/generate_docs.bat` first if it doesn't exist yet) |
+| `docs/generate_docs.bat` | builds `docs/html` from the headers and these pages (needs Doxygen on your PATH) |
+| `docs.bat` | opens the locally built `docs/html/index.html` in your browser (run `docs/generate_docs.bat` first to generate it) |
 
 ## A minimal complete game
 
@@ -45,20 +52,18 @@ runs the main loop until the window closes, and shuts everything down again.
 ```cpp
 #include "application/engine.h"
 #include "application/game.h"
-#include "core/paths.h"
 
 class my_game : public dyx::game
 {
 public:
     void initialize(dyx::engine& engine) override
     {
-        // Content is loaded relative to the executable, so the game works
-        // no matter which working directory it is started from.
-        const auto content = dyx::paths::get_executable_directory() / "content";
-        m_ball = engine.get_texture_loader().load_from_file(content / "textures" / "ball.png");
+        // Paths are relative to the content folder next to the executable, so
+        // the game works no matter which working directory it is started from.
+        m_ball = engine.load_texture("textures/ball.png");
     }
 
-    void draw(dyx::renderer_2d& renderer) override
+    void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override
     {
         renderer.draw_sprite(*m_ball, { 640.0f, 360.0f }, { 120.0f, 120.0f });
     }
@@ -117,9 +122,11 @@ in the small header-only `args` library (`source/third_party/args`).
 
 ## Where to put your code
 
-Look at `source/games/dyx_game`: it contains the demo game. Replace it with
-your own. The four dyx::game overrides are all optional; override only the
-ones you need. From here, continue with @ref page_drawing and @ref page_input.
+Two games ship with the repo: `source/games/simple_game` (a tiny "catch the
+ball" starter, the smallest complete example) and `source/games/dyx_game` (the
+feature-touring demo). Start from whichever fits, and replace it with your own.
+The four dyx::game overrides are all optional; override only the ones you need.
+From here, continue with @ref page_drawing and @ref page_input.
 
 ## Adding files to your game
 

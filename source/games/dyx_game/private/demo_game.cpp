@@ -4,7 +4,6 @@
 #include "application/input.h"
 #include "core/log.h"
 #include "core/noise.h"
-#include "core/paths.h"
 #include "core/random.h"
 #include "core/rect.h"
 
@@ -81,14 +80,11 @@ namespace
 //--------------------------------------------------------------
 void demo_game::initialize(dyx::engine& engine)
 {
-	m_engine = &engine;
+	// Paths are relative to the content folder next to the executable
+	m_checker_texture = engine.load_texture("textures/checker.png");
+	m_ball_texture = engine.load_texture("textures/ball.png");
 
-	const std::filesystem::path content_directory = dyx::paths::get_executable_directory() / "content";
-
-	m_checker_texture = engine.get_texture_loader().load_from_file(content_directory / "textures" / "checker.png");
-	m_ball_texture = engine.get_texture_loader().load_from_file(content_directory / "textures" / "ball.png");
-
-	m_font.atlas = engine.get_texture_loader().load_from_file(content_directory / "fonts" / "font_8x8.png");
+	m_font.atlas = engine.load_texture("fonts/font_8x8.png");
 
 	m_noise_texture = make_noise_texture(engine.get_texture_loader(), 256);
 	m_circle_sheet = make_circle_sheet(engine.get_texture_loader(), 64, 4);
@@ -97,12 +93,12 @@ void demo_game::initialize(dyx::engine& engine)
 }
 
 //--------------------------------------------------------------
-void demo_game::update(float delta_seconds)
+void demo_game::update(dyx::engine& engine, float delta_seconds)
 {
 	m_time += delta_seconds;
 	m_rotation += delta_seconds; // one radian per second
 
-	dyx::input& input = m_engine->get_input();
+	dyx::input& input = engine.get_input();
 
 	// Move the ball with wasd or the arrow keys
 	dyx::vec2 direction = { 0.0f, 0.0f };
@@ -139,9 +135,9 @@ void demo_game::update(float delta_seconds)
 }
 
 //--------------------------------------------------------------
-void demo_game::draw(dyx::renderer_2d& renderer)
+void demo_game::draw(dyx::engine& engine, dyx::renderer_2d& renderer)
 {
-	dyx::input& input = m_engine->get_input();
+	dyx::input& input = engine.get_input();
 	const dyx::vec2 mouse = input.get_mouse_position();
 
 	// A big background quad

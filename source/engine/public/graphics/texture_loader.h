@@ -35,8 +35,13 @@ namespace dyx
 
 		//----------------------------------------------------------
 		/// @brief Loads an image file and uploads it to the gpu.
+		///
+		/// When the file cannot be loaded (a wrong path is the usual cause) an
+		/// error is logged and a magenta-and-black checkerboard placeholder is
+		/// returned instead of nullptr, so the game keeps running and the
+		/// missing texture shows up on screen instead of crashing a draw call.
 		/// @param path Path to the image file.
-		/// @return The uploaded texture, or nullptr when loading failed.
+		/// @return The uploaded texture, or the placeholder when loading failed.
 		std::shared_ptr<texture> load_from_file(const std::filesystem::path& path);
 
 		//----------------------------------------------------------
@@ -55,6 +60,16 @@ namespace dyx
 		std::shared_ptr<texture> create_from_pixels(uint32_t width, uint32_t height, std::span<const uint8_t> rgba_pixels);
 
 	private:
+		//----------------------------------------------------------
+		/// @brief Returns the shared magenta-and-black placeholder texture,
+		/// creating it on first use.
+		///
+		/// The placeholder is built once and reused for every failed load: the
+		/// descriptor heap never reuses slots, so making a fresh texture per
+		/// failure would slowly exhaust it.
+		/// @return The placeholder texture, or nullptr when even that could not be created.
+		std::shared_ptr<texture> get_placeholder_texture();
+
 		device* m_device = nullptr;
 		command_queue* m_direct_queue = nullptr;
 		descriptor_heap* m_srv_heap = nullptr;
@@ -62,5 +77,8 @@ namespace dyx
 		// Reused for every upload
 		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> m_command_allocator;
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> m_command_list;
+
+		// Magenta-and-black checkerboard returned when a load fails; created lazily
+		std::shared_ptr<texture> m_placeholder_texture;
 	};
 }

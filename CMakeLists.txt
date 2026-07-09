@@ -42,7 +42,7 @@ ADD_SUBDIRECTORY(${SOURCE_ENGINE_DIRECTORY})
 ADD_SUBDIRECTORY(${SOURCE_TOOLS_DIRECTORY})
 ADD_SUBDIRECTORY(${SOURCE_GAMES_DIRECTORY})
 
-# Make the demo game the startup project when opening the solution in Visual
-# Studio; right-click a different game and "Set as Startup Project" to debug
-# that one instead.
-SET_PROPERTY(DIRECTORY ${CMAKE_CURRENT_LIST_DIR} PROPERTY VS_STARTUP_PROJECT dyx_game)
+# Make the simple starter game the startup project when opening the solution in
+# Visual Studio; right-click a different game (e.g. dyx_game, the feature demo)
+# and "Set as Startup Project" to debug that one instead.
+SET_PROPERTY(DIRECTORY ${CMAKE_CURRENT_LIST_DIR} PROPERTY VS_STARTUP_PROJECT simple_game)

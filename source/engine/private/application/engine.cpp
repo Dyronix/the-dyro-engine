@@ -42,10 +42,10 @@ namespace dyx
 			const float delta_seconds = frame_timer.elapsed_seconds();
 			frame_timer.reset();
 
-			active_game.update(delta_seconds);
+			active_game.update(*this, delta_seconds);
 
 			m_renderer.begin_frame(settings.clear_color);
-			active_game.draw(m_renderer);
+			active_game.draw(*this, m_renderer);
 			m_renderer.end_frame();
 		}
 
@@ -59,6 +59,12 @@ namespace dyx
 
 		log::info("Engine shut down");
 		return 0;
+	}
+
+	//--------------------------------------------------------------
+	std::shared_ptr<texture> engine::load_texture(const std::filesystem::path& content_relative_path)
+	{
+		return m_texture_loader.load_from_file(paths::get_content_directory() / content_relative_path);
 	}
 
 	//--------------------------------------------------------------
@@ -95,7 +101,7 @@ namespace dyx
 			return false;
 		}
 
-		if (!m_shader_library.initialize(executable_directory / "content" / "shaders"))
+		if (!m_shader_library.initialize(paths::get_content_directory() / "shaders"))
 		{
 			return false;
 		}

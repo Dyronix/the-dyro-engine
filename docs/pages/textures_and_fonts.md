@@ -9,19 +9,27 @@ dyx::game::initialize:
 ```cpp
 void my_game::initialize(dyx::engine& engine)
 {
-    const auto content = dyx::paths::get_executable_directory() / "content";
-    m_ball_texture = engine.get_texture_loader().load_from_file(content / "textures" / "ball.png");
+    m_ball_texture = engine.load_texture("textures/ball.png");
 }
 ```
 
+dyx::engine::load_texture takes a path relative to the content folder, which
+is where almost every texture lives — no path juggling on your first line of
+code. When you do need a file outside the content folder, reach for
+dyx::texture_loader::load_from_file through `engine.get_texture_loader()` and
+pass it a full path (dyx::paths::get_content_directory is what
+`load_texture` prepends for you).
+
 Textures come back as `std::shared_ptr<dyx::texture>`. Store them as
-members and pass them to `draw_sprite` every frame. Loading returns
-`nullptr` when the file could not be read (an error is logged to the
-console).
+members and pass them to `draw_sprite` every frame. If the file cannot be
+read (a wrong path is the usual cause), an error is logged to the console
+and a magenta-and-black checkerboard placeholder is returned instead — so a
+typo in a filename shows up as an obvious magenta sprite on screen rather
+than crashing the next `draw_sprite` call.
 
 Put your images in `content/textures`; the build copies the whole `content`
-folder next to the executable, and dyx::paths::get_executable_directory
-finds it from there no matter where the game is started from.
+folder next to the executable, and dyx::paths::get_content_directory finds it
+from there no matter where the game is started from.
 
 ## Procedural textures
 
@@ -67,7 +75,7 @@ describes the grid; the defaults match the engine's built-in atlas
 
 ```cpp
 // in initialize:
-m_font.atlas = engine.get_texture_loader().load_from_file(content / "fonts" / "font_8x8.png");
+m_font.atlas = engine.load_texture("fonts/font_8x8.png");
 
 // in draw:
 renderer.draw_text(m_font, "hello", { 20.0f, 20.0f }, 16.0f);

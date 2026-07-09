@@ -17,5 +17,5 @@ span.tt {
  * navigation tree. The tree starts flush against it, so give the first item
  * some breathing room below the search box. */
 #nav-tree {
-    padding-top: var(--spacing-large);
+    padding-top: calc(2 * var(--spacing-large));
 }

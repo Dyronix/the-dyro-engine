@@ -7,7 +7,9 @@ understand it completely.
 ## Documentation
 
 Read the docs online at **<https://dyronix.github.io/the-dyro-engine/>**: the
-full searchable API reference plus guide pages with examples for every system.
+full searchable API reference plus guide pages with examples for every system,
+including how to make your own game, the folder structure and how the engine
+works internally.
 
 Maintainers: the site is built by the `Docs` GitHub Actions workflow
 (`.github/workflows/docs.yml`) and published to GitHub Pages automatically when
@@ -17,13 +19,23 @@ run `docs/generate_docs.bat`, which needs [Doxygen](https://www.doxygen.nl/downl
 on your PATH. (One-time repo setup: Settings → Pages → Build and deployment →
 Source = "GitHub Actions".)
 
-## Getting started
+## Requirements
 
-You need **Visual Studio 2026** (or **2022**, version 17.5 or newer) with the
-*Desktop development with C++* workload and a recent **Windows 10/11 SDK**
-(both are part of the default workload installation). The engine is written
-in **C++20** — the same standard current game consoles compile with — and
-uses `std::format`, concepts, ranges and `std::span` throughout.
+- **Visual Studio 2026**, or **Visual Studio 2022** version 17.5 or newer, with
+  the *Desktop development with C++* workload. That workload also installs a
+  recent **Windows 10/11 SDK**, which the engine needs.
+- **CMake** on your PATH. Visual Studio 2026 generation requires **CMake 4.2 or
+  newer**; the 2022 toolset works with older CMake versions.
+- A **C++20** compiler — the standard is the same one current game consoles
+  compile with. The engine uses `std::format`, concepts, ranges and `std::span`
+  throughout.
+
+## Supported platforms
+
+Windows 10 and Windows 11 (64-bit) only. The renderer is built directly on
+DirectX 12, so there is no macOS or Linux build.
+
+## Building and running
 
 ```
 generate.bat                 # generates build/dyx_engine.sln (VS2026 by default)
@@ -32,191 +44,31 @@ build.bat -debug             # or open the solution and press F5
 
 `generate.bat` targets Visual Studio 2026 by default; pass `-2022` to target
 Visual Studio 2022 instead. Switching between them re-generates from scratch.
-(VS2026 generation requires CMake 4.2 or newer.)
+
+`build.bat` takes `-debug` (default) or `-release`. You can also just open
+`build/dyx_engine.sln` in Visual Studio and press F5.
 
 The solution sets `simple_game` as the startup project: a tiny "catch the
-ball" game (`source/games/simple_game`) meant as a first project. Run it and
-slide the paddle with the arrow keys to catch the falling ball; the score goes
-up each catch. When you want to see more of what the engine can do, run the
-demo instead — `run.bat -game=dyx_game` — a checkerboard, a rotating red quad,
-a bouncing ball and a small hud. Move that ball with wasd, tint it with space,
-resize it with the mouse wheel.
+ball" game meant as a first project. Run it and slide the paddle with the arrow
+keys to catch the falling ball; the score goes up each catch. When you want to
+see more of what the engine can do, run the demo instead —
+`run.bat -game=dyx_game` — a checkerboard, a rotating red quad, a bouncing ball
+and a small hud. Move that ball with wasd, tint it with space, resize it with
+the mouse wheel.
 
-## Making your own game
+`run.bat` launches a built game: `-debug`/`-release` picks the config,
+`-game=name` picks the game, and any other `-setting=value` is forwarded to the
+game to override an engine setting (for example `run.bat -window_width=1920`).
 
-A game is a class that derives from `dyx::game` and overrides four functions.
-Start from `source/games/simple_game` for the smallest possible example, or
-`source/games/dyx_game` to see more features in action. To add code to a game,
-just create new `.cpp`/`.h` files in its `private` folder and build; they are
-picked up automatically, no build-system editing needed. Want to add a third
-game alongside these two instead of replacing one? See "Adding a second game"
-in [the getting started guide](https://dyronix.github.io/the-dyro-engine/page_getting_started.html).
-
-```cpp
-class my_game : public dyx::game
-{
-public:
-    void initialize(dyx::engine& engine) override;                      // load your textures here
-    void update(dyx::engine& engine, float delta_seconds) override;      // game logic here
-    void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override; // draw sprites here
-    void shutdown() override;                                            // cleanup here
-};
-```
-
-Drawing is done with a single call:
-
-```cpp
-renderer.draw_sprite(*my_texture, position, size, rotation, tint);
-```
-
-`position` is the sprite center in pixels, with (0, 0) in the top-left corner
-of the window. Sprites are drawn in the order you submit them, so draw the
-background first. The renderer also draws parts of a texture (sprite sheets),
-rectangles, lines and text:
-
-```cpp
-renderer.draw_sprite(*sheet, source_rect, position, size);  // one frame of a sheet
-renderer.draw_rect(area, color);                            // filled rectangle
-renderer.draw_rect_outline(area, thickness, color);
-renderer.draw_line(from, to, thickness, color);
-renderer.draw_text(font, "hello", position, pixel_height);  // bitmap font text
-```
-
-Keyboard and mouse come from `engine.get_input()`:
-
-```cpp
-if (input.is_key_down(dyx::key::a))         { /* every frame while held */ }
-if (input.was_key_pressed(dyx::key::space)) { /* only the frame it went down */ }
-dyx::vec2 mouse = input.get_mouse_position();
-```
-
-Math is [glm](https://github.com/g-truc/glm) under dyx names: `dyx::vec2`,
-`dyx::mat4`, `dyx::lerp`, `dyx::clamp`, ... (see `core/math.h`), plus a 2D
-`dyx::rect` for bounds and overlap checks (`core/rect.h`). Utilities:
-`dyx::timer` (measure time), `dyx::random_float` and friends
-(`core/random.h`), smooth `dyx::noise_2d` (`core/noise.h`), logging via
-`dyx::log::info/warn/error` and asserts via `DYX_ASSERT` /
-`dyx::fatal_error` (`core/assert.h`).
-
-## Folder structure
+## Pulling the latest code
 
 ```
-cmake/            build-system helper scripts (each one is commented)
-content/          textures, fonts and other assets (copied next to the exe at build time)
-shaders/          hlsl shader source files (compiled at build time)
-source/
-  engine/         the engine static library (namespace dyx)
-    public/       headers your game may include
-    private/      implementation details
-  games/          one folder per game (see source/games/CMakeLists.txt)
-    dyx_game/    the demo game; replace it, or add more games next to it
-                  (new .cpp/.h files in its private/ folder are picked up automatically)
-  tools/
-    shader_compiler/  build tool that compiles hlsl to directx bytecode
-  third_party/    code you use but do not need to read:
-                  stb (image decoding, perlin noise), glm (math),
-                  rnd (random number internals)
+git pull
+generate.bat                 # re-run after pulling so the solution picks up new files
+build.bat -debug
 ```
 
-Everything inside `source/engine` and `source/game` is written to be
-understood. When code is complex but not interesting to read (decoding a png,
-the bit-twiddling inside a random generator) it lives in `source/third_party`
-and the engine wraps it behind a small, readable api.
-
-## How the engine works
-
-`dyx::engine::run()` brings the systems up in dependency order, then runs the
-main loop. Each system is one class:
-
-| class | job |
-|---|---|
-| `window` | the win32 window the engine renders into |
-| `input` | keyboard and mouse state (down / pressed / released) |
-| `device` | picks a graphics card and creates the directx 12 device |
-| `adapter_selection` | enumerates and scores all graphics cards |
-| `shader_model` | queries which shader model the card supports |
-| `command_queue` | submits work to the gpu and synchronizes cpu/gpu |
-| `swap_chain` | owns the back buffers that end up on screen |
-| `descriptor_heap` | hands out descriptor slots (texture views) |
-| `shader_library` | loads compiled shaders (*.cso) from disk |
-| `pso_cache` | saves/loads pipeline state objects to/from disk |
-| `texture_loader` | decodes image files / raw pixels and uploads them to the gpu |
-| `font` | describes a fixed-grid bitmap font atlas for draw_text |
-| `renderer_2d` | draws textured quads (this is a 2D engine: everything is a quad) |
-
-### Graphics card selection
-
-Like Unreal, the engine looks at every graphics card in the machine before
-picking one. Each adapter gets a score based on its dedicated video memory
-(the dominant factor), maximum feature level and highest shader model.
-Software adapters (WARP) score zero and are only used when no real card
-exists. Set `engine_settings::gpu_preference` to
-`adapter_preference::lowest_score` to run on the weakest card, handy for
-testing how your game behaves on low-end hardware. The scoring of every card
-is printed to the console at startup.
-
-### Shader compilation (the toolchain)
-
-DirectX 12 can only load *compiled* shaders. The `shader_compiler` tool (built
-from `source/tools/shader_compiler`, using Microsoft's DXC compiler) turns
-`.hlsl` files into `.cso` bytecode.
-
-It is wired into the build by `DYX_COMPILE_SHADERS` in
-`cmake/compile_shaders.cmake`: every `*.hlsl` file in `/shaders` is compiled into
-`<build>/<config>/content/shaders/` as part of a normal build. CMake tracks
-the dependencies, so a shader is only recompiled when its source changed or
-when it has never been compiled, just like C++ files.
-
-The shader profile is derived from the file name: `foo_vs.hlsl` becomes a
-vertex shader, `foo_ps.hlsl` a pixel shader. To add a shader, drop the file in
-`/shaders` and build.
-
-### PSO caching
-
-Creating a pipeline state object makes the gpu driver compile shader bytecode
-into real gpu instructions, which is slow. The `pso_cache` wraps directx's
-`ID3D12PipelineLibrary`: pipelines created during a run are serialized to
-`cache/pso_cache.bin` on shutdown and loaded instantly on the next start.
-The cache invalidates itself when the driver, gpu or a shader changed. If
-DirectX rejects the file on disk, the engine logs a warning, deletes that
-unusable cache and rebuilds pipelines from scratch; the fresh cache is saved
-again on shutdown. Watch the console: `created from scratch` on the first run,
-`loaded from the pso cache` after.
-
-### Textures
-
-`texture_loader` uses stb_image, so png/jpg/bmp/tga all work. The gpu cannot
-read cpu memory directly: pixels are written into an *upload buffer*, the gpu
-copies them into the final texture resource, and a *shader resource view* is
-created so shaders can sample it. All of that lives in one readable function:
-`texture_loader::create_from_pixels`, which you can also call yourself with
-raw rgba pixels to build textures procedurally (the demo generates a noise
-texture and a sprite sheet this way).
-
-Put your images in `content/textures`; the build copies the whole `content`
-folder next to the executable.
-
-### Text
-
-`draw_text` renders with a bitmap font: one atlas texture holding every
-character in a fixed grid (`content/fonts/font_8x8.png`, based on the public
-domain [font8x8](https://github.com/dhepper/font8x8) by Daniel Hepper). The
-`font` struct describes the grid; each character becomes one quad that shows
-its part of the atlas. Text rendering is just sprite sheet drawing.
-
-### The frame
-
-`renderer_2d` owns the frame loop plumbing. One unit quad lives in gpu
-memory; every `draw_sprite` call draws that same quad with its own
-transform, texture and tint (passed as root constants + a descriptor table).
-The engine keeps one command allocator per back buffer and uses a fence to
-wait until the gpu released a buffer before recording into it again. This is
-the classic "frames in flight" pattern, in its smallest possible form.
-
-## Ideas to extend it
-
-- sound
-- sprite batching (every draw call currently draws one quad)
-- a texture cache so loading the same file twice reuses the gpu texture
-- gamepad support in `input`
-- a fixed timestep update loop
+Re-run `generate.bat` after every pull. New games and new `.cpp`/`.h` files are
+picked up automatically, but CMake only regenerates the solution when you run
+it. If a pull changed the CMake setup and a build misbehaves, delete the
+disposable `build/` folder and run `generate.bat` again for a clean configure.

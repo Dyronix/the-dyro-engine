@@ -30,14 +30,15 @@ into your own game:
 
 - @subpage page_getting_started : build the project and write your first game
 - @subpage page_drawing : sprites, sprite sheets, rectangles, lines and text
-- @subpage page_camera_2d : guided exercise — build a scrolling 2D camera
-- @subpage page_sprite_animation : guided exercise — build a sprite-animation helper
 - @subpage page_input : keyboard and mouse
 - @subpage page_textures_and_fonts : loading images, procedural textures, bitmap fonts
 - @subpage page_utilities : math, rects, timers, random numbers, noise and paths
 - @subpage page_logging_and_data : logging and asserts
 - @subpage page_json : reading and writing json files
 - @subpage page_under_the_hood : how the engine works inside
+
+Separate from the engine reference, the @ref page_guided_experiences section
+walks you through building small systems yourself, step by step.
 
 For the full API reference, browse the class list in the sidebar. Start with
 dyx::engine, dyx::renderer_2d and dyx::input, the three classes your game

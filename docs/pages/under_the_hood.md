@@ -1,9 +1,8 @@
 # Under the hood {#page_under_the_hood}
 
-You do not need anything on this page to make a game, but the whole point
-of this engine is that you *can* read it. buz::engine::run brings the
-systems up in dependency order, then runs the main loop. Each system is one
-small class:
+You do not need anything on this page to make a game; it describes what
+happens inside the engine. buz::engine::run brings the systems up in
+dependency order, then runs the main loop. Each system is its own class:
 
 | class | job |
 |---|---|
@@ -21,8 +20,7 @@ small class:
 | buz::renderer_2d | draws textured quads (this is a 2D engine: everything is a quad) |
 
 Every class name above links to its documentation, and from there the
-**source browser** shows you the full header. The headers are written to be
-read.
+**source browser** shows you the full header.
 
 ## Graphics card selection
 

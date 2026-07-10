@@ -1,8 +1,9 @@
 # BuzEngine
 
-A small DirectX 12 engine for 2D games, written to be read. Every system is
-one small class with one job, so you can dig into any part of the engine and
-understand it completely.
+A 2D game engine built on DirectX 12, written for the first-year Programming
+course at Breda University of Applied Sciences (BUas). You write your game as a
+C++ class that the engine drives; it handles the main loop, rendering, input
+and asset loading.
 
 ## Documentation
 

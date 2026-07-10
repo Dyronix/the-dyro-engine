@@ -6,13 +6,13 @@
 #include <utility>
 
 // Asserts are compiled in for debug builds only, exactly like logging. In
-// release (NDEBUG) a DYX_ASSERT disappears completely: the condition is not
+// release (NDEBUG) a BUZ_ASSERT disappears completely: the condition is not
 // even evaluated, so never put code with side effects inside one.
 #if !defined(NDEBUG)
-	#define DYX_ASSERT_ENABLED
+	#define BUZ_ASSERT_ENABLED
 #endif
 
-namespace dyx
+namespace buz
 {
 	namespace internal
 	{
@@ -49,7 +49,7 @@ namespace dyx
 ///
 /// Use it to document assumptions your code makes:
 /// @code{.cpp}
-/// DYX_ASSERT(frame_index < frame_count);
+/// BUZ_ASSERT(frame_index < frame_count);
 /// @endcode
 /// Compiled away in release builds.
 ///
@@ -57,36 +57,36 @@ namespace dyx
 /// stringize the condition with #condition, skip evaluating it entirely in
 /// release, and fire __debugbreak() at the call site instead of inside a
 /// helper function.
-#if defined(DYX_ASSERT_ENABLED)
-	#define DYX_ASSERT(condition) \
+#if defined(BUZ_ASSERT_ENABLED)
+	#define BUZ_ASSERT(condition) \
 		do \
 		{ \
 			if (!(condition)) \
 			{ \
-				dyx::internal::on_assert_failed(#condition, {}); \
+				buz::internal::on_assert_failed(#condition, {}); \
 				__debugbreak(); \
 			} \
 		} while (false)
 #else
-	#define DYX_ASSERT(condition) ((void)0)
+	#define BUZ_ASSERT(condition) ((void)0)
 #endif
 
 //--------------------------------------------------------------
-/// @brief Same as DYX_ASSERT, with an extra message explaining the failure
+/// @brief Same as BUZ_ASSERT, with an extra message explaining the failure
 /// (std::format "{}" style formatting):
 /// @code{.cpp}
-/// DYX_ASSERT_MSG(frame_index < frame_count, "frame {} out of range", frame_index);
+/// BUZ_ASSERT_MSG(frame_index < frame_count, "frame {} out of range", frame_index);
 /// @endcode
-#if defined(DYX_ASSERT_ENABLED)
-	#define DYX_ASSERT_MSG(condition, ...) \
+#if defined(BUZ_ASSERT_ENABLED)
+	#define BUZ_ASSERT_MSG(condition, ...) \
 		do \
 		{ \
 			if (!(condition)) \
 			{ \
-				dyx::internal::on_assert_failed(#condition, std::format(__VA_ARGS__)); \
+				buz::internal::on_assert_failed(#condition, std::format(__VA_ARGS__)); \
 				__debugbreak(); \
 			} \
 		} while (false)
 #else
-	#define DYX_ASSERT_MSG(condition, ...) ((void)0)
+	#define BUZ_ASSERT_MSG(condition, ...) ((void)0)
 #endif

@@ -12,7 +12,7 @@
 # It runs once at generate time and again on every build (see the
 # check_stray_sources target below, which every game depends on).
 # -------------------------------
-FUNCTION(DYX_CHECK_STRAY_SOURCES build_dir)
+FUNCTION(BUZ_CHECK_STRAY_SOURCES build_dir)
     FILE(GLOB_RECURSE stray_sources
          "${build_dir}/source/*.cpp"
          "${build_dir}/source/*.h"
@@ -35,13 +35,13 @@ ENDFUNCTION()
 IF(CMAKE_SCRIPT_MODE_FILE)
     # Run as a standalone script (cmake -P): this is what the
     # check_stray_sources target does on every build.
-    DYX_CHECK_STRAY_SOURCES(${BUILD_DIR})
+    BUZ_CHECK_STRAY_SOURCES(${BUILD_DIR})
 ELSE()
     # Included from the root CMakeLists.txt: check once right away (so
     # generate.bat also warns) and set up the target that re-checks on every
     # build. A custom target without outputs is never "up to date", which is
     # exactly what we want here.
-    DYX_CHECK_STRAY_SOURCES(${CMAKE_BINARY_DIR})
+    BUZ_CHECK_STRAY_SOURCES(${CMAKE_BINARY_DIR})
 
     ADD_CUSTOM_TARGET(check_stray_sources
         COMMAND ${CMAKE_COMMAND} -DBUILD_DIR=${CMAKE_BINARY_DIR} -P ${CMAKE_SOURCE_DIR}/cmake/check_stray_sources.cmake

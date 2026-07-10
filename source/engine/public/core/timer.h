@@ -2,16 +2,16 @@
 
 #include <chrono>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief Measures elapsed wall clock time with high precision.
 	///
 	/// A freshly constructed timer starts measuring immediately:
 	/// @code{.cpp}
-	/// dyx::timer stopwatch;
+	/// buz::timer stopwatch;
 	/// expensive_work();
-	/// dyx::log::info("took {} seconds", stopwatch.elapsed_seconds());
+	/// buz::log::info("took {} seconds", stopwatch.elapsed_seconds());
 	/// @endcode
 	class timer
 	{

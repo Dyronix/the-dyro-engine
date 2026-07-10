@@ -12,10 +12,10 @@
 // compile error, not a runtime surprise. If you ever need a format string
 // that is only known at runtime, that is what std::vformat is for.
 #if !defined(NDEBUG)
-	#define DYX_LOG_ENABLED
+	#define BUZ_LOG_ENABLED
 #endif
 
-namespace dyx
+namespace buz
 {
 	namespace log
 	{
@@ -38,7 +38,7 @@ namespace dyx
 		template<typename... Args>
 		void info(std::format_string<Args...> format, Args&&... args)
 		{
-#if defined(DYX_LOG_ENABLED)
+#if defined(BUZ_LOG_ENABLED)
 			internal::trace("info", green, std::format(format, std::forward<Args>(args)...));
 #else
 			(void)format;
@@ -53,7 +53,7 @@ namespace dyx
 		template<typename... Args>
 		void warn(std::format_string<Args...> format, Args&&... args)
 		{
-#if defined(DYX_LOG_ENABLED)
+#if defined(BUZ_LOG_ENABLED)
 			internal::trace("warn", magenta, std::format(format, std::forward<Args>(args)...));
 #else
 			(void)format;
@@ -68,7 +68,7 @@ namespace dyx
 		template<typename... Args>
 		void error(std::format_string<Args...> format, Args&&... args)
 		{
-#if defined(DYX_LOG_ENABLED)
+#if defined(BUZ_LOG_ENABLED)
 			internal::trace("error", red, std::format(format, std::forward<Args>(args)...));
 #else
 			(void)format;

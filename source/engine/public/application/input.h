@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief The keys the engine understands.
@@ -51,9 +51,9 @@ namespace dyx
 	/// The engine owns one instance (engine::get_input) and the window feeds
 	/// it every input message. Game code just asks questions:
 	/// @code{.cpp}
-	/// if (input.is_key_down(dyx::key::a))            { }  // every frame while held
-	/// if (input.was_key_pressed(dyx::key::space))    { }  // only the frame it went down
-	/// if (input.was_key_released(dyx::key::escape))  { }  // only the frame it came up
+	/// if (input.is_key_down(buz::key::a))            { }  // every frame while held
+	/// if (input.was_key_pressed(buz::key::space))    { }  // only the frame it went down
+	/// if (input.was_key_released(buz::key::escape))  { }  // only the frame it came up
 	/// @endcode
 	class input
 	{

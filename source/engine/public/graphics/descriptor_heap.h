@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief A simple descriptor heap with linear allocation.

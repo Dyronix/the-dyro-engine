@@ -2,7 +2,7 @@
 
 #include <filesystem>
 
-namespace dyx
+namespace buz
 {
 	namespace paths
 	{
@@ -20,7 +20,7 @@ namespace dyx
 		/// This is @c get_executable_directory() / "content", the folder the
 		/// build copies textures, fonts and shaders into next to the
 		/// executable. Loading textures relative to it is common enough that
-		/// dyx::engine::load_texture wraps this up for you.
+		/// buz::engine::load_texture wraps this up for you.
 		std::filesystem::path get_content_directory();
 	}
 }

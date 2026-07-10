@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace dyx
+namespace buz
 {
 	// Fast pseudo random numbers for games. The generator is deterministic:
 	// after set_random_seed with the same value it always produces the same

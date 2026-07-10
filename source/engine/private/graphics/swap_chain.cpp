@@ -6,7 +6,7 @@
 
 using Microsoft::WRL::ComPtr;
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	bool swap_chain::initialize(device& graphics_device, command_queue& direct_queue, HWND window_handle, uint32_t width, uint32_t height)

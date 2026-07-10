@@ -1,6 +1,6 @@
 #pragma once
 
-namespace dyx
+namespace buz
 {
 	class engine;
 	class renderer_2d;
@@ -11,12 +11,12 @@ namespace dyx
 	/// The engine owns the main loop and calls these functions at the right
 	/// time. Override the ones you need:
 	/// @code{.cpp}
-	/// class my_game : public dyx::game
+	/// class my_game : public buz::game
 	/// {
 	/// public:
-	///     void initialize(dyx::engine& engine) override;              // load textures here
-	///     void update(dyx::engine& engine, float delta_seconds) override; // game logic here
-	///     void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override; // draw sprites here
+	///     void initialize(buz::engine& engine) override;              // load textures here
+	///     void update(buz::engine& engine, float delta_seconds) override; // game logic here
+	///     void draw(buz::engine& engine, buz::renderer_2d& renderer) override; // draw sprites here
 	/// };
 	/// @endcode
 	class game

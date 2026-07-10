@@ -17,7 +17,7 @@
 #include <memory>
 #include <string>
 
-namespace dyx
+namespace buz
 {
 	class game;
 
@@ -27,7 +27,7 @@ namespace dyx
 	{
 		uint32_t window_width = 1280;
 		uint32_t window_height = 720;
-		std::wstring window_title = L"DyxEngine";
+		std::wstring window_title = L"BuzEngine";
 
 		// Which graphics card to run on; lowest_score is handy to test how
 		// the game behaves on weaker hardware.
@@ -43,10 +43,10 @@ namespace dyx
 	//--------------------------------------------------------------
 	/// @brief Owns all engine systems and runs the main loop.
 	///
-	/// Usage (see the dyx_game project for a full example):
+	/// Usage (see the buz_game project for a full example):
 	/// @code{.cpp}
 	/// my_game game;
-	/// dyx::engine engine;
+	/// buz::engine engine;
 	/// return engine.run(game, settings);
 	/// @endcode
 	class engine
@@ -68,7 +68,7 @@ namespace dyx
 		/// the shorthand for the common case; call get_texture_loader()
 		/// yourself only for a path outside the content folder.
 		///
-		/// Like dyx::texture_loader::load_from_file, a failed load is logged
+		/// Like buz::texture_loader::load_from_file, a failed load is logged
 		/// and returns the magenta placeholder rather than nullptr, so a wrong
 		/// path shows up on screen instead of crashing the next draw.
 		/// @param content_relative_path Image file path, relative to the content directory.

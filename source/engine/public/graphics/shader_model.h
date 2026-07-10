@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief Returns the highest shader model supported by the given device.

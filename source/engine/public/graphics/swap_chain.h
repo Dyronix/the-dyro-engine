@@ -8,7 +8,7 @@
 
 #include <cstdint>
 
-namespace dyx
+namespace buz
 {
 	class device;
 	class command_queue;

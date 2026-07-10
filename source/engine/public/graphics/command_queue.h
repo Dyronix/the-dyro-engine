@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief Wraps a directx 12 command queue together with its fence.

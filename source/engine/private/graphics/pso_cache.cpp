@@ -45,7 +45,7 @@ namespace
 	}
 }
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	bool pso_cache::initialize(ID3D12Device* d3d_device, const std::filesystem::path& cache_file)

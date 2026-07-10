@@ -22,7 +22,7 @@ namespace
 		if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface))))
 		{
 			debug_interface->EnableDebugLayer();
-			dyx::log::info("Directx 12 debug layer enabled");
+			buz::log::info("Directx 12 debug layer enabled");
 		}
 #endif
 	}
@@ -42,7 +42,7 @@ namespace
 	}
 }
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	bool device::initialize(adapter_preference preference)

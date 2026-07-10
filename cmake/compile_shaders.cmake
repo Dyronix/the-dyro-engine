@@ -11,7 +11,7 @@
 #     my_shader_vs.hlsl -> vertex shader  (vs_6_0)
 #     my_shader_ps.hlsl -> pixel shader   (ps_6_0)
 # -------------------------------
-FUNCTION(DYX_COMPILE_SHADERS target_name)
+FUNCTION(BUZ_COMPILE_SHADERS target_name)
     # Shaders live in one shared /shaders folder, so every game that calls this
     # function depends on the same "compile_shaders" target; only build it once.
     IF(NOT TARGET compile_shaders)

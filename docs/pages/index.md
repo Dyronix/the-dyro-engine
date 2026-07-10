@@ -1,19 +1,19 @@
-# DyxEngine documentation
+# BuzEngine documentation
 
 A small DirectX 12 engine for 2D games, written to be read. Every system is
 one small class with one job, so you can dig into any part of the engine and
 understand it completely.
 
-Your game is a class that derives from dyx::game and overrides four
+Your game is a class that derives from buz::game and overrides four
 functions. The engine owns the main loop and calls them at the right time:
 
 ```cpp
-class my_game : public dyx::game
+class my_game : public buz::game
 {
 public:
-    void initialize(dyx::engine& engine) override;                      // load your textures here
-    void update(dyx::engine& engine, float delta_seconds) override;      // game logic here
-    void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override; // draw sprites here
+    void initialize(buz::engine& engine) override;                      // load your textures here
+    void update(buz::engine& engine, float delta_seconds) override;      // game logic here
+    void draw(buz::engine& engine, buz::renderer_2d& renderer) override; // draw sprites here
     void shutdown() override;                                            // cleanup here
 };
 ```
@@ -41,5 +41,5 @@ Separate from the engine reference, the @ref page_guided_experiences section
 walks you through building small systems yourself, step by step.
 
 For the full API reference, browse the class list in the sidebar. Start with
-dyx::engine, dyx::renderer_2d and dyx::input, the three classes your game
+buz::engine, buz::renderer_2d and buz::input, the three classes your game
 talks to every frame.

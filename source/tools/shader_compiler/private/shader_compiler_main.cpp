@@ -5,7 +5,7 @@
 // file) using the directx shader compiler (dxc). Directx 12 can only
 // load compiled shaders, so this tool runs as part of the build:
 // the build system invokes it for every shader that changed since
-// the last build (see DYX_COMPILE_SHADERS in the root CMakeLists).
+// the last build (see BUZ_COMPILE_SHADERS in the root CMakeLists).
 //
 // Usage:
 //     shader_compiler <input.hlsl> <output.cso> <profile> [entry_point]

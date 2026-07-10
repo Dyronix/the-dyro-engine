@@ -5,7 +5,7 @@
 #include <d3d12.h>
 #include <wrl/client.h>
 
-namespace dyx
+namespace buz
 {
 	namespace d3d
 	{

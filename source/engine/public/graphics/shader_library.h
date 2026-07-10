@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief Loads compiled shaders (*.cso files) from disk and keeps them in memory.

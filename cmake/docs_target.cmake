@@ -2,7 +2,7 @@
 # Optional "docs" target that regenerates the html documentation in docs/html
 # from the engine headers and the guide pages. Only appears when doxygen is
 # installed. The generated html is not committed; read the published docs at
-# https://dyronix.github.io/the-dyro-engine/ or build them here to preview
+# https://dyronix.github.io/buz-engine/ or build them here to preview
 # locally.
 # -------------------------------
 FIND_PACKAGE(Doxygen QUIET)

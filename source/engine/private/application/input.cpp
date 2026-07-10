@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	void input::new_frame()

@@ -1,9 +1,9 @@
 // args.h - minimal command line argument parsing
 //
-// Written for the dyx engine, but engine-agnostic on purpose: this header
+// Written for the buz engine, but engine-agnostic on purpose: this header
 // lives in third_party because the string parsing below is implementation
 // detail nobody should have to read to understand the engine or a game. Use
-// it from main() to override dyx::engine_settings, e.g.:
+// it from main() to override buz::engine_settings, e.g.:
 //
 //   int main(int argc, char** argv)
 //   {

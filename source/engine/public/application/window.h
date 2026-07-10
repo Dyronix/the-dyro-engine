@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <string>
 
-namespace dyx
+namespace buz
 {
 	class input;
 

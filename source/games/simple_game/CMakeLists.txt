@@ -16,11 +16,11 @@ TARGET_SOURCES(simple_game PRIVATE ${game_sources})
 GROUPSOURCES(${CMAKE_CURRENT_LIST_DIR}/private private)
 
 # This starter game keeps main.cpp deliberately simple and does not parse the
-# command line, so - unlike dyx_game - it does not need to link the args library.
-TARGET_LINK_LIBRARIES(simple_game PRIVATE dyx_engine)
+# command line, so - unlike buz_game - it does not need to link the args library.
+TARGET_LINK_LIBRARIES(simple_game PRIVATE buz_engine)
 
 # Compile all shaders in the /shaders folder as part of the build
-DYX_COMPILE_SHADERS(simple_game)
+BUZ_COMPILE_SHADERS(simple_game)
 
 # Wait for the shared /content folder to be copied next to the exe
 ADD_DEPENDENCIES(simple_game copy-content)

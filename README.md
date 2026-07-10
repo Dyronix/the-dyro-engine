@@ -1,4 +1,4 @@
-# DyxEngine
+# BuzEngine
 
 A small DirectX 12 engine for 2D games, written to be read. Every system is
 one small class with one job, so you can dig into any part of the engine and
@@ -6,7 +6,7 @@ understand it completely.
 
 ## Documentation
 
-Read the docs online at **<https://dyronix.github.io/the-dyro-engine/>**: the
+Read the docs online at **<https://dyronix.github.io/buz-engine/>**: the
 full searchable API reference plus guide pages with examples for every system,
 including how to make your own game, the folder structure and how the engine
 works internally.
@@ -30,7 +30,7 @@ DirectX 12, so there is no macOS or Linux build.
 ## Building and running
 
 ```
-generate.bat                 # generates build/dyx_engine.sln (VS2026 by default)
+generate.bat                 # generates build/buz_engine.sln (VS2026 by default)
 build.bat -debug             # or open the solution and press F5
 ```
 
@@ -38,13 +38,13 @@ build.bat -debug             # or open the solution and press F5
 Visual Studio 2022 instead. Switching between them re-generates from scratch.
 
 `build.bat` takes `-debug` (default) or `-release`. You can also just open
-`build/dyx_engine.sln` in Visual Studio and press F5.
+`build/buz_engine.sln` in Visual Studio and press F5.
 
 The solution sets `simple_game` as the startup project: a tiny "catch the
 ball" game meant as a first project. Run it and slide the paddle with the arrow
 keys to catch the falling ball; the score goes up each catch. When you want to
 see more of what the engine can do, run the demo instead:
-`run.bat -game=dyx_game`. It shows a checkerboard, a rotating red quad, a
+`run.bat -game=buz_game`. It shows a checkerboard, a rotating red quad, a
 bouncing ball and a small hud. Move that ball with wasd, tint it with space, resize it with
 the mouse wheel.
 

@@ -1,7 +1,7 @@
 name: Docs
 
 # Build the Doxygen html and publish it to GitHub Pages
-# (https://dyronix.github.io/the-dyro-engine/). Runs when a version tag is
+# (https://dyronix.github.io/buz-engine/). Runs when a version tag is
 # pushed, or on demand from the Actions tab. The generated html is no longer
 # committed to the repo; this workflow is what students read.
 #

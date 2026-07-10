@@ -1,4 +1,4 @@
-# Doxygen configuration for the dyx engine documentation.
+# Doxygen configuration for the buz engine documentation.
 #
 # Run from this directory (docs/): `doxygen Doxyfile`, or simply run
 # generate_docs.bat. Output lands in docs/html/ - open index.html.
@@ -9,7 +9,7 @@
 #---------------------------------------------------------------------------
 # Project
 #---------------------------------------------------------------------------
-PROJECT_NAME           = "DyxEngine"
+PROJECT_NAME           = "BuzEngine"
 PROJECT_BRIEF          = "a small DirectX 12 engine for 2D games, written to be read"
 OUTPUT_DIRECTORY       = .
 GENERATE_LATEX         = NO
@@ -23,7 +23,7 @@ RECURSIVE              = YES
 FILE_PATTERNS          = *.h \
                          *.md
 USE_MDFILE_AS_MAINPAGE = pages/index.md
-EXAMPLE_PATH           = ../source/games/dyx_game/private
+EXAMPLE_PATH           = ../source/games/buz_game/private
 TAB_SIZE               = 4
 
 #---------------------------------------------------------------------------
@@ -57,7 +57,7 @@ HTML_HEADER            = header.html
 HTML_EXTRA_STYLESHEET  = doxygen-awesome/doxygen-awesome.css \
                          doxygen-awesome/doxygen-awesome-sidebar-only.css \
                          doxygen-awesome/doxygen-awesome-sidebar-only-darkmode-toggle.css \
-                         dyx-docs.css
+                         buz-docs.css
 HTML_EXTRA_FILES       = doxygen-awesome/doxygen-awesome-darkmode-toggle.js \
                          doxygen-awesome/doxygen-awesome-fragment-copy-button.js \
                          doxygen-awesome/doxygen-awesome-paragraph-link.js

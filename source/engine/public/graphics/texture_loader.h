@@ -9,7 +9,7 @@
 #include <memory>
 #include <span>
 
-namespace dyx
+namespace buz
 {
 	class device;
 	class command_queue;

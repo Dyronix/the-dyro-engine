@@ -7,8 +7,8 @@
 
 ## The problem
 
-Everything you have drawn so far is in **screen pixels**. dyx::renderer_2d::draw_sprite
-takes a position, and dyx::make_orthographic_projection (see `core/math.h`) is
+Everything you have drawn so far is in **screen pixels**. buz::renderer_2d::draw_sprite
+takes a position, and buz::make_orthographic_projection (see `core/math.h`) is
 locked to the window size with `(0, 0)` fixed at the top-left corner. The
 renderer bakes that projection into every draw call:
 
@@ -98,7 +98,7 @@ camera.position = player.position
 That is correct but twitchy. Two upgrades, in order of how much you'll want them:
 
 1. **Smoothing.** Ease the camera toward the target instead of snapping. You
-   already have dyx::lerp:
+   already have buz::lerp:
    ```
    camera.position = lerp(camera.position, player.position, follow_strength)
    // follow_strength ~ 0.1 per frame = a soft, trailing follow
@@ -106,8 +106,8 @@ That is correct but twitchy. Two upgrades, in order of how much you'll want them
 2. **A dead zone.** Real side-scrollers only move the camera once the player
    pushes past a box in the middle of the screen, so small movements don't
    slosh the whole world. Only adjust `camera.position` on the axis where the
-   player has left the dead-zone rectangle. A dyx::rect built with
-   dyx::rect::from_center_size is a natural fit for expressing that box.
+   player has left the dead-zone rectangle. A buz::rect built with
+   buz::rect::from_center_size is a natural fit for expressing that box.
 
 ## Step 3: clamp to the level
 
@@ -119,7 +119,7 @@ leaves the level bounds:
 // level_bounds is a rect in world space: the full extent of the level
 min_center = level_bounds.min + viewport * 0.5
 max_center = level_bounds.max - viewport * 0.5
-camera.position = clamp(camera.position, min_center, max_center)   // dyx::clamp
+camera.position = clamp(camera.position, min_center, max_center)   // buz::clamp
 ```
 
 Watch the case where the level is **smaller** than the viewport on some axis
@@ -200,4 +200,4 @@ the subtraction.
 - [ ] (Optional) Offset snapped to whole pixels for crisp pixel art.
 
 See @ref page_drawing for the draw calls you are wrapping, and @ref page_utilities
-for dyx::lerp, dyx::clamp and dyx::rect.
+for buz::lerp, buz::clamp and buz::rect.

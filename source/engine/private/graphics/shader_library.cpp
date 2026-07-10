@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	bool shader_library::initialize(const std::filesystem::path& shader_directory)

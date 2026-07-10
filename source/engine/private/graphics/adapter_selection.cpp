@@ -76,7 +76,7 @@ namespace
 	/// graphics card with gigabytes of its own memory always beats an
 	/// integrated gpu that borrows system memory. The feature level and
 	/// shader model act as tie breakers between similar cards.
-	uint64_t calculate_score(const dyx::adapter_info& info)
+	uint64_t calculate_score(const buz::adapter_info& info)
 	{
 		if (info.is_software)
 		{
@@ -92,16 +92,16 @@ namespace
 
 	//--------------------------------------------------------------
 	/// @brief Returns true when the list contains at least one real (non software) adapter.
-	bool has_hardware_adapter(const std::vector<dyx::adapter_info>& adapters)
+	bool has_hardware_adapter(const std::vector<buz::adapter_info>& adapters)
 	{
 		// any_of asks "does at least one element satisfy the predicate?";
 		// the predicate is a lambda, a small unnamed function written in place.
 		return std::ranges::any_of(adapters,
-			[](const dyx::adapter_info& info) { return !info.is_software; });
+			[](const buz::adapter_info& info) { return !info.is_software; });
 	}
 }
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	std::vector<adapter_info> enumerate_and_score_adapters(IDXGIFactory1* factory)

@@ -1,8 +1,8 @@
 # Sprite animation {#page_sprite_animation}
 
 > This is a **guided exercise**, not a finished feature. The engine can already
-> draw one frame of a sprite sheet (dyx::renderer_2d::draw_sprite with a source
-> dyx::rect); it deliberately ships with *no* animation helper. Building one is
+> draw one frame of a sprite sheet (buz::renderer_2d::draw_sprite with a source
+> buz::rect); it deliberately ships with *no* animation helper. Building one is
 > how you learn to separate **what an animation is** (data) from **where it is
 > right now** (state). The pseudo code below is a map, not a solution. You write
 > the real C++.
@@ -14,7 +14,7 @@ Look at how the demo animates its sprite sheet (`demo_game.cpp`, in `draw`):
 ```cpp
 // Four 64x64 frames laid out next to each other, 8 frames per second
 const auto frame = static_cast<uint32_t>(m_time * 8.0f) % 4;
-const dyx::rect frame_rect = {
+const buz::rect frame_rect = {
     { static_cast<float>(frame) * 64.0f, 0.0f },
     { static_cast<float>(frame + 1) * 64.0f, 64.0f } };
 renderer.draw_sprite(*m_circle_sheet, frame_rect, { 1030.0f, 200.0f }, { 100.0f, 100.0f });
@@ -38,7 +38,7 @@ Keep those two apart and everything else falls out.
 
 ## Step 1: turn a frame index into a source rect
 
-Before anything moves, nail the pure geometry: **frame number → dyx::rect in
+Before anything moves, nail the pure geometry: **frame number → buz::rect in
 texture pixels**. A sheet is a grid, so the demo's single row is just the
 `columns = 4, rows = 1` case. Given the frame size and how many columns the
 sheet has:
@@ -48,14 +48,14 @@ function frame_rect(frame_index, frame_size, columns):
     col = frame_index mod columns
     row = frame_index div columns          // integer division; 0 for a single-row strip
     top_left = { col * frame_size.x, row * frame_size.y }
-    return rect{ top_left, top_left + frame_size }   // dyx::rect is { min, max }
+    return rect{ top_left, top_left + frame_size }   // buz::rect is { min, max }
 ```
 
 Test this alone first: draw frame 0, 1, 2 by hand and confirm the right cell
 shows up. Every later step trusts this function, so make it boring and correct
 before adding time.
 
-> The demo hardcodes 64. Store `frame_size` once (a dyx::vec2) instead of
+> The demo hardcodes 64. Store `frame_size` once (a buz::vec2) instead of
 > sprinkling the number across the math. That single change already kills most
 > of the magic numbers.
 
@@ -210,5 +210,5 @@ being re-derived at every draw call.
 - [ ] `finished()` lets gameplay react to one-shots (revert after shoot, game-over after die).
 - [ ] `draw` only calls `current_frame_rect()`: no timing math left in the draw pass.
 
-See @ref page_drawing for the dyx::renderer_2d::draw_sprite call you are feeding,
-and @ref page_utilities for dyx::rect and the timing helpers.
+See @ref page_drawing for the buz::renderer_2d::draw_sprite call you are feeding,
+and @ref page_utilities for buz::rect and the timing helpers.

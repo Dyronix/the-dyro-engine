@@ -3,7 +3,7 @@
 #include "core/log.h"
 #include "graphics/d3d_utils.h"
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	bool descriptor_heap::initialize(ID3D12Device* d3d_device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t capacity, bool shader_visible)

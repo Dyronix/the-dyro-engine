@@ -1,8 +1,8 @@
-MESSAGE(STATUS "Adding module - dyx_engine")
-ADD_LIBRARY(dyx_engine STATIC)
+MESSAGE(STATUS "Adding module - buz_engine")
+ADD_LIBRARY(buz_engine STATIC)
 
 # Sources
-TARGET_SOURCES(dyx_engine PRIVATE
+TARGET_SOURCES(buz_engine PRIVATE
     # core
     ${SOURCE_ENGINE_DIRECTORY}/private/core/assert.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/core/json.cpp
@@ -27,7 +27,7 @@ TARGET_SOURCES(dyx_engine PRIVATE
     ${SOURCE_ENGINE_DIRECTORY}/private/application/window.cpp
     ${SOURCE_ENGINE_DIRECTORY}/private/application/engine.cpp)
 
-TARGET_SOURCES(dyx_engine PUBLIC
+TARGET_SOURCES(buz_engine PUBLIC
     # core
     ${SOURCE_ENGINE_DIRECTORY}/public/core/assert.h
     ${SOURCE_ENGINE_DIRECTORY}/public/core/json.h
@@ -62,19 +62,19 @@ GROUPSOURCES(${SOURCE_ENGINE_DIRECTORY}/private private)
 GROUPSOURCES(${SOURCE_ENGINE_DIRECTORY}/public public)
 
 # Include self
-TARGET_INCLUDE_DIRECTORIES(dyx_engine PRIVATE ${SOURCE_ENGINE_DIRECTORY}/private)
-TARGET_INCLUDE_DIRECTORIES(dyx_engine PUBLIC ${SOURCE_ENGINE_DIRECTORY}/public)
+TARGET_INCLUDE_DIRECTORIES(buz_engine PRIVATE ${SOURCE_ENGINE_DIRECTORY}/private)
+TARGET_INCLUDE_DIRECTORIES(buz_engine PUBLIC ${SOURCE_ENGINE_DIRECTORY}/public)
 
 # Stop windows.h from defining min/max macros, which would break glm::min,
 # std::min and friends. PUBLIC so game code gets the same treatment.
-TARGET_COMPILE_DEFINITIONS(dyx_engine PUBLIC NOMINMAX)
+TARGET_COMPILE_DEFINITIONS(buz_engine PUBLIC NOMINMAX)
 
 # Dependencies
 # glm and nlohmann are PUBLIC because the public headers use them:
 # math.h exposes the glm types and json.h exposes the nlohmann json type.
 # log.h and assert.h format their messages with the standard <format> header.
-TARGET_LINK_LIBRARIES(dyx_engine PUBLIC d3d12 dxgi glm nlohmann)
-TARGET_LINK_LIBRARIES(dyx_engine PRIVATE stb rnd)
+TARGET_LINK_LIBRARIES(buz_engine PUBLIC d3d12 dxgi glm nlohmann)
+TARGET_LINK_LIBRARIES(buz_engine PRIVATE stb rnd)
 
 # Target properties
-SET_TARGET_PROPERTIES(dyx_engine PROPERTIES FOLDER "modules")
+SET_TARGET_PROPERTIES(buz_engine PROPERTIES FOLDER "modules")

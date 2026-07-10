@@ -25,7 +25,7 @@ namespace
 }
 
 //--------------------------------------------------------------
-void simple_game::initialize(dyx::engine& engine)
+void simple_game::initialize(buz::engine& engine)
 {
 	// Load the images once, here. Paths are relative to the content folder
 	// that sits next to the executable.
@@ -34,32 +34,32 @@ void simple_game::initialize(dyx::engine& engine)
 
 	// Seeding the random generator with a fixed value makes every run play out
 	// the same way, which is handy while you are still finding bugs.
-	dyx::set_random_seed(1234);
+	buz::set_random_seed(1234);
 
 	m_ball_speed = k_start_speed;
 	respawn_ball();
 }
 
 //--------------------------------------------------------------
-void simple_game::update(dyx::engine& engine, float delta_seconds)
+void simple_game::update(buz::engine& engine, float delta_seconds)
 {
-	dyx::input& input = engine.get_input();
+	buz::input& input = engine.get_input();
 
 	// Move the paddle with the arrow keys (or a/d). Multiplying by
 	// delta_seconds keeps the speed the same no matter the frame rate.
-	if (input.is_key_down(dyx::key::left) || input.is_key_down(dyx::key::a)) { m_paddle_x -= k_paddle_speed * delta_seconds; }
-	if (input.is_key_down(dyx::key::right) || input.is_key_down(dyx::key::d)) { m_paddle_x += k_paddle_speed * delta_seconds; }
+	if (input.is_key_down(buz::key::left) || input.is_key_down(buz::key::a)) { m_paddle_x -= k_paddle_speed * delta_seconds; }
+	if (input.is_key_down(buz::key::right) || input.is_key_down(buz::key::d)) { m_paddle_x += k_paddle_speed * delta_seconds; }
 
 	// Keep the whole paddle on screen.
-	m_paddle_x = dyx::clamp(m_paddle_x, k_paddle_width * 0.5f, k_screen_width - k_paddle_width * 0.5f);
+	m_paddle_x = buz::clamp(m_paddle_x, k_paddle_width * 0.5f, k_screen_width - k_paddle_width * 0.5f);
 
 	// The ball falls straight down.
 	m_ball_position.y += m_ball_speed * delta_seconds;
 
 	// Did the paddle catch the ball? Build a rectangle for each and ask the
 	// engine whether they overlap.
-	const dyx::rect ball_bounds = dyx::rect::from_center_size(m_ball_position, { k_ball_size, k_ball_size });
-	const dyx::rect paddle_bounds = dyx::rect::from_center_size({ m_paddle_x, k_paddle_y }, { k_paddle_width, k_paddle_height });
+	const buz::rect ball_bounds = buz::rect::from_center_size(m_ball_position, { k_ball_size, k_ball_size });
+	const buz::rect paddle_bounds = buz::rect::from_center_size({ m_paddle_x, k_paddle_y }, { k_paddle_width, k_paddle_height });
 
 	if (ball_bounds.intersects(paddle_bounds))
 	{
@@ -78,13 +78,13 @@ void simple_game::update(dyx::engine& engine, float delta_seconds)
 }
 
 //--------------------------------------------------------------
-void simple_game::draw(dyx::engine& engine, dyx::renderer_2d& renderer)
+void simple_game::draw(buz::engine& engine, buz::renderer_2d& renderer)
 {
 	// The falling ball.
 	renderer.draw_sprite(*m_ball, m_ball_position, { k_ball_size, k_ball_size });
 
 	// The paddle is just a filled rectangle.
-	const dyx::rect paddle_bounds = dyx::rect::from_center_size({ m_paddle_x, k_paddle_y }, { k_paddle_width, k_paddle_height });
+	const buz::rect paddle_bounds = buz::rect::from_center_size({ m_paddle_x, k_paddle_y }, { k_paddle_width, k_paddle_height });
 	renderer.draw_rect(paddle_bounds, { 0.3f, 0.7f, 1.0f, 1.0f });
 
 	// A one-line hint and the score, drawn on top.
@@ -97,6 +97,6 @@ void simple_game::respawn_ball()
 {
 	// Start just above the top edge so the ball slides into view, at a random
 	// horizontal position that keeps the whole ball on screen.
-	const float x = dyx::random_range(k_ball_size, k_screen_width - k_ball_size);
+	const float x = buz::random_range(k_ball_size, k_screen_width - k_ball_size);
 	m_ball_position = { x, -k_ball_size };
 }

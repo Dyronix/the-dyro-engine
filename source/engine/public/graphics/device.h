@@ -6,7 +6,7 @@
 #include <dxgi1_6.h>
 #include <wrl/client.h>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief Owns the directx 12 device and the adapter it was created on.

@@ -13,7 +13,7 @@
 #include <memory>
 #include <string_view>
 
-namespace dyx
+namespace buz
 {
 	class device;
 	class command_queue;

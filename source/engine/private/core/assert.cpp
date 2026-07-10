@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <string>
 
-namespace dyx
+namespace buz
 {
 	namespace internal
 	{

@@ -8,21 +8,21 @@
 // messages appear.
 //
 // This is the smallest possible main(): the window size and title are set
-// right here in code. The demo game (source/games/dyx_game) shows how to
+// right here in code. The demo game (source/games/buz_game) shows how to
 // override these from the command line as well; you do not need that to start.
 //--------------------------------------------------------------
 int main()
 {
-	dyx::engine_settings settings;
+	buz::engine_settings settings;
 	settings.window_width = 1280;
 	settings.window_height = 720;
-	settings.window_title = L"DyxEngine - simple game";
+	settings.window_title = L"BuzEngine - simple game";
 
 	// Keep pixel art crisp instead of blurring it when scaled.
-	settings.sampler_filter = dyx::texture_filter::nearest;
+	settings.sampler_filter = buz::texture_filter::nearest;
 
 	simple_game game;
 
-	dyx::engine engine;
+	buz::engine engine;
 	return engine.run(game, settings);
 }

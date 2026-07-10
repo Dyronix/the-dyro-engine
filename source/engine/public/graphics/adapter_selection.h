@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief Which graphics card the engine should pick from the scored list.

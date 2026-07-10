@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	json load_json(const std::filesystem::path& path)

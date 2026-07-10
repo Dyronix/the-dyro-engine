@@ -14,7 +14,7 @@
 
 using Microsoft::WRL::ComPtr;
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	bool texture_loader::initialize(device& graphics_device, command_queue& direct_queue, descriptor_heap& srv_heap)
@@ -118,7 +118,7 @@ namespace dyx
 		// The span knows how many bytes the caller handed over, so a buffer
 		// that does not match the promised size is caught right here instead
 		// of reading out of bounds during the row copy below.
-		DYX_ASSERT_MSG(rgba_pixels.size() == static_cast<size_t>(width) * height * 4,
+		BUZ_ASSERT_MSG(rgba_pixels.size() == static_cast<size_t>(width) * height * 4,
 			"pixel data is {} bytes, but a {}x{} rgba texture needs {}",
 			rgba_pixels.size(), width, height, static_cast<size_t>(width) * height * 4);
 

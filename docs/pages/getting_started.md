@@ -8,7 +8,7 @@ You need **Visual Studio 2026** (or **2022**, version 17.5 or newer) with the
 in **C++20**, the same standard current game consoles compile with.
 
 ```
-cmake --preset vs2026        # generates build/dyx_engine.sln (vs2022 also works)
+cmake --preset vs2026        # generates build/buz_engine.sln (vs2022 also works)
 cmake --build --preset debug # or open the solution and press F5
 ```
 
@@ -18,7 +18,7 @@ older CMake versions.)
 The solution sets `simple_game` as the startup project: a tiny "catch the
 ball" game meant as a first project. Run it and slide the paddle with the
 arrow keys to catch the falling ball. When you want to see more of the engine
-in one place, run the demo instead: `run.bat -game=dyx_game`. You should
+in one place, run the demo instead: `run.bat -game=buz_game`. You should
 see a checkerboard, a rotating red quad, a bouncing ball and a small hud; move
 that ball with wasd, tint it with space, resize it with the mouse wheel.
 
@@ -29,11 +29,11 @@ has a few `.bat` wrappers around the same workflow:
 
 | script | what it does |
 |---|---|
-| `generate.bat [-2022\|-2026]` | (re)generates `build/dyx_engine.sln`; targets Visual Studio 2026 by default, `-2022` selects Visual Studio 2022 (switching between them regenerates from scratch) |
+| `generate.bat [-2022\|-2026]` | (re)generates `build/buz_engine.sln`; targets Visual Studio 2026 by default, `-2022` selects Visual Studio 2022 (switching between them regenerates from scratch) |
 | `build.bat [-debug\|-release]` | builds that solution via `cmake --build`; defaults to debug |
-| `run.bat [-debug\|-release] [-game=name]` | launches the built `dyx_game.exe` from `build/<config>`; pass `-game=name` to run a different executable, e.g. `-game=awesome_game` |
+| `run.bat [-debug\|-release] [-game=name]` | launches the built `buz_game.exe` from `build/<config>`; pass `-game=name` to run a different executable, e.g. `-game=awesome_game` |
 
-These docs are published online at <https://dyronix.github.io/the-dyro-engine/> 
+These docs are published online at <https://dyronix.github.io/buz-engine/> 
 and rebuilt automatically whenever a `v*` version tag is pushed. 
 To preview them locally instead, install [Doxygen](https://www.doxygen.nl/download.html) 
 and use these two wrappers:
@@ -47,31 +47,31 @@ Keep in mind that some links and references might be broken in a local build of 
 
 ## A minimal complete game
 
-Everything starts in `main()`: fill in dyx::engine_settings, create your
-game and hand both to dyx::engine::run. The engine initializes all systems,
+Everything starts in `main()`: fill in buz::engine_settings, create your
+game and hand both to buz::engine::run. The engine initializes all systems,
 runs the main loop until the window closes, and shuts everything down again.
 
 ```cpp
 #include "application/engine.h"
 #include "application/game.h"
 
-class my_game : public dyx::game
+class my_game : public buz::game
 {
 public:
-    void initialize(dyx::engine& engine) override
+    void initialize(buz::engine& engine) override
     {
         // Paths are relative to the content folder next to the executable, so
         // the game works no matter which working directory it is started from.
         m_ball = engine.load_texture("textures/ball.png");
     }
 
-    void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override
+    void draw(buz::engine& engine, buz::renderer_2d& renderer) override
     {
         renderer.draw_sprite(*m_ball, { 640.0f, 360.0f }, { 120.0f, 120.0f });
     }
 
 private:
-    std::shared_ptr<dyx::texture> m_ball;
+    std::shared_ptr<buz::texture> m_ball;
 };
 
 int main(int argc, char** argv)
@@ -81,14 +81,14 @@ int main(int argc, char** argv)
     // command line, so this doubles as "the default set in code".
     args::parser arguments(argc, argv);
 
-    dyx::engine_settings settings;
+    buz::engine_settings settings;
     settings.window_width = arguments.get("window_width", 1280u);
     settings.window_height = arguments.get("window_height", 720u);
     settings.window_title = arguments.get("window_title", std::wstring(L"my first game"));
 
     my_game game;
 
-    dyx::engine engine;
+    buz::engine engine;
     return engine.run(game, settings);
 }
 ```
@@ -102,9 +102,9 @@ around. That is where all engine log messages appear.
 |---|---|
 | `window_width`, `window_height` | size of the drawable area in pixels |
 | `window_title` | text in the window title bar (a wide string: `L"..."`) |
-| `gpu_preference` | which graphics card to run on; dyx::adapter_preference::lowest_score is handy to test how your game behaves on weaker hardware |
+| `gpu_preference` | which graphics card to run on; buz::adapter_preference::lowest_score is handy to test how your game behaves on weaker hardware |
 | `clear_color` | the color the screen is cleared with before your game draws |
-| `sampler_filter` | how textures are filtered when scaled; dyx::texture_filter::nearest keeps pixel art crisp instead of blurring it |
+| `sampler_filter` | how textures are filtered when scaled; buz::texture_filter::nearest keeps pixel art crisp instead of blurring it |
 
 ### Overriding settings at launch
 
@@ -125,9 +125,9 @@ in the small header-only `args` library (`source/third_party/args`).
 ## Where to put your code
 
 Two games ship with the repo: `source/games/simple_game` (a tiny "catch the
-ball" starter, the smallest complete example) and `source/games/dyx_game` (the
+ball" starter, the smallest complete example) and `source/games/buz_game` (the
 feature-touring demo). Start from whichever fits, and replace it with your own.
-The four dyx::game overrides are all optional; override only the ones you need.
+The four buz::game overrides are all optional; override only the ones you need.
 From here, continue with @ref page_drawing and @ref page_input.
 
 ## Adding files to your game
@@ -145,7 +145,7 @@ No `CMakeLists.txt` editing, no re-running `generate.bat`. Removing or
 renaming a file works exactly the same way: do it on disk, then build.
 
 **One trap to avoid**: the *Add* → *New Item...* dialog defaults to the
-project directory inside `build/` (e.g. `build/source/games/dyx_game`). The
+project directory inside `build/` (e.g. `build/source/games/buz_game`). The
 `build/` folder is generated; it can be deleted and rebuilt at any time, so
 a file created there is not really part of your game. Always browse to the
 real source folder, `source/games/<your_game>/private`, before clicking
@@ -166,7 +166,7 @@ folder and build again.
 ## Adding a another game
 
 Every game lives in its own folder under `source/games`, next to the demo
-(`source/games/dyx_game`) and the simple game (`source/games/simple_game`). 
+(`source/games/buz_game`) and the simple game (`source/games/simple_game`). 
 `source/games/CMakeLists.txt` lists one `ADD_SUBDIRECTORY(...)` per game. 
 That is the *only* file you touch outside your new game's own folder. 
 Here is everything needed to add one, using `awesome_game` as the example name.
@@ -182,14 +182,14 @@ Here is everything needed to add one, using `awesome_game` as the example name.
        awesome_game.cpp
    ```
 
-   `awesome_game.h`/`.cpp` hold your `dyx::game` subclass (see "A minimal
+   `awesome_game.h`/`.cpp` hold your `buz::game` subclass (see "A minimal
    complete game" above); `main.cpp` follows the same `main()` pattern, with
    its own `window_title`. Create these files before the generate step below:
    the build takes whatever is in `private` when it runs, and a game with an
    empty `private` folder fails to configure (no source files).
 
 2. **Add `source/games/awesome_game/CMakeLists.txt`**, modeled on
-   `source/games/dyx_game/CMakeLists.txt` with the target renamed
+   `source/games/buz_game/CMakeLists.txt` with the target renamed
    throughout. This name is also what you pass to `run.bat -game=`:
 
    ```cmake
@@ -205,10 +205,10 @@ Here is everything needed to add one, using `awesome_game` as the example name.
 
    GROUPSOURCES(${CMAKE_CURRENT_LIST_DIR}/private private)
 
-   TARGET_LINK_LIBRARIES(awesome_game PRIVATE dyx_engine)
+   TARGET_LINK_LIBRARIES(awesome_game PRIVATE buz_engine)
 
    # Compile all shaders in the /shaders folder as part of the build
-   DYX_COMPILE_SHADERS(awesome_game)
+   BUZ_COMPILE_SHADERS(awesome_game)
 
    # Wait for the shared /content folder to be copied next to the exe
    ADD_DEPENDENCIES(awesome_game copy-content)
@@ -222,7 +222,7 @@ Here is everything needed to add one, using `awesome_game` as the example name.
    ```
 
    Note the sources block: you will never edit this file again to add code.
-   See "Adding files to your game" above. `DYX_COMPILE_SHADERS` and
+   See "Adding files to your game" above. `BUZ_COMPILE_SHADERS` and
    `copy-content` are both safe to depend on from more than one game: shaders
    and content live in one shared `/shaders` and `/content` folder, so every
    game shares the same compiled/copied output instead of redoing it per
@@ -233,16 +233,16 @@ Here is everything needed to add one, using `awesome_game` as the example name.
 
    ```cmake
    ADD_SUBDIRECTORY(simple_game)
-   ADD_SUBDIRECTORY(dyx_game)
+   ADD_SUBDIRECTORY(buz_game)
    ADD_SUBDIRECTORY(awesome_game)
    ```
 
 4. **Regenerate and build**: `generate.bat` (or `cmake --preset vs2026`),
    then `build.bat`. Regenerating is only needed here because a whole new
    game (a new `ADD_SUBDIRECTORY` line) was added; adding files to an
-   existing game never needs it. Visual Studio will show both `dyx_game` and
+   existing game never needs it. Visual Studio will show both `buz_game` and
    `awesome_game` under the "games" folder; the existing startup project is
-   still `dyx_game`. Right-click `awesome_game` → *Set as Startup Project*
+   still `buz_game`. Right-click `awesome_game` → *Set as Startup Project*
    to debug it instead, or just run it without opening Visual Studio at all:
 
    ```
@@ -250,5 +250,5 @@ Here is everything needed to add one, using `awesome_game` as the example name.
    ```
 
 Everything else is exactly the same for every game in the project: the
-engine library, the shared `/content` and `/shaders` folders, `dyx::game`,
-and `dyx::engine`.
+engine library, the shared `/content` and `/shaders` folders, `buz::game`,
+and `buz::engine`.

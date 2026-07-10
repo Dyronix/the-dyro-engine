@@ -16,21 +16,21 @@
 ///
 /// This is the simplest game in the repo. When you want to see more of what
 /// the engine can do (procedural textures, sprite sheets, rotation, ...),
-/// look at source/games/dyx_game.
-class simple_game : public dyx::game
+/// look at source/games/buz_game.
+class simple_game : public buz::game
 {
 public:
 	//----------------------------------------------------------
 	/// @brief Loads the ball texture and the font.
-	void initialize(dyx::engine& engine) override;
+	void initialize(buz::engine& engine) override;
 
 	//----------------------------------------------------------
 	/// @brief Moves the paddle, drops the ball, and checks for a catch.
-	void update(dyx::engine& engine, float delta_seconds) override;
+	void update(buz::engine& engine, float delta_seconds) override;
 
 	//----------------------------------------------------------
 	/// @brief Draws the ball, the paddle and the score.
-	void draw(dyx::engine& engine, dyx::renderer_2d& renderer) override;
+	void draw(buz::engine& engine, buz::renderer_2d& renderer) override;
 
 private:
 	//----------------------------------------------------------
@@ -39,10 +39,10 @@ private:
 
 	// The engine hands textures back as a shared_ptr; you never new/delete
 	// them yourself. Just store it and pass it to draw_sprite every frame.
-	std::shared_ptr<dyx::texture> m_ball;
-	dyx::font m_font;
+	std::shared_ptr<buz::texture> m_ball;
+	buz::font m_font;
 
-	dyx::vec2 m_ball_position = { 640.0f, 0.0f };
+	buz::vec2 m_ball_position = { 640.0f, 0.0f };
 	float m_ball_speed = 300.0f;  // pixels per second the ball falls
 	float m_paddle_x = 640.0f;    // center x of the paddle (it sits near the bottom)
 	int m_score = 0;

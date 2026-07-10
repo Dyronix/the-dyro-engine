@@ -11,7 +11,7 @@ namespace
 	constexpr uint32_t srv_heap_capacity = 256;
 }
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	int engine::run(game& active_game, const engine_settings& settings)

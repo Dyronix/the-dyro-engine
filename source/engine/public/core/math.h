@@ -2,19 +2,19 @@
 
 // The engine uses glm (source/third_party/glm) for its math: a battle tested,
 // header-only library that mirrors the vector math you write in shaders. This
-// header gives the glm types dyx names and adds the handful of 2d helpers the
+// header gives the glm types buz names and adds the handful of 2d helpers the
 // engine itself needs. Game code only includes "core/math.h" and works with
-// the dyx:: names.
+// the buz:: names.
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <concepts>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
-	// The glm types under their dyx names. These are aliases, not wrappers:
-	// dyx::vec2 IS glm::vec2, so every glm function works on them directly.
+	// The glm types under their buz names. These are aliases, not wrappers:
+	// buz::vec2 IS glm::vec2, so every glm function works on them directly.
 	using vec2 = glm::vec2;
 	using vec3 = glm::vec3;
 	using vec4 = glm::vec4;
@@ -23,7 +23,7 @@ namespace dyx
 	using mat4 = glm::mat4;
 
 	//--------------------------------------------------------------
-	// The most used glm functions, made available as dyx::... so game code
+	// The most used glm functions, made available as buz::... so game code
 	// does not have to know where they come from.
 	using glm::clamp;
 	using glm::dot;

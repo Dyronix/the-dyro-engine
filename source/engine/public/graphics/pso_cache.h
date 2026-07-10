@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief Caches pipeline state objects (psos) on disk between runs.

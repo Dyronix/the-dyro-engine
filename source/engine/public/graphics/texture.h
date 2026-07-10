@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <utility>
 
-namespace dyx
+namespace buz
 {
 	//--------------------------------------------------------------
 	/// @brief A 2d texture living in gpu memory, ready to be drawn on sprites.

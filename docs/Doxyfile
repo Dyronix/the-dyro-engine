@@ -10,19 +10,23 @@
 # Project
 #---------------------------------------------------------------------------
 PROJECT_NAME           = "BuzEngine"
-PROJECT_BRIEF          = "a small DirectX 12 engine for 2D games, written to be read"
-OUTPUT_DIRECTORY       = .
+PROJECT_BRIEF          = "a 2D game engine for first-year programming students, built on DirectX 12"
+OUTPUT_DIRECTORY       = html
 GENERATE_LATEX         = NO
 
 #---------------------------------------------------------------------------
-# Input: the public engine headers and the hand-written guide pages
+# Input: the public engine headers only. This build is the *code* reference.
+# The hand-written guide pages (docs/pages/*.md) are no longer fed to Doxygen;
+# docs/build_guides.py renders them into the front-website style under
+# docs/html/guides instead. reference_home.md is a short landing for the
+# reference itself.
 #---------------------------------------------------------------------------
 INPUT                  = ../source/engine/public \
-                         pages
+                         reference_home.md
 RECURSIVE              = YES
 FILE_PATTERNS          = *.h \
                          *.md
-USE_MDFILE_AS_MAINPAGE = pages/index.md
+USE_MDFILE_AS_MAINPAGE = reference_home.md
 EXAMPLE_PATH           = ../source/games/buz_game/private
 TAB_SIZE               = 4
 
@@ -47,7 +51,12 @@ STRIP_CODE_COMMENTS    = NO
 #---------------------------------------------------------------------------
 # HTML output with the doxygen-awesome theme (sidebar-only layout)
 #---------------------------------------------------------------------------
-HTML_OUTPUT            = html
+# The generated reference is published under /reference/ on the site; the
+# hand-written landing and about pages (docs/site/) sit in front of it at the
+# root. OUTPUT_DIRECTORY is html/ and HTML_OUTPUT is reference, so the API
+# reference lands in docs/html/reference. generate_docs.bat then copies
+# docs/site/* into docs/html so the tree mirrors what GitHub Pages publishes.
+HTML_OUTPUT            = reference
 GENERATE_TREEVIEW      = YES
 DISABLE_INDEX          = NO
 FULL_SIDEBAR           = NO

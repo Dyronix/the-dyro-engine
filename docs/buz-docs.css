@@ -14,8 +14,58 @@ span.tt {
 }
 
 /* Doxygen 1.17 renders the search box in the top nav bar, right above the
- * navigation tree. The tree starts flush against it, so give the first item
- * some breathing room below the search box. */
+ * navigation tree. Give the first tree item a little breathing room below the
+ * search box (a small gap; the default sits flush). */
 #nav-tree {
-    padding-top: calc(2 * var(--spacing-large));
+    padding-top: var(--spacing-medium);
+}
+
+/* ------------------------------------------------------------------------- *
+ * Modernize the doxygen-awesome theme so the API reference matches the
+ * hand-written front website (docs/site). Recolour the accent to the site's
+ * blue, in light, toggled-dark and auto-dark. Loaded after doxygen-awesome,
+ * so equal-specificity overrides win.
+ * ------------------------------------------------------------------------- */
+html {
+    --primary-color: #1c86e0;
+    --primary-dark-color: #0f6fc4;
+    --primary-light-color: #7ab8ee;
+}
+@media (prefers-color-scheme: dark) {
+    html:not(.light-mode) {
+        --primary-color: #4c9ff0;
+        --primary-dark-color: #7ab8ee;
+        --primary-light-color: #2b6ca8;
+    }
+}
+html.dark-mode {
+    --primary-color: #4c9ff0;
+    --primary-dark-color: #7ab8ee;
+    --primary-light-color: #2b6ca8;
+}
+
+/* The sidebar-only theme fixes the whole header (#top) to a set height and
+ * clips the overflow; #top contains our top bar, the BuzEngine title/subtitle
+ * and the search box. The injected top bar makes #top taller, so raise
+ * --top-height to match or the search box gets clipped and disappears. */
+html { --top-height: 178px; }
+
+/* The slim top bar injected by header.html: two links back to the front
+ * website. It sits in the narrow sidebar header, above the BuzEngine title. */
+#buz-topbar {
+    display: flex; align-items: center; gap: 20px;
+    /* match the #titlearea left padding so the links line up with the title */
+    padding: 0 var(--spacing-large); height: 40px;
+    font-size: 13px; font-weight: 600;
+    border-bottom: 1px solid var(--separator-color);
+}
+#buz-topbar a { color: var(--page-secondary-foreground-color); text-decoration: none; }
+#buz-topbar a:hover { color: var(--primary-color); }
+
+/* Heavier project title, with breathing room before the subtitle. */
+#projectname { font-weight: 700; letter-spacing: -.01em; }
+#projectbrief { margin-top: 7px; }
+
+@media (max-width: 767px) {
+    #buz-topbar { gap: 14px; }
 }

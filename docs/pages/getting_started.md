@@ -3,7 +3,7 @@
 ## Building the project
 
 You need **Visual Studio 2026** (or **2022**, version 17.5 or newer) with the
-*Desktop development with C++* workload and a recent **Windows 10/11 SDK**
+**Desktop development with C++** workload and a recent **Windows 10/11 SDK**
 (both are part of the default workload installation). The engine is written
 in **C++20**, the same standard current game consoles compile with.
 
@@ -36,11 +36,12 @@ has a few `.bat` wrappers around the same workflow:
 These docs are published online at <https://dyronix.github.io/buz-engine/> 
 and rebuilt automatically whenever a `v*` version tag is pushed. 
 To preview them locally instead, install [Doxygen](https://www.doxygen.nl/download.html) 
-and use these two wrappers:
+(for the API reference) and [Python 3](https://www.python.org/downloads/) (for 
+these guide pages), then use these two wrappers:
 
 | script | what it does |
 |---|---|
-| `docs/generate_docs.bat` | builds `docs/html` from the headers and these pages (needs Doxygen on your PATH) |
+| `docs/generate_docs.bat` | builds `docs/html`: the API reference from the headers, these guide pages from `docs/pages`, and the front website (needs Doxygen and Python on your PATH) |
 | `docs.bat` | opens the locally built `docs/html/index.html` in your browser (run `docs/generate_docs.bat` first to generate it) |
 
 Keep in mind that some links and references might be broken in a local build of the documentation.

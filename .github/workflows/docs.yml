@@ -54,12 +54,25 @@ jobs:
           sudo make -C "doxygen-${DOXYGEN_VERSION}" install
           doxygen --version
 
-      # Same command as docs/generate_docs.bat and the CMake "docs" target.
-      # The Doxyfile uses paths relative to docs/, so run it from there; output
-      # lands in docs/html.
-      - name: Build docs
+      # Same steps as docs/generate_docs.bat. The Doxyfile uses paths relative
+      # to docs/, so run it from there. The generated API reference lands in
+      # docs/html/reference (see OUTPUT_DIRECTORY / HTML_OUTPUT).
+      - name: Build reference
         working-directory: docs
         run: doxygen Doxyfile
+
+      # Render the guide pages (docs/pages/*.md) into the front-website style
+      # under docs/html/guides. Standard-library python only, no pip install.
+      # Runs after Doxygen so it can cross-link into the reference class pages.
+      - name: Build guides
+        working-directory: docs
+        run: python3 build_guides.py
+
+      # Overlay the hand-written front website (landing + about + shared css)
+      # onto the output so it sits at the site root, with the guides under
+      # /guides/ and the reference under /reference/. Mirrors generate_docs.bat.
+      - name: Assemble front website
+        run: cp -r docs/site/. docs/html/
 
       # Static site: skip Jekyll so files/dirs beginning with "_" are served.
       - name: Disable Jekyll

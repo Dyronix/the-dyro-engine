@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About BuzEngine</title>
+<meta name="description" content="What BuzEngine is and who it is for: a 2D DirectX 12 game engine written for the first-year Programming course at Breda University of Applied Sciences.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- ===================== nav ===================== -->
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="29" height="29" rx="8" stroke="url(#g)" stroke-width="2.2"/>
+        <path d="M10 9h7a4 4 0 0 1 0 8h-7z M10 15h8a4 4 0 0 1 0 8h-8z" stroke="url(#g)" stroke-width="2.2" stroke-linejoin="round"/>
+        <defs><linearGradient id="g" x1="0" y1="0" x2="32" y2="32">
+          <stop stop-color="#1c86e0"/><stop offset="1" stop-color="#38bdf8"/>
+        </linearGradient></defs>
+      </svg>
+      BuzEngine
+    </a>
+    <nav class="nav-links">
+      <a href="guides/getting-started.html">Get started</a>
+      <a href="guides/getting-started.html" class="hide-sm">Guides</a>
+      <a href="reference/annotated.html">Reference</a>
+      <a href="about.html">About</a>
+      <a class="ghbtn" href="https://github.com/dyronix/buz-engine">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== header ===================== -->
+<section class="hero" style="padding-bottom:34px">
+  <div class="wrap" style="display:block">
+    <h1 style="max-width:18ch">About <span class="grad">BuzEngine</span></h1>
+    <p class="lede" style="max-width:54ch">A 2D game engine written for a first-year university programming course.</p>
+  </div>
+</section>
+
+<!-- ===================== body ===================== -->
+<section style="padding-top:8px">
+  <div class="wrap">
+    <div class="prose">
+      <p class="lead">BuzEngine is a 2D game engine built on DirectX 12. It was written for the first-year Programming course at Breda University of Applied Sciences (BUas), where students use it to build small games in C++.</p>
+
+      <p>Its purpose is to support those projects. The engine handles the low-level systems such as windowing, rendering, input and asset loading, so students can spend their time on the game itself and on learning C++, rather than on the plumbing an engine needs before anything appears on screen.</p>
+
+      <h2>Who it is for</h2>
+      <p>The primary audience is first-year students who are learning C++ and working with a real-time renderer for the first time. It is also a usable starting point for anyone building a small 2D game on Windows.</p>
+      <p>The engine ships with two example games: <code>simple_game</code>, a "catch the ball" starter, and <code>buz_game</code>, a demo that exercises more of the engine. Start from either and replace it with your own.</p>
+
+      <h2>What you'll practise</h2>
+      <p>Building a game on BuzEngine means writing object-oriented C++ and putting the core ideas of 2D game programming into practice: drawing sprites, animating sprite sheets, reading keyboard and mouse input, checking collisions with rectangles, and moving a camera through a world larger than the screen. The aim is to finish able to build a complete 2D game.</p>
+
+      <h2>How your game fits in</h2>
+      <p>Your game is a class that derives from <code>buz::game</code> and overrides four functions: <code>initialize</code>, <code>update</code>, <code>draw</code> and <code>shutdown</code>. The engine owns the main loop and calls them at the appropriate times.</p>
+      <p>The engine itself is a set of separate classes: the window, the device, the swap chain, the 2D renderer, input, and texture and font loading. Each is documented in the API reference.</p>
+
+      <h2>At a glance</h2>
+      <ul>
+        <li><strong>Language:</strong> C++20, using <code>std::format</code>, concepts, ranges and <code>std::span</code>.</li>
+        <li><strong>Graphics:</strong> DirectX 12, with no cross-platform abstraction layer.</li>
+        <li><strong>Platform:</strong> Windows 10 and 11, 64-bit only. No macOS or Linux build.</li>
+        <li><strong>Toolchain:</strong> Visual Studio 2022 (17.5+) or 2026 with the C++ desktop workload, and CMake on your PATH.</li>
+        <li><strong>License:</strong> MIT.</li>
+      </ul>
+
+      <div class="callout">
+        <p>BuzEngine is a 2D engine only. It does not include 3D rendering, a scene editor, a scripting layer or cross-platform builds.</p>
+      </div>
+
+      <h2>How the documentation is put together</h2>
+      <p>The site you are reading has two clearly separated halves. The <strong>narrative</strong> half (this page, the home page and the <a href="guides/getting-started.html">guides</a>) is written by hand in Markdown and rendered into these pages by a tiny script. The <strong>code</strong> half (the <a href="reference/index.html">API reference</a>) is generated with Doxygen straight from the engine headers, so it never drifts from the code. The guides cross-link into that reference, so a mention of <code>renderer_2d</code> is one click from its full API.</p>
+
+      <div class="cta">
+        <a class="btn btn-primary" href="guides/getting-started.html">Get started &rarr;</a>
+        <a class="btn btn-ghost" href="reference/annotated.html">Browse the API</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== footer ===================== -->
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html" style="font-size:1rem">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true" style="width:22px;height:22px">
+        <rect x="1.5" y="1.5" width="29" height="29" rx="8" stroke="url(#gf)" stroke-width="2.2"/>
+        <path d="M10 9h7a4 4 0 0 1 0 8h-7z M10 15h8a4 4 0 0 1 0 8h-8z" stroke="url(#gf)" stroke-width="2.2" stroke-linejoin="round"/>
+        <defs><linearGradient id="gf" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#1c86e0"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+      </svg>
+      BuzEngine
+    </a>
+    <a href="reference/index.html">Documentation</a>
+    <a href="about.html">About</a>
+    <a href="https://github.com/dyronix/buz-engine">GitHub</a>
+    <span class="sep">Windows 10/11 &middot; DirectX 12 &middot; MIT licensed</span>
+  </div>
+</footer>
+
+</body>
+</html>
